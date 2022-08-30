@@ -29,11 +29,11 @@ public static class CurlGenerator
             else if (httpRequestMessage.Method == HttpMethod.Delete)
                 script = _GenerateDeleteMethod(httpClient, httpRequestMessage, requestUri);
             else
-                script = $"ERROR => Invalid HttpMethod: {httpRequestMessage.Method.Method}.";
+                script = $"ERROR => Invalid HttpMethod: {httpRequestMessage.Method.Method} .";
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            script = $"ERROR => {ex.Message}, {ex.InnerException}";
+            script = $"ERROR => {exception.Message}, {exception.InnerException}";
         }
 
         return script;
@@ -119,12 +119,15 @@ public static class CurlGenerator
 
     private static StringBuilder _AddAbsoluteUrl(this StringBuilder stringBuilder, string baseUrl, string uri)
     {
-        if (baseUrl.EndsWith("/"))
-            baseUrl = baseUrl.Remove(baseUrl.Length - 1);
-        if (uri.StartsWith("/"))
-            uri = uri.Remove(0);
+        if (!string.IsNullOrWhiteSpace(baseUrl))
+        {
+            if (baseUrl.EndsWith("/"))
+                baseUrl = baseUrl.Remove(baseUrl.Length - 1);
+            if (uri.StartsWith("/"))
+                uri = uri.Remove(0);
 
-        stringBuilder.Append($"{baseUrl}/{uri}");
+            stringBuilder.Append($"{baseUrl?.Trim()}/{uri?.Trim()}");
+        }
 
         return stringBuilder;
     }
@@ -142,7 +145,7 @@ public static class CurlGenerator
                     .Append(' ')
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{row.Key}: {row.Value.First()}\'")
+                    .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
                     .Append(' ');
             }
 
@@ -154,7 +157,7 @@ public static class CurlGenerator
                     .Append(' ')
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{row.Key}: {row.Value.First()}\'")
+                    .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
                     .Append(' ');
             }
         }
@@ -167,7 +170,7 @@ public static class CurlGenerator
                     .Append(' ')
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{row.Key}: {row.Value.First()}\'")
+                    .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
                     .Append(' ');
             }
         }
