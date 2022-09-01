@@ -6,7 +6,7 @@ public static class CurlGenerator
 {
     #region :: Main ::
 
-    public static string GenerateCurl(
+    public static void GenerateCurlInConsole(
         this HttpClient httpClient,
         HttpRequestMessage httpRequestMessage,
         string requestUri,
@@ -14,8 +14,38 @@ public static class CurlGenerator
         bool turnOn = true)
     {
         if (!turnOn)
-            return string.Empty;
+            return;
 
+        string script = _GenerateCurl(httpClient, httpRequestMessage, requestUri, needAddDefaultHeaders);
+
+        _WriteInConsole(script);
+    }
+
+    public static void GenerateCurlInFile(
+        this HttpClient httpClient,
+        HttpRequestMessage httpRequestMessage,
+        string requestUri,
+        bool needAddDefaultHeaders = true,
+        bool turnOn = true)
+    {
+        if (!turnOn)
+            return;
+
+        string script = _GenerateCurl(httpClient, httpRequestMessage, requestUri, needAddDefaultHeaders);
+        
+        _WriteInFile(script);
+    }
+
+    #endregion
+
+    #region :: Generators ::
+
+    private static string _GenerateCurl(
+        this HttpClient httpClient,
+        HttpRequestMessage httpRequestMessage,
+        string requestUri,
+        bool needAddDefaultHeaders)
+    {
         string script;
         try
         {
@@ -39,10 +69,6 @@ public static class CurlGenerator
 
         return script;
     }
-
-    #endregion
-
-    #region :: Generators ::
 
     private static string _GenerateGetMethod(
         HttpClient httpClient,
@@ -168,7 +194,6 @@ public static class CurlGenerator
             foreach (var row in httpClient.DefaultRequestHeaders)
             {
                 stringBuilder
-                    .Append(' ')
                     .Append("-H")
                     .Append(' ')
                     .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
@@ -219,6 +244,20 @@ public static class CurlGenerator
         }
 
         return stringBuilder;
+    }
+
+    #endregion
+
+    #region :: Other ::
+
+    private static void _WriteInConsole(string script)
+    {
+        Console.WriteLine(script);
+    }
+
+    private static void _WriteInFile(string script, string path = null)
+    {
+      // TODO: Write script inside file ...
     }
 
     #endregion
