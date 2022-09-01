@@ -10,6 +10,7 @@ public static class CurlGenerator
         this HttpClient httpClient,
         HttpRequestMessage httpRequestMessage,
         string requestUri,
+        bool needAddDefaultHeaders = true,
         bool turnOn = true)
     {
         if (!turnOn)
@@ -19,17 +20,17 @@ public static class CurlGenerator
         try
         {
             if (httpRequestMessage.Method == HttpMethod.Post)
-                script = _GeneratePostMethod(httpClient, httpRequestMessage, requestUri);
+                script = _GeneratePostMethod(httpClient, httpRequestMessage, requestUri, needAddDefaultHeaders);
             else if (httpRequestMessage.Method == HttpMethod.Get)
-                script = _GenerateGetMethod(httpClient, httpRequestMessage, requestUri);
+                script = _GenerateGetMethod(httpClient, httpRequestMessage, requestUri, needAddDefaultHeaders);
             else if (httpRequestMessage.Method == HttpMethod.Put)
-                script = _GeneratePutMethod(httpClient, httpRequestMessage, requestUri);
+                script = _GeneratePutMethod(httpClient, httpRequestMessage, requestUri, needAddDefaultHeaders);
             else if (httpRequestMessage.Method == HttpMethod.Patch)
-                script = _GeneratePatchMethod(httpClient, httpRequestMessage, requestUri);
+                script = _GeneratePatchMethod(httpClient, httpRequestMessage, requestUri, needAddDefaultHeaders);
             else if (httpRequestMessage.Method == HttpMethod.Delete)
-                script = _GenerateDeleteMethod(httpClient, httpRequestMessage, requestUri);
+                script = _GenerateDeleteMethod(httpClient, httpRequestMessage, requestUri, needAddDefaultHeaders);
             else
-                script = $"ERROR => Invalid HttpMethod: {httpRequestMessage.Method.Method} .";
+                script = $"ERROR => Invalid HttpMethod: {httpRequestMessage.Method.Method}";
         }
         catch (Exception exception)
         {
@@ -46,13 +47,14 @@ public static class CurlGenerator
     private static string _GenerateGetMethod(
         HttpClient httpClient,
         HttpRequestMessage httpRequestMessage,
-        string requestUri)
+        string requestUri,
+        bool needAddDefaultHeaders)
     {
         StringBuilder stringBuilder = _Initialize(httpRequestMessage.Method);
 
         return stringBuilder
             ._AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, requestUri)
-            ._AddHeaders(httpClient, httpRequestMessage, true)
+            ._AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)
             .Append(' ')
             .ToString();
     }
@@ -60,13 +62,14 @@ public static class CurlGenerator
     private static string _GeneratePostMethod(
         HttpClient httpClient,
         HttpRequestMessage httpRequestMessage,
-        string requestUri)
+        string requestUri,
+        bool needAddDefaultHeaders)
     {
         StringBuilder stringBuilder = _Initialize(httpRequestMessage.Method);
 
         return stringBuilder
             ._AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, requestUri)
-            ._AddHeaders(httpClient, httpRequestMessage, true)
+            ._AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)
             ._AddBody(httpRequestMessage.Content?.ReadAsStringAsync().GetAwaiter().GetResult())?
             .Append(' ')
             .ToString();
@@ -75,25 +78,48 @@ public static class CurlGenerator
     private static string _GeneratePutMethod(
         HttpClient httpClient,
         HttpRequestMessage httpRequestMessage,
-        string requestUri)
+        string requestUri,
+        bool needAddDefaultHeaders)
     {
-        return "";
+        StringBuilder stringBuilder = _Initialize(httpRequestMessage.Method);
+
+        return stringBuilder
+            ._AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, requestUri)
+            ._AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)
+            ._AddBody(httpRequestMessage.Content?.ReadAsStringAsync().GetAwaiter().GetResult())?
+            .Append(' ')
+            .ToString();
     }
 
     private static string _GeneratePatchMethod(
         HttpClient httpClient,
         HttpRequestMessage httpRequestMessage,
-        string requestUri)
+        string requestUri,
+        bool needAddDefaultHeaders)
     {
-        return "";
+        StringBuilder stringBuilder = _Initialize(httpRequestMessage.Method);
+
+        return stringBuilder
+            ._AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, requestUri)
+            ._AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)
+            ._AddBody(httpRequestMessage.Content?.ReadAsStringAsync().GetAwaiter().GetResult())?
+            .Append(' ')
+            .ToString();
     }
 
     private static string _GenerateDeleteMethod(
         HttpClient httpClient,
         HttpRequestMessage httpRequestMessage,
-        string requestUri)
+        string requestUri,
+        bool needAddDefaultHeaders)
     {
-        return "";
+        StringBuilder stringBuilder = _Initialize(httpRequestMessage.Method);
+
+        return stringBuilder
+            ._AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, requestUri)
+            ._AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)
+            .Append(' ')
+            .ToString();
     }
 
     #endregion
