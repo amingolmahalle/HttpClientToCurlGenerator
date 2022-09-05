@@ -49,6 +49,10 @@ Sample code for **Get Method** (it will be written in the console):
 ```
 
 Sample Code for **Post Method** (it will be written in the file):
+
+If the path variable is null or empty, then the file is created in the **root project**.
+
+If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 ```
  string path ="";
  string filename = "PostMethodResult" 
@@ -76,6 +80,10 @@ Sample Code for **Post Method** (it will be written in the file):
 ```
 
 Sample Code for **Get Method** (it will be written in the file):
+
+If the path variable is null or empty, then the file is created in the **root project**.
+
+If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 ```
   string path ="";
   string filename = "GetMethodResult" 
