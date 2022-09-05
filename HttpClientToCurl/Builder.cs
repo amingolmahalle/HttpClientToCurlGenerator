@@ -4,8 +4,6 @@ namespace HttpClientToCurl;
 
 internal static class Builder
 {
-    #region :: Builders ::
-
     internal static StringBuilder Initialize(HttpMethod httpMethod)
     {
         var stringBuilder = new StringBuilder("curl");
@@ -16,11 +14,11 @@ internal static class Builder
                 .Append(' ')
                 .Append("-X")
                 .Append(' ')
-                .Append(httpMethod.Method)
-                .Append(' ');
+                .Append(httpMethod.Method);
         }
 
-        return stringBuilder;
+        return stringBuilder
+            .Append(' ');
     }
 
     internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string baseUrl, string uri)
@@ -32,17 +30,15 @@ internal static class Builder
             if (uri.StartsWith("/"))
                 uri = uri.Remove(0);
 
-            stringBuilder.Append($"{baseUrl?.Trim()}/{uri?.Trim()}");
+            stringBuilder
+                .Append($"{baseUrl?.Trim()}/{uri?.Trim()}")
+                .Append(' ');
         }
 
         return stringBuilder;
     }
 
-    internal static StringBuilder AddHeaders(
-        this StringBuilder stringBuilder,
-        HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage,
-        bool needAddDefaultHeaders = true)
+    internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders = true)
     {
         if (needAddDefaultHeaders && httpClient.DefaultRequestHeaders.Any())
             foreach (var row in httpClient.DefaultRequestHeaders)
@@ -59,7 +55,6 @@ internal static class Builder
             foreach (var row in httpRequestMessage.Headers)
             {
                 stringBuilder
-                    .Append(' ')
                     .Append("-H")
                     .Append(' ')
                     .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
@@ -72,7 +67,6 @@ internal static class Builder
             foreach (var row in httpRequestMessage.Content.Headers)
             {
                 stringBuilder
-                    .Append(' ')
                     .Append("-H")
                     .Append(' ')
                     .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
@@ -98,6 +92,4 @@ internal static class Builder
 
         return stringBuilder;
     }
-
-    #endregion
 }

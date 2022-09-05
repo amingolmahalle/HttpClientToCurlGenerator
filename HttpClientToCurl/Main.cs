@@ -4,13 +4,9 @@ namespace HttpClientToCurl;
 
 public static class Main
 {
-    #region :: Extensions ::
+    #region :: EXTENSIONS ::
 
-    public static void GenerateCurlInConsole(
-        this HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage,
-        string requestUri,
-        Action<ConsoleConfig> config = null)
+    public static void GenerateCurlInConsole(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, Action<ConsoleConfig> config = null)
     {
         var consoleConfig = new ConsoleConfig();
         config?.Invoke(consoleConfig);
@@ -23,11 +19,7 @@ public static class Main
         Utility.WriteInConsole(script);
     }
 
-    public static void GenerateCurlInFile(
-        this HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage,
-        string requestUri,
-        Action<FileConfig> config = null)
+    public static void GenerateCurlInFile(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, Action<FileConfig> config = null)
     {
         var fileConfig = new FileConfig();
         config?.Invoke(fileConfig);
@@ -37,7 +29,7 @@ public static class Main
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, requestUri, fileConfig.NeedAddDefaultHeaders);
 
-        Utility._WriteInFile(script, fileConfig.Filename,fileConfig.Path);
+        Utility._WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
 
     #endregion

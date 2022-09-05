@@ -3,10 +3,8 @@ namespace HttpClientToCurl;
 internal static class Utility
 {
     internal static void WriteInConsole(string script)
-    {
-        Console.WriteLine(script);
-    }
-
+        => Console.WriteLine(script);
+    
     internal static void _WriteInFile(string script, string filename, string path)
     {
         path = _NormalizePath(path);
@@ -34,7 +32,7 @@ internal static class Utility
 
         if (path.EndsWith('/'))
             path.Remove(path.Length - 1);
-        
+
         return path;
     }
 

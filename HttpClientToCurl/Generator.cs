@@ -2,15 +2,12 @@ using System.Text;
 
 namespace HttpClientToCurl;
 
-internal static class Generator
+public static class Generator
 {
-    internal static string GenerateCurl(
-        HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage,
-        string requestUri,
-        bool needAddDefaultHeaders)
+    public static string GenerateCurl(HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, bool needAddDefaultHeaders)
     {
         string script;
+
         try
         {
             if (httpRequestMessage.Method == HttpMethod.Post)
@@ -34,13 +31,9 @@ internal static class Generator
         return script;
     }
 
-    #region :: Curl Generators ::
+    #region :: CURL GENERATORS ::
 
-    private static string _GenerateGetMethod(
-        HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage,
-        string requestUri,
-        bool needAddDefaultHeaders)
+    private static string _GenerateGetMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, bool needAddDefaultHeaders)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
@@ -51,11 +44,7 @@ internal static class Generator
             .ToString();
     }
 
-    private static string _GeneratePostMethod(
-        HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage,
-        string requestUri,
-        bool needAddDefaultHeaders)
+    private static string _GeneratePostMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, bool needAddDefaultHeaders)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
@@ -67,11 +56,7 @@ internal static class Generator
             .ToString();
     }
 
-    private static string _GeneratePutMethod(
-        HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage,
-        string requestUri,
-        bool needAddDefaultHeaders)
+    private static string _GeneratePutMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, bool needAddDefaultHeaders)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
@@ -83,11 +68,7 @@ internal static class Generator
             .ToString();
     }
 
-    private static string _GeneratePatchMethod(
-        HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage,
-        string requestUri,
-        bool needAddDefaultHeaders)
+    private static string _GeneratePatchMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, bool needAddDefaultHeaders)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
@@ -99,11 +80,7 @@ internal static class Generator
             .ToString();
     }
 
-    private static string _GenerateDeleteMethod(
-        HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage,
-        string requestUri,
-        bool needAddDefaultHeaders)
+    private static string _GenerateDeleteMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, bool needAddDefaultHeaders)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
