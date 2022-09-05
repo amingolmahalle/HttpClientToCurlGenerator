@@ -14,8 +14,12 @@ It's easy to use. just you should install the package on your project from the b
 You have **2 ways** to see script results:
 
 1- Console
+(e.g. **httpClient.GenerateCurlInConsole(httpRequestMessage, requestUri, null);** )
 
 2- File
+(e.g. **httpClient.GenerateCurlInFile(httpRequestMessage, requestUri, null);** )
+
+(Parameter of **configs** for both of them are optional.)
 
 I will be happy say me if you have any feedback and your solution to improve the code and also if you find a problem. 
 also, I will be extremely happy if you contribute to the implementation and improvement of the project.
