@@ -2,10 +2,39 @@ namespace HttpClientToCurl;
 
 internal static class Utility
 {
-    internal static void WriteInConsole(string script)
-        => Console.WriteLine(script);
-    
-    internal static void _WriteInFile(string script, string filename, string path)
+    internal static void WriteInConsole(string script, bool enableCodeBeautification, HttpMethod httpMethod)
+    {
+        if (!enableCodeBeautification)
+            Console.WriteLine(script);
+        else
+        {
+            Console.ForegroundColor = _SetColor(httpMethod);
+            Console.WriteLine(script);
+            Console.ResetColor();
+        }
+    }
+
+    private static ConsoleColor _SetColor(HttpMethod httpMethod)
+    {
+        ConsoleColor color;
+
+        if (httpMethod == HttpMethod.Post)
+            color = ConsoleColor.DarkGreen;
+        else if (httpMethod == HttpMethod.Get)
+            color = ConsoleColor.DarkBlue;
+        else if (httpMethod == HttpMethod.Put)
+            color = ConsoleColor.DarkYellow;
+        else if (httpMethod == HttpMethod.Patch)
+            color = ConsoleColor.Yellow;
+        else if (httpMethod == HttpMethod.Delete)
+            color = ConsoleColor.DarkRed;
+        else
+            color = ConsoleColor.White;
+
+        return color;
+    }
+
+    internal static void WriteInFile(string script, string filename, string path)
     {
         path = _NormalizePath(path);
 

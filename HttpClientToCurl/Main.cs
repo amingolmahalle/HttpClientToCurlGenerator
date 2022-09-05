@@ -16,7 +16,7 @@ public static class Main
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, requestUri, consoleConfig.NeedAddDefaultHeaders);
 
-        Utility.WriteInConsole(script);
+        Utility.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
 
     public static void GenerateCurlInFile(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, Action<FileConfig> config = null)
@@ -29,7 +29,7 @@ public static class Main
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, requestUri, fileConfig.NeedAddDefaultHeaders);
 
-        Utility._WriteInFile(script, fileConfig.Filename, fileConfig.Path);
+        Utility.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
 
     #endregion

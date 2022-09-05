@@ -21,6 +21,7 @@ Sample code for **Post Method** (it will be written in the console):
             {
                 configs.TurnOn = true;
                 configs.NeedAddDefaultHeaders = true;
+                configs.EnableCodeBeautification = false;
             });
 
         // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
@@ -43,6 +44,7 @@ Sample code for **Get Method** (it will be written in the console):
             {
                 configs.TurnOn = true;
                 configs.NeedAddDefaultHeaders = true;
+                configs.EnableCodeBeautification = false;
             });
 
         // Call GetAsync =>  await client.GetAsync(requestUri);
