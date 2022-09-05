@@ -21,7 +21,7 @@ internal static class Utility
         if (httpMethod == HttpMethod.Post)
             color = ConsoleColor.DarkGreen;
         else if (httpMethod == HttpMethod.Get)
-            color = ConsoleColor.DarkBlue;
+            color = ConsoleColor.DarkCyan;
         else if (httpMethod == HttpMethod.Put)
             color = ConsoleColor.DarkYellow;
         else if (httpMethod == HttpMethod.Patch)
