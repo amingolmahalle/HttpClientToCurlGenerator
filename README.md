@@ -1,9 +1,22 @@
 # HttpClientToCurlGenerator
-An extension for generating Curl script of HttpClient
+An extension for generating Curl script of HttpClient.
 
-[Nuget Package Address](https://www.nuget.org/packages/HttpClientToCurl/1.0.0)
+This extension will help you to see whatever is set in HttpClient in the form of a curl script.
 
-Sample code for **Post Method** (it will be written in the console):
+It's easy to use. just you should install the package on your project from the below address and use sample codes for how to call and work with extensions.
+
+[Nuget Package Address](https://www.nuget.org/packages/HttpClientToCurl/)
+
+You have 2 ways to see script results:
+
+1- Console
+
+2- File
+
+I will be happy say me if you have any feedback and your solution to improve the code and also if you find a problem. 
+also, I will be extremely happy if you contribute to the implementation and improvement of the project.
+
+* Sample code for **Post Method** (it will be written in the console):
 ```
  string requestBody = @"""{ ""name"" : ""amin"",""requestId"" : ""10001001"",""amount"":10000 }""";
         string requestUri = "api/test";
@@ -27,7 +40,7 @@ Sample code for **Post Method** (it will be written in the console):
         // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
-Sample code for **Get Method** (it will be written in the console):
+* Sample code for **Get Method** (it will be written in the console):
 ```
  string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -50,7 +63,7 @@ Sample code for **Get Method** (it will be written in the console):
         // Call GetAsync =>  await client.GetAsync(requestUri);
 ```
 
-Sample Code for **Post Method** (it will be written in the file):
+* Sample Code for **Post Method** (it will be written in the file):
 
 If the path variable is null or empty, then the file is created in the **root project**.
 
@@ -81,7 +94,7 @@ If the filename variable is null or empty, then the current date will be set for
         // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
-Sample Code for **Get Method** (it will be written in the file):
+* Sample Code for **Get Method** (it will be written in the file):
 
 If the path variable is null or empty, then the file is created in the **root project**.
 
