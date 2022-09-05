@@ -1,13 +1,17 @@
 # HttpClientToCurlGenerator
 An extension for generating Curl script of HttpClient.
 
-This extension will help you to see whatever is set in HttpClient in the form of a curl script.
+This extension will help you to see whatever is set in **HttpClient** in the form of a curl script.
+
+And you can check if that is the correct data for sending to an external service or not. and also if you have an error, you can check the script and find your problem and fix that. so easily.
+
+Also, it is new way and also a fast way to create or update a collection Postman, when you haven't got a **postman collection** for your desired external service.
 
 It's easy to use. just you should install the package on your project from the below address and use sample codes for how to call and work with extensions.
 
 [Nuget Package Address](https://www.nuget.org/packages/HttpClientToCurl/)
 
-You have 2 ways to see script results:
+You have **2 ways** to see script results:
 
 1- Console
 
