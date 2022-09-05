@@ -50,8 +50,8 @@ If the path variable is null or empty, then the file is created in the **root pr
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 ```
-        string path = string.empty
-        string filename = "PostMethodResult" 
+        string path = string.Empty;
+        string filename = "PostMethodResult" ;
         string requestBody = @"""{ ""name"" : ""sara"",""requestId"" : ""10001001"",""amount"":20000 }""";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -104,8 +104,8 @@ If the path variable is null or empty, then the file is created in the **root pr
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 ```
-        string path = string.empty
-        string filename = "GetMethodResult" 
+        string path = string.Empty;
+        string filename = "GetMethodResult";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
@@ -158,8 +158,8 @@ If the path variable is null or empty, then the file is created in the **root pr
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 ```
-        string path = string.empty
-        string filename = "PutMethodResult" 
+        string path = string.Empty;
+        string filename = "PutMethodResult" ;
         string requestBody = @"""{ ""name"" : ""reza"",""requestId"" : ""10001004"",""amount"":40000 }""";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
@@ -213,8 +213,8 @@ If the path variable is null or empty, then the file is created in the **root pr
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 ```
-        string path = string.empty
-        string filename = "PatchMethodResult" 
+        string path = string.Empty;
+        string filename = "PatchMethodResult" ;
         string requestBody = @"""{ ""name"" : ""zara"",""requestId"" : ""10001006"",""amount"":60000 }""";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
@@ -240,7 +240,7 @@ If the filename variable is null or empty, then the current date will be set for
 
 * Sample code for **Delete Method** (it will be written in the console):
 ```
-        int Id= 12;
+        int Id = 12;
         string requestUri = $"api/test/{Id}";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
@@ -268,9 +268,9 @@ If the path variable is null or empty, then the file is created in the **root pr
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 ```
-        string path = string.empty
-        string filename = "DeleteMethodResult" 
-        int Id= 12;
+        string path = string.Empty;
+        string filename = "DeleteMethodResult";
+        int Id = 12;
         string requestUri = $"api/test/{Id}";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
