@@ -42,14 +42,15 @@ internal static class Utility
 
         string fullPath = $"{path}/{filename}.curl";
 
-        if (!File.Exists(fullPath))
+
+        if (File.Exists(fullPath))
         {
-            using var streamWriter = File.CreateText(fullPath);
+            using var streamWriter = new StreamWriter(fullPath, true);
             streamWriter.WriteLine(script);
         }
         else
         {
-            using var streamWriter = new StreamWriter(fullPath, true);
+            using var streamWriter = File.CreateText(fullPath);
             streamWriter.WriteLine(script);
         }
     }

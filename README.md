@@ -240,8 +240,8 @@ If the filename variable is null or empty, then the current date will be set for
 
 * Sample code for **Delete Method** (it will be written in the console):
 ```
-        int Id = 12;
-        string requestUri = $"api/test/{Id}";
+        int id = 12;
+        string requestUri = $"api/test/{id}";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
         httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
@@ -270,8 +270,8 @@ If the filename variable is null or empty, then the current date will be set for
 ```
         string path = string.Empty;
         string filename = "DeleteMethodResult";
-        int Id = 12;
-        string requestUri = $"api/test/{Id}";
+        int id = 12;
+        string requestUri = $"api/test/{id}";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
         httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
