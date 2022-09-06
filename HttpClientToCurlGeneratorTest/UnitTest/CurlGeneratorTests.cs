@@ -13,7 +13,8 @@ public class CurlGeneratorTests
     public void Success_GenerateCurl_With_QueryString_For_PostMethod()
     {
         // Arrange
-        string requestBody = @"""{ ""name"" : ""amin"",""requestId"" : 10001000,""amount"":10000 }""";
+        string requestBody = @"{ ""name"" : ""amin"",""requestId"" : 10001000,""amount"":10000 }";
+        
         var queryString = new Dictionary<string, string>()
         {
             { "id", "12" }
@@ -39,14 +40,14 @@ public class CurlGeneratorTests
         Assert.That(script, Does.StartWith("curl"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test?id=12 -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '""{ ""name"" : ""amin"",""requestId"" : 10001000,""amount"":10000 }""'"));
+                @"curl -X POST http://localhost:1213/api/test?id=12 -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{ ""name"" : ""amin"",""requestId"" : 10001000,""amount"":10000 }'"));
     }
 
     [Theory]
     public void Success_GenerateCurl_Without_QueryString_For_PostMethod()
     {
         // Arrange
-        string requestBody = @"""{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }""";
+        string requestBody = @"{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }";
 
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -69,7 +70,7 @@ public class CurlGeneratorTests
         Assert.That(script, Does.StartWith("curl"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '""{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }""'"));
+                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }'"));
     }
 
     #endregion
@@ -143,7 +144,7 @@ public class CurlGeneratorTests
     public void Success_GenerateCurl_For_PutMethod()
     {
         // Arrange
-        string requestBody = @"""{ ""name"" : ""reza"",""requestId"" : 10001002,""amount"":30000 }""";
+        string requestBody = @"{ ""name"" : ""reza"",""requestId"" : 10001002,""amount"":30000 }";
 
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
@@ -166,7 +167,7 @@ public class CurlGeneratorTests
         Assert.That(script, Does.StartWith("curl"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
-                @"curl -X PUT http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '""{ ""name"" : ""reza"",""requestId"" : 10001002,""amount"":30000 }""'"));
+                @"curl -X PUT http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{ ""name"" : ""reza"",""requestId"" : 10001002,""amount"":30000 }'"));
     }
 
     #endregion
@@ -177,7 +178,7 @@ public class CurlGeneratorTests
     public void Success_GenerateCurl_For_PatchMethod()
     {
         // Arrange
-        string requestBody = @"""{ ""name"" : ""hamed"",""requestId"" : 10001003,""amount"":40000 }""";
+        string requestBody = @"{ ""name"" : ""hamed"",""requestId"" : 10001003,""amount"":40000 }";
 
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
@@ -200,7 +201,7 @@ public class CurlGeneratorTests
         Assert.That(script, Does.StartWith("curl"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
-                @"curl -X PATCH http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '""{ ""name"" : ""hamed"",""requestId"" : 10001003,""amount"":40000 }""'"));
+                @"curl -X PATCH http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{ ""name"" : ""hamed"",""requestId"" : 10001003,""amount"":40000 }'"));
     }
 
     #endregion

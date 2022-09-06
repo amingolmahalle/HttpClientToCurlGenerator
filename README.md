@@ -26,7 +26,7 @@ also, I will be extremely happy if you contribute to the implementation and impr
 
 * Sample code for **Post Method** (it will be written in the console):
 ```
-        string requestBody = @"""{ ""name"" : ""amin"",""requestId"" : ""10001000"",""amount"":10000 }""";
+        string requestBody = @"{ ""name"" : ""amin"",""requestId"" : ""10001000"",""amount"":10000 }";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
@@ -56,7 +56,7 @@ If the filename variable is null or empty, then the current date will be set for
 ```
         string path = string.Empty;
         string filename = "PostMethodResult" ;
-        string requestBody = @"""{ ""name"" : ""sara"",""requestId"" : ""10001001"",""amount"":20000 }""";
+        string requestBody = @"{ ""name"" : ""sara"",""requestId"" : ""10001001"",""amount"":20000 }";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
@@ -134,7 +134,7 @@ If the filename variable is null or empty, then the current date will be set for
 
 * Sample code for **Put Method** (it will be written in the console):
 ```
-        string requestBody = @"""{ ""name"" : ""jadi"",""requestId"" : ""10001003"",""amount"":30000 }""";
+        string requestBody = @"{ ""name"" : ""jadi"",""requestId"" : ""10001003"",""amount"":30000 }";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
@@ -164,7 +164,7 @@ If the filename variable is null or empty, then the current date will be set for
 ```
         string path = string.Empty;
         string filename = "PutMethodResult" ;
-        string requestBody = @"""{ ""name"" : ""reza"",""requestId"" : ""10001004"",""amount"":40000 }""";
+        string requestBody = @"{ ""name"" : ""reza"",""requestId"" : ""10001004"",""amount"":40000 }";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
@@ -189,7 +189,7 @@ If the filename variable is null or empty, then the current date will be set for
 
 * Sample code for **Patch Method** (it will be written in the console):
 ```
-        string requestBody = @"""{ ""name"" : ""hamed"",""requestId"" : ""10001005"",""amount"":50000 }""";
+        string requestBody = @"{ ""name"" : ""hamed"",""requestId"" : ""10001005"",""amount"":50000 }";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
@@ -219,7 +219,7 @@ If the filename variable is null or empty, then the current date will be set for
 ```
         string path = string.Empty;
         string filename = "PatchMethodResult" ;
-        string requestBody = @"""{ ""name"" : ""zara"",""requestId"" : ""10001006"",""amount"":60000 }""";
+        string requestBody = @"{ ""name"" : ""zara"",""requestId"" : ""10001006"",""amount"":60000 }";
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");

@@ -1,4 +1,5 @@
 ﻿using HttpClientToCurl.Config;
+using HttpClientToCurl.Utility;
 
 namespace HttpClientToCurl;
 
@@ -16,7 +17,7 @@ public static class Main
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, requestUri, consoleConfig.NeedAddDefaultHeaders);
 
-        Utility.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
+        Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
 
     public static void GenerateCurlInFile(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, Action<FileConfig> config = null)
@@ -29,7 +30,7 @@ public static class Main
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, requestUri, fileConfig.NeedAddDefaultHeaders);
 
-        Utility.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
+        Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
 
     #endregion

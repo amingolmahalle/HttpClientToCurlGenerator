@@ -1,4 +1,6 @@
 using System.Text;
+using HttpClientToCurl.Utility;
+using Newtonsoft.Json;
 
 namespace HttpClientToCurl;
 
@@ -25,22 +27,27 @@ internal static class Builder
     {
         if (!string.IsNullOrWhiteSpace(baseUrl))
         {
-            if (baseUrl.EndsWith("/"))
-                baseUrl = baseUrl.Remove(baseUrl.Length - 1);
-            if (uri.StartsWith("/"))
-                uri = uri.Remove(0);
+            string inputBaseUrl = baseUrl.Trim();
+            if (inputBaseUrl.EndsWith("/"))
+                inputBaseUrl = inputBaseUrl.Remove(inputBaseUrl.Length - 1);
 
-            stringBuilder
-                .Append($"{baseUrl?.Trim()}/{uri?.Trim()}")
+            string inputUri = uri?.Trim();
+            if (!string.IsNullOrWhiteSpace(inputUri) && inputUri.StartsWith("/"))
+                inputUri = inputUri.Remove(0);
+
+            return stringBuilder
+                .Append($"{inputBaseUrl}/{inputUri}")
                 .Append(' ');
         }
 
-        return stringBuilder;
+        throw new InvalidDataException("baseUrl argument is null or empty!");
     }
 
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders = true)
     {
+        bool hasHeader = false;
         if (needAddDefaultHeaders && httpClient.DefaultRequestHeaders.Any())
+        {
             foreach (var row in httpClient.DefaultRequestHeaders)
             {
                 stringBuilder
@@ -49,6 +56,9 @@ internal static class Builder
                     .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
                     .Append(' ');
             }
+
+            hasHeader = true;
+        }
 
         if (httpRequestMessage.Headers.Any())
         {
@@ -60,6 +70,8 @@ internal static class Builder
                     .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
                     .Append(' ');
             }
+
+            hasHeader = true;
         }
 
         if (httpRequestMessage.Content != null && httpRequestMessage.Content.Headers.Any())
@@ -72,23 +84,30 @@ internal static class Builder
                     .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
                     .Append(' ');
             }
+
+            hasHeader = true;
         }
+
+        if (!hasHeader)
+            stringBuilder.Append(' ');
 
         return stringBuilder;
     }
 
     internal static StringBuilder AddBody(this StringBuilder stringBuilder, string jsonBody)
     {
-        if (jsonBody != null && jsonBody.Any())
-        {
-            stringBuilder
-                .Append("-d")
-                .Append(' ')
-                .Append('\'')
-                .Append(jsonBody)
-                .Append('\'')
-                .Append(' ');
-        }
+        bool isValid = jsonBody.IsValidJson();
+
+        if (!isValid)
+            throw new JsonException("Exception in parsing json");
+
+        stringBuilder
+            .Append("-d")
+            .Append(' ')
+            .Append('\'')
+            .Append(jsonBody)
+            .Append('\'')
+            .Append(' ');
 
         return stringBuilder;
     }
