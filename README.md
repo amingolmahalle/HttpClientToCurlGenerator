@@ -13,10 +13,12 @@ It's easy to use. just you should install the package on your project from the b
 
 You have **2 ways** to see script results:
 
-1- Console
+**1- Console**
 (e.g. **httpClient.GenerateCurlInConsole(httpRequestMessage, requestUri, null);** )
 
-2- File
+Notice: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. you should **remove enters** from the script.
+
+**2- File**
 (e.g. **httpClient.GenerateCurlInFile(httpRequestMessage, requestUri, null);** )
 
 (Parameter of **configs** for both of them are optional.)
