@@ -21,11 +21,11 @@ public static class Generator
             else if (httpRequestMessage.Method == HttpMethod.Delete)
                 script = _GenerateDeleteMethod(httpClient, httpRequestMessage, requestUri, needAddDefaultHeaders);
             else
-                script = $"ERROR => Invalid HttpMethod: {httpRequestMessage.Method.Method}";
+                script = $"ERROR => invalid HttpMethod: {httpRequestMessage.Method.Method}";
         }
         catch (Exception exception)
         {
-            script = $"ERROR => {exception.Message}, {exception.InnerException}";
+            script = $"ERROR => {exception.Message}.{exception.InnerException}";
         }
 
         return script;

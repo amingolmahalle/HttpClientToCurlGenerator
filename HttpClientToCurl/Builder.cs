@@ -99,7 +99,7 @@ internal static class Builder
         bool isValid = jsonBody.IsValidJson();
 
         if (!isValid)
-            throw new JsonException("Exception in parsing json!");
+            throw new JsonException("exception in parsing json!");
 
         stringBuilder
             .Append("-d")

@@ -7,6 +7,8 @@ namespace HttpClientToCurlGeneratorTest.UnitTest;
 
 public class CurlGeneratorTests
 {
+    #region :: SUCCESS ::
+
     #region :: GenerateCurl_For_PostMethod ::
 
     [Theory]
@@ -14,7 +16,7 @@ public class CurlGeneratorTests
     {
         // Arrange
         string requestBody = @"{ ""name"" : ""amin"",""requestId"" : 10001000,""amount"":10000 }";
-        
+
         var queryString = new Dictionary<string, string>()
         {
             { "id", "12" }
@@ -236,6 +238,100 @@ public class CurlGeneratorTests
             Is.EqualTo(
                 @"curl -X DELETE http://localhost:1213/api/test/12 -H 'Authorization: 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
     }
+
+    #endregion
+
+    #endregion
+
+    #region :: FAILED ::
+
+    #region :: GenerateCurl_For_PatchMethod ::
+
+    [Theory]
+    public void Failed_GenerateCurl_Invalid_HttpMethod()
+    {
+        // Arrange
+        string requestBody = @"{ ""name"" : ""russel"",""requestId"" : 10001004,""amount"":50000 }";
+
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Trace, requestUri);
+        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        httpRequestMessage.Headers.Add("Authorization", "4797c126-3f8a-454a-aff1-96c0220dae61");
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213");
+
+        // Act
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            requestUri,
+            true);
+
+        // Assert
+        Assert.That(script, Is.Not.Null);
+        Assert.That(script, Is.Not.Empty);
+        Assert.That(script, Does.StartWith("ERROR"));
+        Assert.That(script?.Trim(), Is.EqualTo($"ERROR => invalid HttpMethod: {httpRequestMessage.Method.Method}"));
+    }
+
+    [Theory]
+    public void Failed_GenerateCurl_Invalid_JsonBody()
+    {
+        // Arrange
+        string requestBody = @"""name"" : ""steven"",""requestId"" : 10001005,""amount"":60000";
+
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        httpRequestMessage.Headers.Add("Authorization", "4797c126-3f8a-454a-aff1-96c0220dae61");
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213");
+
+        // Act
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            requestUri,
+            true);
+
+        // Assert
+        Assert.That(script, Is.Not.Null);
+        Assert.That(script, Is.Not.Empty);
+        Assert.That(script, Does.StartWith("ERROR"));
+        Assert.That(script?.Trim(), Is.EqualTo("ERROR => exception in parsing json!."));
+    }
+
+    [Theory]
+    public void Failed_GenerateCurl_Invalid_BaseUrl()
+    {
+        // Arrange
+        string requestBody = @"{ ""name"" : ""nancy"",""requestId"" : 10001006,""amount"":70000 }";
+
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        httpRequestMessage.Headers.Add("Authorization", "4797c126-3f8a-454a-aff1-96c0220dae61");
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = null;
+
+        // Act
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            requestUri,
+            true);
+
+        // Assert
+        Assert.That(script, Is.Not.Null);
+        Assert.That(script, Is.Not.Empty);
+        Assert.That(script, Does.StartWith("ERROR"));
+        Assert.That(script?.Trim(), Is.EqualTo("ERROR => baseUrl argument is null or empty!."));
+    }
+
+    #endregion
 
     #endregion
 }
