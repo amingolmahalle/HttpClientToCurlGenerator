@@ -29,7 +29,7 @@ public static class Extensions
     {
         string inputPath = path?.Trim();
         if (string.IsNullOrWhiteSpace(inputPath))
-            inputPath = inputPath._TryGetSolutionDirectoryInfo();
+            inputPath = Directory.GetCurrentDirectory();
 
         if (inputPath.EndsWith('/'))
             inputPath = inputPath.Remove(inputPath.Length - 1);
@@ -37,25 +37,10 @@ public static class Extensions
         return inputPath;
     }
 
-    private static string _TryGetSolutionDirectoryInfo(this string path)
-    {
-        var directory = new DirectoryInfo(path ?? Directory.GetCurrentDirectory());
-
-        while (directory != null && !directory.GetFiles("*.sln").Any())
-        {
-            directory = directory.Parent;
-        }
-
-        return directory?.FullName ?? Directory.GetCurrentDirectory();
-    }
-
     public static string NormalizeFilename(this string filename)
-    {
-        if (string.IsNullOrWhiteSpace(filename))
-            filename = DateTime.Now.Date.ToString("yyyyMMdd");
-
-        return filename.Trim();
-    }
+        => string.IsNullOrWhiteSpace(filename)
+            ? DateTime.Now.Date.ToString("yyyyMMdd")
+            : filename.Trim();
 
     public static bool IsValidJson(this string stringInput)
     {
