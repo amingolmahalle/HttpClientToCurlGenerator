@@ -1,3 +1,4 @@
+using System.Xml;
 using Newtonsoft.Json.Linq;
 
 namespace HttpClientToCurl.Utility;
@@ -25,7 +26,7 @@ public static class Extensions
     }
 
 
-    public static string NormalizePath(this string path)
+    public static string NormalizedPath(this string path)
     {
         string inputPath = path?.Trim();
         if (string.IsNullOrWhiteSpace(inputPath))
@@ -37,11 +38,11 @@ public static class Extensions
         return inputPath;
     }
 
-    public static string NormalizeFilename(this string filename)
+    public static string NormalizedFilename(this string filename)
         => string.IsNullOrWhiteSpace(filename)
             ? DateTime.Now.Date.ToString("yyyyMMdd")
             : filename.Trim();
-
+    
     public static bool IsValidJson(this string stringInput)
     {
         if (string.IsNullOrWhiteSpace(stringInput))
@@ -56,12 +57,25 @@ public static class Extensions
                 JToken.Parse(stringInput);
                 return true;
             }
-            catch (Exception)
+            catch
             {
                 return false;
             }
         }
 
         return false;
+    }
+
+    public static bool IsValidXml(this string xml)
+    {
+        try
+        {
+            new XmlDocument().LoadXml(xml);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

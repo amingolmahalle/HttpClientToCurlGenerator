@@ -1,4 +1,4 @@
-# HttpClientToCurlGenerator
+# :1st_place_medal: HttpClientToCurlGenerator :1st_place_medal:
 An extension for generating Curl script of HttpClient.
 
 This extension will help you to see whatever is set in **HttpClient** in the form of a curl script.
@@ -16,7 +16,7 @@ You have **2 ways** to see script results:
 **1- Console**
 (e.g. **httpClient.GenerateCurlInConsole(httpRequestMessage, requestUri, null);** )
 
-Notice: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. you should **remove enters** from the script.
+:warning: **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. you should **remove enters** from the script.
 
 **2- File**
 (e.g. **httpClient.GenerateCurlInFile(httpRequestMessage, requestUri, null);** )
@@ -25,6 +25,14 @@ Notice: when the curl script was written in the console, maybe your **IDE consol
 
 I will be happy say me if you have any feedback and your solution to improve the code and also if you find a problem. 
 also, I will be extremely happy if you contribute to the implementation and improvement of the project.
+
+[Gmail Address](mailto:amin.golmahalle@gmail.com)
+
+## **Give a Star!** :star:
+
+If you like this project, learn something or you are using it in your applications, please give it a star. Thanks!
+
+## **How to use HttpClientToCurlGenerator**:
 
 * Sample code for **Post Method** (it will be written in the console):
 ```

@@ -1,3 +1,4 @@
+using System.Data;
 using System.Text;
 
 namespace HttpClientToCurl;
@@ -21,11 +22,11 @@ public static class Generator
             else if (httpRequestMessage.Method == HttpMethod.Delete)
                 script = _GenerateDeleteMethod(httpClient, httpRequestMessage, requestUri, needAddDefaultHeaders);
             else
-                script = $"ERROR => invalid HttpMethod: {httpRequestMessage.Method.Method}";
+                throw new DataException($"invalid HttpMethod: {httpRequestMessage.Method.Method}!");
         }
         catch (Exception exception)
         {
-            script = $"ERROR => {exception.Message}.{exception.InnerException}";
+            script = $"GenerateCurlError => {exception.Message}.{exception.InnerException}";
         }
 
         return script;
@@ -51,7 +52,7 @@ public static class Generator
         return stringBuilder
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, requestUri)
             .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)
-            .AddBody(httpRequestMessage.Content?.ReadAsStringAsync().GetAwaiter().GetResult())?
+            .AddBody(httpRequestMessage.Content)?
             .Append(' ')
             .ToString();
     }
@@ -60,10 +61,11 @@ public static class Generator
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
+        var dd = httpRequestMessage.Content?.Headers.ContentType?.MediaType;
         return stringBuilder
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, requestUri)
             .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)
-            .AddBody(httpRequestMessage.Content?.ReadAsStringAsync().GetAwaiter().GetResult())?
+            .AddBody(httpRequestMessage.Content)?
             .Append(' ')
             .ToString();
     }
@@ -75,7 +77,7 @@ public static class Generator
         return stringBuilder
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, requestUri)
             .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)
-            .AddBody(httpRequestMessage.Content?.ReadAsStringAsync().GetAwaiter().GetResult())?
+            .AddBody(httpRequestMessage.Content)?
             .Append(' ')
             .ToString();
     }

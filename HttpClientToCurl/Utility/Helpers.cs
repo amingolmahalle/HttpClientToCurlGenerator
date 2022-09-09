@@ -16,8 +16,8 @@ public static class Helpers
 
     public static void WriteInFile(string script, string filename, string path)
     {
-        path = path.NormalizePath();
-        filename = filename.NormalizeFilename();
+        path = path.NormalizedPath();
+        filename = filename.NormalizedFilename();
 
         string fullPath = $"{path}{Path.DirectorySeparatorChar.ToString()}{filename}.curl";
         if (File.Exists(fullPath))

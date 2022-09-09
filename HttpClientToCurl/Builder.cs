@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using System.Text;
 using HttpClientToCurl.Utility;
 using Newtonsoft.Json;
@@ -94,21 +95,38 @@ internal static class Builder
         return stringBuilder;
     }
 
-    internal static StringBuilder AddBody(this StringBuilder stringBuilder, string jsonBody)
+    internal static StringBuilder AddBody(this StringBuilder stringBuilder, HttpContent content)
     {
-        bool isValid = jsonBody.IsValidJson();
+        bool isValid = false;
+        string contentType = content.Headers.ContentType?.MediaType;
+        string body = content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+        if (_GetValidBody(body, contentType))
+            isValid = true;
 
         if (!isValid)
-            throw new JsonException("exception in parsing json!");
+            throw new JsonException($"exception in parsing {contentType}!");
 
         stringBuilder
             .Append("-d")
             .Append(' ')
             .Append('\'')
-            .Append(jsonBody)
+            .Append(body)
             .Append('\'')
             .Append(' ');
 
         return stringBuilder;
+    }
+
+    private static bool _GetValidBody(string body, string contentType)
+    {
+        switch (contentType)
+        {
+            case MediaTypeNames.Application.Json when body.IsValidJson():
+            case MediaTypeNames.Application.Xml when body.IsValidXml():
+                return true;
+            default:
+                return false;
+        }
     }
 }
