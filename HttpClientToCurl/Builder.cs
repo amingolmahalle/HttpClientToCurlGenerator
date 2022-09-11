@@ -97,15 +97,11 @@ internal static class Builder
 
     internal static StringBuilder AddBody(this StringBuilder stringBuilder, HttpContent content)
     {
-        bool isValid = false;
         string contentType = content.Headers.ContentType?.MediaType;
         string body = content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-        if (_GetValidBody(body, contentType))
-            isValid = true;
-
-        if (!isValid)
-            throw new JsonException($"exception in parsing {contentType}!");
+        if (!_IsValidBody(body, contentType))
+            throw new JsonException($"exception in parsing body {contentType}!");
 
         stringBuilder
             .Append("-d")
@@ -118,12 +114,12 @@ internal static class Builder
         return stringBuilder;
     }
 
-    private static bool _GetValidBody(string body, string contentType)
+    private static bool _IsValidBody(string body, string contentType)
     {
         switch (contentType)
         {
             case MediaTypeNames.Application.Json when body.IsValidJson():
-            case MediaTypeNames.Application.Xml when body.IsValidXml():
+            case MediaTypeNames.Text.Xml when body.IsValidXml():
                 return true;
             default:
                 return false;

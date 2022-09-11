@@ -61,7 +61,6 @@ public static class Generator
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
-        var dd = httpRequestMessage.Content?.Headers.ContentType?.MediaType;
         return stringBuilder
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, requestUri)
             .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)

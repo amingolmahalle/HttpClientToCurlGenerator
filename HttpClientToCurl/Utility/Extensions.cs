@@ -66,11 +66,11 @@ public static class Extensions
         return false;
     }
 
-    public static bool IsValidXml(this string xml)
+    public static bool IsValidXml(this string stringInput)
     {
         try
         {
-            new XmlDocument().LoadXml(xml);
+            new XmlDocument().LoadXml(stringInput);
             return true;
         }
         catch

@@ -62,7 +62,7 @@ public class FailedCurlGeneratorTests
         Assert.That(script, Is.Not.Null);
         Assert.That(script, Is.Not.Empty);
         Assert.That(script, Does.StartWith("GenerateCurlError"));
-        Assert.That(script?.Trim(), Is.EqualTo("GenerateCurlError => exception in parsing application/json!."));
+        Assert.That(script?.Trim(), Is.EqualTo("GenerateCurlError => exception in parsing body application/json!."));
     }
 
     [Theory]
