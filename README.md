@@ -1,6 +1,9 @@
 # :1st_place_medal: HttpClientToCurlGenerator :1st_place_medal:
 An extension for generating Curl script of HttpClient.
 
+[![license](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGeneratore/blob/master/LICENSE) [![forks](https://img.shields.io/github/forks/amingolmahalle/HttpClientToCurlGenerator)]() [![stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator)  
+![example workflow](https://github.com/amingolmahalle/HttpClientToCurlGenerator/actions/workflows/dotnet.yml/badge.svg)
+
 This extension will help you to see whatever is set in **HttpClient** in the form of a curl script.
 
 And you can check if that is the correct data for sending to an external service or not. and also if you have an error, you can check the script and find your problem and fix that. so easily.
@@ -16,7 +19,7 @@ You have **2 ways** to see script results:
 **1- Console**
 (e.g. **httpClient.GenerateCurlInConsole(httpRequestMessage, requestUri, null);** )
 
-:warning: **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. you should **remove enters** from the script.
+- **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. you should **remove enters** from the script.
 
 **2- File**
 (e.g. **httpClient.GenerateCurlInFile(httpRequestMessage, requestUri, null);** )
