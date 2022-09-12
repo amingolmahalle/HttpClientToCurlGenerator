@@ -17,18 +17,18 @@ jobs:
         git branch --remote --contains | grep origin/master
     - name: Set VERSION variable from tag
       run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
-      working-directory: HttpClientToCurlGenerator
+      working-directory: HttpClientToCurl
     - name: Build
       run: dotnet build --configuration Release /p:Version=${VERSION}
-      working-directory: HttpClientToCurlGenerator
+      working-directory: HttpClientToCurl
     - name: Test
       run: dotnet test --configuration Release /p:Version=${VERSION} --no-build
-      working-directory: HttpClientToCurlGenerator
+      working-directory: HttpClientToCurl
     - name: Pack
       run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
-      working-directory: HttpClientToCurlGenerator
+      working-directory: HttpClientToCurl
     - name: Push
-      run: dotnet nuget push HttpClientToCurlGenerator.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${GITHUB_TOKEN}
-      working-directory: HttpClientToCurlGenerator
+      run: dotnet nuget push HttpClientToCurl.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${GITHUB_TOKEN}
+      working-directory: HttpClientToCurl
       env:
         GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
