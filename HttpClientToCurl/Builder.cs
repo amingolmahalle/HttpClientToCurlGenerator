@@ -1,5 +1,6 @@
 using System.Net.Mime;
 using System.Text;
+using System.Web;
 using HttpClientToCurl.Utility;
 using Newtonsoft.Json;
 
@@ -103,7 +104,29 @@ internal static class Builder
         if (!_IsValidBody(body, contentType))
             throw new JsonException($"exception in parsing body {contentType}!");
 
-        stringBuilder
+        if (contentType == "application/x-www-form-urlencoded")
+            _AddFormUrlEncodedContentBody(stringBuilder, body);
+        else
+            _AppendBodyItem(stringBuilder, body);
+
+        return stringBuilder;
+    }
+
+    private static void _AddFormUrlEncodedContentBody(StringBuilder stringBuilder, string body)
+    {
+        string decodedBody = HttpUtility.UrlDecode(body);
+        string[] splitBodyArray = decodedBody.Split('&');
+        if (splitBodyArray.Any())
+        {
+            foreach (string item in splitBodyArray)
+            {
+                _AppendBodyItem(stringBuilder, item);
+            }
+        }
+    }
+
+    private static void _AppendBodyItem(StringBuilder stringBuilder, object body)
+        => stringBuilder
             .Append("-d")
             .Append(' ')
             .Append('\'')
@@ -111,18 +134,15 @@ internal static class Builder
             .Append('\'')
             .Append(' ');
 
-        return stringBuilder;
-    }
-
     private static bool _IsValidBody(string body, string contentType)
     {
         switch (contentType)
         {
-            case MediaTypeNames.Application.Json when body.IsValidJson():
-            case MediaTypeNames.Text.Xml when body.IsValidXml():
-                return true;
-            default:
+            case MediaTypeNames.Application.Json when body.IsValidJson() == false:
+            case MediaTypeNames.Text.Xml when body.IsValidXml() == false:
                 return false;
+            default:
+                return true;
         }
     }
 }

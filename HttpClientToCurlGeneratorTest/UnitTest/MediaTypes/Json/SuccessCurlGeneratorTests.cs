@@ -73,6 +73,40 @@ public class SuccessCurlGeneratorTests
             Is.EqualTo(
                 @"curl -X POST http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }'"));
     }
+    
+    [Theory]
+    public void GenerateCurl_UrlEncoded_For_PostMethod()
+    {
+        // Arrange
+        string requestBody = @"{ ""name"" : ""justin"",""requestId"" : 10001026,""amount"":26000 }";
+
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+        httpRequestMessage.Content = new FormUrlEncodedContent(new[]
+        {
+            new KeyValuePair<string, string>("session", "703438f3-16ad-4ba5-b923-8f72cd0f2db9"),
+            new KeyValuePair<string, string>("payload", requestBody),
+        });
+
+        httpRequestMessage.Headers.Add("Authorization", "4797c126-3f8a-454a-aff1-96c0220dae61");
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213");
+
+        // Act
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            requestUri,
+            true);
+
+        // Assert
+        Assert.That(script, Is.Not.Null);
+        Assert.That(script, Is.Not.Empty);
+        Assert.That(script?.Trim(),
+            Is.EqualTo(
+                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/x-www-form-urlencoded' -d 'session=703438f3-16ad-4ba5-b923-8f72cd0f2db9' -d 'payload={ ""name"" : ""justin"",""requestId"" : 10001026,""amount"":26000 }'"));
+    }
 
     #endregion
 
@@ -239,5 +273,4 @@ public class SuccessCurlGeneratorTests
     }
 
     #endregion
-    
 }
