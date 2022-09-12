@@ -29,6 +29,6 @@ jobs:
       working-directory: HttpClientToCurlGenerator
     - name: Push
       run: dotnet nuget push HttpClientToCurlGenerator.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${GITHUB_TOKEN}
-      working-directory:HttpClientToCurlGenerator
+      working-directory: HttpClientToCurlGenerator
       env:
         GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
