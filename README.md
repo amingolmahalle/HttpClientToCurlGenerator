@@ -61,7 +61,7 @@ If you like this project, learn something or you are using it in your applicatio
         // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
-### Sample code **Post Method** for FormUrlEncodedContent type (it will be written in the console):
+### Sample code **Post Method** for FormUrlEncodedContent (it will be written in the console):
 ```
         string requestBody = @"{ ""name"" : ""justin"",""requestId"" : 10001026,""amount"":26000 }";
         string requestUri = "api/test";
