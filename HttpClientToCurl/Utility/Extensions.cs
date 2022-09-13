@@ -10,15 +10,15 @@ public static class Extensions
         ConsoleColor color;
 
         if (httpMethod == HttpMethod.Post)
-            color = ConsoleColor.DarkGreen;
+            color = ConsoleColor.Green;
         else if (httpMethod == HttpMethod.Get)
-            color = ConsoleColor.DarkCyan;
+            color = ConsoleColor.Cyan;
         else if (httpMethod == HttpMethod.Put)
-            color = ConsoleColor.DarkYellow;
-        else if (httpMethod == HttpMethod.Patch)
             color = ConsoleColor.Yellow;
+        else if (httpMethod == HttpMethod.Patch)
+            color = ConsoleColor.Magenta;
         else if (httpMethod == HttpMethod.Delete)
-            color = ConsoleColor.DarkRed;
+            color = ConsoleColor.Red;
         else
             color = ConsoleColor.White;
 

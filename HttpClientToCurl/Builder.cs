@@ -35,7 +35,7 @@ internal static class Builder
 
             string inputUri = uri?.Trim();
             if (!string.IsNullOrWhiteSpace(inputUri) && inputUri.StartsWith("/"))
-                inputUri = inputUri.Remove(0);
+                inputUri = inputUri.Remove(0, 1);
 
             return stringBuilder
                 .Append($"{inputBaseUrl}/{inputUri}")
