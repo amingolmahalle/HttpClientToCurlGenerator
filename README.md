@@ -61,6 +61,34 @@ If you like this project, learn something or you are using it in your applicatio
         // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
+### Sample code **Post Method** for FormUrlEncodedContent type (it will be written in the console):
+```
+        string requestBody = @"{ ""name"" : ""justin"",""requestId"" : 10001026,""amount"":26000 }";
+        string requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+         httpRequestMessage.Content = new FormUrlEncodedContent(new[]
+        {
+            new KeyValuePair<string, string>("session", "703438f3-16ad-4ba5-b923-8f72cd0f2db9"),
+            new KeyValuePair<string, string>("payload", requestBody),
+        });
+        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213");
+
+        httpClient.GenerateCurlInConsole(
+            httpRequestMessage,
+            requestUri,
+            configs =>
+            {
+                configs.TurnOn = true;
+                configs.NeedAddDefaultHeaders = true;
+                configs.EnableCodeBeautification = false;
+            });
+
+        // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
+```
+
 ### Sample code for **Post Method** (it will be written in the file):
 
 If the path variable is null or empty, then the file is created in the **root project**.
