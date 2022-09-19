@@ -25,7 +25,7 @@ internal static class Builder
             .Append(' ');
     }
 
-    internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string baseUrl, string uri)
+    internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string baseUrl, string requestUri)
     {
         if (!string.IsNullOrWhiteSpace(baseUrl))
         {
@@ -33,7 +33,8 @@ internal static class Builder
             if (inputBaseUrl.EndsWith("/"))
                 inputBaseUrl = inputBaseUrl.Remove(inputBaseUrl.Length - 1);
 
-            string inputUri = uri?.Trim();
+            string inputUri = requestUri?.Trim();
+            
             if (!string.IsNullOrWhiteSpace(inputUri) && inputUri.StartsWith("/"))
                 inputUri = inputUri.Remove(0, 1);
 

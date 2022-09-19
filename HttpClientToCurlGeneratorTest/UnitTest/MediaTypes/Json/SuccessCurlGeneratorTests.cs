@@ -75,6 +75,35 @@ public class SuccessCurlGeneratorTests
     }
     
     [Theory]
+    public void GenerateCurl_Without_RequestUri_For_PostMethod()
+    {
+        // Arrange
+        string requestBody = @"{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }";
+
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "/qapi/test");
+        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        httpRequestMessage.Headers.Add("Authorization", "4797c126-3f8a-454a-aff1-96c0220dae61");
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213");
+
+        // Act
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            httpRequestMessage.RequestUri?.ToString(),
+            true);
+
+        // Assert
+        Assert.That(script, Is.Not.Null);
+        Assert.That(script, Is.Not.Empty);
+        Assert.That(script, Does.StartWith("curl -X POST"));
+        Assert.That(script?.Trim(),
+            Is.EqualTo(
+                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }'"));
+    }
+    
+    [Theory]
     public void GenerateCurl_UrlEncoded_For_PostMethod()
     {
         // Arrange

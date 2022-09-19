@@ -7,7 +7,7 @@ public static class Main
 {
     #region :: EXTENSIONS ::
 
-    public static void GenerateCurlInConsole(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, Action<ConsoleConfig> config = null)
+    public static void GenerateCurlInConsole(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri = null, Action<ConsoleConfig> config = null)
     {
         var consoleConfig = new ConsoleConfig();
         config?.Invoke(consoleConfig);
@@ -15,7 +15,7 @@ public static class Main
         if (!consoleConfig.TurnOn)
             return;
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, requestUri, consoleConfig.NeedAddDefaultHeaders);
+        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, requestUri ?? httpRequestMessage.RequestUri?.ToString(), consoleConfig.NeedAddDefaultHeaders);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
