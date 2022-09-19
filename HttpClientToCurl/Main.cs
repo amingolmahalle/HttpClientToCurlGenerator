@@ -15,12 +15,18 @@ public static class Main
         if (!consoleConfig.TurnOn)
             return;
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, requestUri ?? httpRequestMessage.RequestUri?.ToString(), consoleConfig.NeedAddDefaultHeaders);
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            string.IsNullOrWhiteSpace(requestUri)
+                ? httpRequestMessage.RequestUri?.ToString()
+                : requestUri,
+            consoleConfig.NeedAddDefaultHeaders);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
 
-    public static void GenerateCurlInFile(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri, Action<FileConfig> config = null)
+    public static void GenerateCurlInFile(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri = null, Action<FileConfig> config = null)
     {
         var fileConfig = new FileConfig();
         config?.Invoke(fileConfig);
@@ -28,7 +34,13 @@ public static class Main
         if (!fileConfig.TurnOn)
             return;
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, requestUri, fileConfig.NeedAddDefaultHeaders);
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            string.IsNullOrWhiteSpace(requestUri)
+                ? httpRequestMessage.RequestUri?.ToString()
+                : requestUri,
+            fileConfig.NeedAddDefaultHeaders);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
