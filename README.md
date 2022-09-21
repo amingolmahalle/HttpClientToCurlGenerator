@@ -24,7 +24,7 @@ You have **2 ways** to see script results:
 **2- File**
 (e.g. **httpClient.GenerateCurlInFile(httpRequestMessage, requestUri, null);** )
 
-(Parameters of 'requestUri' and 'configs' for both of them are optional.)
+(Parameters of 'requestUri' and 'config' for both of them are optional.)
 
 I will be happy say me if you have any feedback and your solution to improve the code and also if you find a problem. 
 also, I will be extremely happy if you contribute to the implementation and improvement of the project.
@@ -58,7 +58,7 @@ If you like this project, learn something or you are using it in your applicatio
                 config.EnableCodeBeautification = false;
             });
 
-        // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
+        // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
 ### Sample code **Post Method** for FormUrlEncodedContent (it will be written in the console):
@@ -86,7 +86,7 @@ If you like this project, learn something or you are using it in your applicatio
                 config.EnableCodeBeautification = false;
             });
 
-        // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
+        // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
 ### Sample code for **Post Method** without set the requestUri (it will be written in the console):
@@ -108,7 +108,7 @@ If you like this project, learn something or you are using it in your applicatio
                 config.EnableCodeBeautification = false;
             });
 
-        // Call PostAsync =>  await client.PostAsync(httpRequestMessage.RequestUri?.ToString(), httpRequest.Content);
+        // Call PostAsync => await client.PostAsync(httpRequestMessage.RequestUri?.ToString(), httpRequest.Content);
 ```
 
 ### Sample code for **Post Method** (it will be written in the file):
@@ -139,7 +139,7 @@ If the filename variable is null or empty, then the current date will be set for
                 config.NeedAddDefaultHeaders = true;
             });
 
-        // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
+        // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
 ### Sample code for **Get Method** (it will be written in the console):
@@ -162,7 +162,7 @@ If the filename variable is null or empty, then the current date will be set for
                 config.EnableCodeBeautification = false;
             });
 
-        // Call GetAsync =>  await client.GetAsync(requestUri);
+        // Call GetAsync => await client.GetAsync(requestUri);
 ```
 
 ### Sample code for **Get Method** (it will be written in the file):
@@ -192,7 +192,7 @@ If the filename variable is null or empty, then the current date will be set for
                 config.NeedAddDefaultHeaders = true;
             });
 
-        // Call GetAsync =>  await client.GetAsync(requestUri);
+        // Call GetAsync => await client.GetAsync(requestUri);
 ```
 
 ### Sample code for **Put Method** (it will be written in the console):
@@ -216,7 +216,7 @@ If the filename variable is null or empty, then the current date will be set for
                 config.EnableCodeBeautification = false;
             });
 
-        // Call PutAsync =>  await client.PutAsync(requestUri, httpRequest.Content);
+        // Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
 ```
 
 ### Sample code for **Put Method** (it will be written in the file):
@@ -247,7 +247,7 @@ If the filename variable is null or empty, then the current date will be set for
                 config.NeedAddDefaultHeaders = true;
             });
 
-        // Call PutAsync =>  await client.PutAsync(requestUri, httpRequest.Content);
+        // Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
 ```
 
 ### Sample code for **Patch Method** (it will be written in the console):
@@ -271,7 +271,7 @@ If the filename variable is null or empty, then the current date will be set for
                 config.EnableCodeBeautification = false;
             });
 
-        // Call PatchAsync =>  await client.PatchAsync(requestUri, httpRequest.Content);
+        // Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
 ```
 
 ### Sample code for **Patch Method** (it will be written in the file):
@@ -302,7 +302,7 @@ If the filename variable is null or empty, then the current date will be set for
                 config.NeedAddDefaultHeaders = true;
             });
 
-        // Call PatchAsync =>  await client.PatchAsync(requestUri, httpRequest.Content);
+        // Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
 ```
 
 ### Sample code for **Delete Method** (it will be written in the console):
@@ -326,7 +326,7 @@ If the filename variable is null or empty, then the current date will be set for
                 config.EnableCodeBeautification = false;
             });
 
-        // Call DeleteAsync =>  await client.DeleteAsync(requestUri);
+        // Call DeleteAsync => await client.DeleteAsync(requestUri);
 ```
 
 ### Sample code for **Delete Method** (it will be written in the file):
@@ -357,7 +357,7 @@ If the filename variable is null or empty, then the current date will be set for
                 config.NeedAddDefaultHeaders = true;
             });
 
-        // Call DeleteAsync =>  await client.DeleteAsync(requestUri);
+        // Call DeleteAsync => await client.DeleteAsync(requestUri);
 ```
 
 I Hope Enjoying this extension in your projects.
