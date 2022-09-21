@@ -51,11 +51,11 @@ If you like this project, learn something or you are using it in your applicatio
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
-                configs.EnableCodeBeautification = false;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
+                config.EnableCodeBeautification = false;
             });
 
         // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
@@ -79,14 +79,36 @@ If you like this project, learn something or you are using it in your applicatio
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
-                configs.EnableCodeBeautification = false;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
+                config.EnableCodeBeautification = false;
             });
 
         // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
+```
+
+### Sample code for **Post Method** without set the requestUri (it will be written in the console):
+```
+        string requestBody = @"{ ""name"" : ""soozan"",""requestId"" : ""10001027"",""amount"":27000 }";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "api/test");
+        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213");
+
+        httpClient.GenerateCurlInConsole(
+            httpRequestMessage,
+            config: config =>
+            {
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
+                config.EnableCodeBeautification = false;
+            });
+
+        // Call PostAsync =>  await client.PostAsync(httpRequestMessage.RequestUri?.ToString(), httpRequest.Content);
 ```
 
 ### Sample code for **Post Method** (it will be written in the file):
@@ -109,12 +131,12 @@ If the filename variable is null or empty, then the current date will be set for
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.Filename = filename;
-                configs.Path = path;
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
+                config.Filename = filename;
+                config.Path = path;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
             });
 
         // Call PostAsync =>  await client.PostAsync(requestUri, httpRequest.Content);
@@ -133,11 +155,11 @@ If the filename variable is null or empty, then the current date will be set for
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
-                configs.EnableCodeBeautification = false;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
+                config.EnableCodeBeautification = false;
             });
 
         // Call GetAsync =>  await client.GetAsync(requestUri);
@@ -162,12 +184,12 @@ If the filename variable is null or empty, then the current date will be set for
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.Filename = filename;
-                configs.Path = path;
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
+                config.Filename = filename;
+                config.Path = path;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
             });
 
         // Call GetAsync =>  await client.GetAsync(requestUri);
@@ -187,11 +209,11 @@ If the filename variable is null or empty, then the current date will be set for
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
-                configs.EnableCodeBeautification = false;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
+                config.EnableCodeBeautification = false;
             });
 
         // Call PutAsync =>  await client.PutAsync(requestUri, httpRequest.Content);
@@ -217,12 +239,12 @@ If the filename variable is null or empty, then the current date will be set for
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.Filename = filename;
-                configs.Path = path;
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
+                config.Filename = filename;
+                config.Path = path;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
             });
 
         // Call PutAsync =>  await client.PutAsync(requestUri, httpRequest.Content);
@@ -242,11 +264,11 @@ If the filename variable is null or empty, then the current date will be set for
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
-                configs.EnableCodeBeautification = false;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
+                config.EnableCodeBeautification = false;
             });
 
         // Call PatchAsync =>  await client.PatchAsync(requestUri, httpRequest.Content);
@@ -272,12 +294,12 @@ If the filename variable is null or empty, then the current date will be set for
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.Filename = filename;
-                configs.Path = path;
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
+                config.Filename = filename;
+                config.Path = path;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
             });
 
         // Call PatchAsync =>  await client.PatchAsync(requestUri, httpRequest.Content);
@@ -297,11 +319,11 @@ If the filename variable is null or empty, then the current date will be set for
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
-                configs.EnableCodeBeautification = false;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
+                config.EnableCodeBeautification = false;
             });
 
         // Call DeleteAsync =>  await client.DeleteAsync(requestUri);
@@ -327,12 +349,12 @@ If the filename variable is null or empty, then the current date will be set for
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
             requestUri,
-            configs =>
+            config =>
             {
-                configs.Filename = filename;
-                configs.Path = path;
-                configs.TurnOn = true;
-                configs.NeedAddDefaultHeaders = true;
+                config.Filename = filename;
+                config.Path = path;
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
             });
 
         // Call DeleteAsync =>  await client.DeleteAsync(requestUri);
