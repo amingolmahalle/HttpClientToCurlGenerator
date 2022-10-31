@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Version>1.8.1</Version>
-        <PackageReleaseNotes>1.8.1</PackageReleaseNotes>
+        <Authors>Amin Golmahalleh</Authors>
+        <Version>1.8.2</Version>
+        <PackageReleaseNotes>1.8.2</PackageReleaseNotes>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>

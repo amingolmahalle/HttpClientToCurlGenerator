@@ -7,6 +7,24 @@ public static class Main
 {
     #region :: EXTENSIONS ::
 
+    public static string GenerateCurlInString(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri = null, Action<StringConfig> config = null)
+    {
+        var stringConfig = new StringConfig();
+        config?.Invoke(stringConfig);
+
+        if (!stringConfig.TurnOn)
+            return string.Empty;
+
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            string.IsNullOrWhiteSpace(requestUri)
+                ? httpRequestMessage.RequestUri?.ToString()
+                : requestUri,
+            stringConfig.NeedAddDefaultHeaders);
+
+        return script;
+    }
     public static void GenerateCurlInConsole(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, string requestUri = null, Action<ConsoleConfig> config = null)
     {
         var consoleConfig = new ConsoleConfig();
