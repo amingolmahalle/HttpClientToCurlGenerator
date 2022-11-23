@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+
 namespace HttpClientToCurl.Utility;
 
 public static class Helpers
@@ -30,5 +32,26 @@ public static class Helpers
             using var streamWriter = File.CreateText(fullPath);
             streamWriter.WriteLine(script);
         }
+    }
+
+    public static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody)
+    {
+        var httpRequestMessage = new HttpRequestMessage
+        {
+            Method = httpMethod
+        };
+
+        if (requestBody is not null)
+            httpRequestMessage.Content = requestBody;
+
+        if (requestHeaders is not null && requestHeaders.Any())
+        {
+            foreach (var header in requestHeaders)
+            {
+                httpRequestMessage.Headers.Add(header.Key, header.Value);
+            }
+        }
+
+        return httpRequestMessage;
     }
 }
