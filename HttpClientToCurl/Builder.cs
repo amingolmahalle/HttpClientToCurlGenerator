@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Mime;
 using System.Text;
 using System.Web;
@@ -34,7 +35,7 @@ internal static class Builder
                 inputBaseUrl = inputBaseUrl.Remove(inputBaseUrl.Length - 1);
 
             string inputUri = requestUri?.Trim();
-            
+
             if (!string.IsNullOrWhiteSpace(inputUri) && inputUri.StartsWith("/"))
                 inputUri = inputUri.Remove(0, 1);
 
@@ -51,12 +52,12 @@ internal static class Builder
         bool hasHeader = false;
         if (needAddDefaultHeaders && httpClient.DefaultRequestHeaders.Any())
         {
-            foreach (var row in httpClient.DefaultRequestHeaders)
+            foreach (var header in httpClient.DefaultRequestHeaders.Where(dh => dh.Key != HttpRequestHeader.ContentLength.ToString()))
             {
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
+                    .Append($"\'{header.Key}: {header.Value.FirstOrDefault()}\'")
                     .Append(' ');
             }
 
@@ -65,12 +66,12 @@ internal static class Builder
 
         if (httpRequestMessage.Headers.Any())
         {
-            foreach (var row in httpRequestMessage.Headers)
+            foreach (var header in httpRequestMessage.Headers.Where(h => h.Key != HttpRequestHeader.ContentLength.ToString()))
             {
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
+                    .Append($"\'{header.Key}: {header.Value.FirstOrDefault()}\'")
                     .Append(' ');
             }
 
@@ -79,12 +80,12 @@ internal static class Builder
 
         if (httpRequestMessage.Content != null && httpRequestMessage.Content.Headers.Any())
         {
-            foreach (var row in httpRequestMessage.Content.Headers)
+            foreach (var header in httpRequestMessage.Content.Headers.Where(h => h.Key != HttpRequestHeader.ContentLength.ToString()))
             {
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{row.Key}: {row.Value.FirstOrDefault()}\'")
+                    .Append($"\'{header.Key}: {header.Value.FirstOrDefault()}\'")
                     .Append(' ');
             }
 
