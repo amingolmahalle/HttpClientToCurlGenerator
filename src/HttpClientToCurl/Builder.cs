@@ -22,8 +22,7 @@ internal static class Builder
                 .Append(httpMethod.Method);
         }
 
-        return stringBuilder
-            .Append(' ');
+        return stringBuilder.Append(' ');
     }
 
     internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string baseUrl, string requestUri)
@@ -100,10 +99,10 @@ internal static class Builder
 
     internal static StringBuilder AddBody(this StringBuilder stringBuilder, HttpContent content)
     {
-        string contentType = content.Headers.ContentType?.MediaType;
-        string body = content.ReadAsStringAsync().GetAwaiter().GetResult();
+        string contentType = content?.Headers?.ContentType?.MediaType;
+        string body = content?.ReadAsStringAsync().GetAwaiter().GetResult();
 
-        if (!_IsValidBody(body, contentType))
+        if (content is not null && !_IsValidBody(body, contentType))
             throw new JsonException($"exception in parsing body {contentType}!");
 
         if (contentType == "application/x-www-form-urlencoded")

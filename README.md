@@ -37,7 +37,7 @@ If you like this project, learn something or you are using it in your applicatio
 
 ## **How to use HttpClientToCurlGenerator**:
 
-### Sample code for **Post Method** (it will be written in the **console**):
+### **Post Method** sample code (it will be written in the **console**):
 ```
         string requestBody = @"{ ""name"" : ""amin"",""requestId"" : ""10001000"",""amount"":10000 }";
         string requestUri = "api/test";
@@ -61,7 +61,7 @@ If you like this project, learn something or you are using it in your applicatio
         // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
-### Sample code **Post Method** for FormUrlEncodedContent (it will be written in the **console**):
+### **Post Method** sample code for FormUrlEncodedContent (it will be written in the **console**):
 ```
         string requestBody = @"{ ""name"" : ""justin"",""requestId"" : 10001026,""amount"":26000 }";
         string requestUri = "api/test";
@@ -89,7 +89,7 @@ If you like this project, learn something or you are using it in your applicatio
         // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
-### Sample code for **Post Method** without set the requestUri (it will be written in the **console**):
+### **Post Method** sample code without set the requestUri (it will be written in the **console**):
 ```
         string requestBody = @"{ ""name"" : ""soozan"",""requestId"" : ""10001027"",""amount"":27000 }";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "api/test");
@@ -111,7 +111,39 @@ If you like this project, learn something or you are using it in your applicatio
         // Call PostAsync => await client.PostAsync(httpRequestMessage.RequestUri?.ToString(), httpRequest.Content);
 ```
 
-### Sample code for **Post Method** (it will be written in the **file**):
+### **Post Method** sample code for xml (it will be written in the **console**):
+
+```
+  public void GenerateCurl_For_PostMethod()
+    {
+        string requestBody = @"<?xml version = ""1.0"" encoding = ""UTF-8""?>
+            <Order>
+            <Id>12</Id>
+            <name>Jason</name>
+            <requestId>10001024</requestId>
+            <amount>240000</amount>
+            </Order>";
+
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "api/test");
+        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213");
+
+        httpClient.GenerateCurlInConsole(
+            httpRequestMessage,
+            config: config =>
+            {
+                config.TurnOn = true;
+                config.NeedAddDefaultHeaders = true;
+                config.EnableCodeBeautification = false;
+            });
+
+      // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
+```
+
+### **Post Method** sample code (it will be written in the **file**):
 
 If the path variable is null or empty, then the file is created in the **root project**.
 
@@ -142,7 +174,7 @@ If the filename variable is null or empty, then the current date will be set for
         // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
-### Sample code for **Get Method** (it will be written in the **console**):
+### **Get Method** sample code (it will be written in the **console**):
 ```
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -165,7 +197,7 @@ If the filename variable is null or empty, then the current date will be set for
         // Call GetAsync => await client.GetAsync(requestUri);
 ```
 
-### Sample code for **Get Method** (it will be written in the **file**):
+### **Get Method** sample code (it will be written in the **file**):
 
 If the path variable is null or empty, then the file is created in the **root project**.
 
@@ -195,7 +227,7 @@ If the filename variable is null or empty, then the current date will be set for
         // Call GetAsync => await client.GetAsync(requestUri);
 ```
 
-### Sample code for **Put Method** (it will be written in the **console**):
+### **Put Method** sample code (it will be written in the **console**):
 ```
         string requestBody = @"{ ""name"" : ""jadi"",""requestId"" : ""10001003"",""amount"":30000 }";
         string requestUri = "api/test";
@@ -219,7 +251,7 @@ If the filename variable is null or empty, then the current date will be set for
         // Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
 ```
 
-### Sample code for **Put Method** (it will be written in the **file**):
+### **Put Method** sample code (it will be written in the **file**):
 
 If the path variable is null or empty, then the file is created in the **root project**.
 
@@ -250,7 +282,7 @@ If the filename variable is null or empty, then the current date will be set for
         // Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
 ```
 
-### Sample code for **Patch Method** (it will be written in the **console**):
+### **Patch Method** sample code (it will be written in the **console**):
 ```
         string requestBody = @"{ ""name"" : ""hamed"",""requestId"" : ""10001005"",""amount"":50000 }";
         string requestUri = "api/test";
@@ -274,7 +306,7 @@ If the filename variable is null or empty, then the current date will be set for
         // Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
 ```
 
-### Sample code for **Patch Method** (it will be written in the **file**):
+### **Patch Method** sample code (it will be written in the **file**):
 
 If the path variable is null or empty, then the file is created in the **root project**.
 
@@ -305,7 +337,7 @@ If the filename variable is null or empty, then the current date will be set for
         // Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
 ```
 
-### Sample code for **Delete Method** (it will be written in the **console**):
+### **Delete Method** sample code (it will be written in the **console**):
 ```
         int id = 12;
         string requestUri = $"api/test/{id}";
@@ -329,7 +361,7 @@ If the filename variable is null or empty, then the current date will be set for
         // Call DeleteAsync => await client.DeleteAsync(requestUri);
 ```
 
-### Sample code for **Delete Method** (it will be written in the **file**):
+### **Delete Method** sample code (it will be written in the **file**):
 
 If the path variable is null or empty, then the file is created in the **root project**.
 
@@ -360,4 +392,6 @@ If the filename variable is null or empty, then the current date will be set for
         // Call DeleteAsync => await client.DeleteAsync(requestUri);
 ```
 
-I Hope Enjoying this extension in your projects.
+**You can see more samples in UnitTest files in Project.**
+
+I hope enjoying this extension in your projects.
