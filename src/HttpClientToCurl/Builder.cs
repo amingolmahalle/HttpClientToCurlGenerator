@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net.Mime;
 using System.Text;
 using System.Web;
 using HttpClientToCurl.Utility;
@@ -51,7 +50,8 @@ internal static class Builder
         bool hasHeader = false;
         if (needAddDefaultHeaders && httpClient.DefaultRequestHeaders.Any())
         {
-            foreach (var header in httpClient.DefaultRequestHeaders.Where(dh => dh.Key != HttpRequestHeader.ContentLength.ToString()))
+            var defaultHeaders = httpClient.DefaultRequestHeaders.Where(dh => dh.Key != HttpRequestHeader.ContentLength.ToString());
+            foreach (var header in defaultHeaders)
             {
                 stringBuilder
                     .Append("-H")
@@ -65,7 +65,8 @@ internal static class Builder
 
         if (httpRequestMessage.Headers.Any())
         {
-            foreach (var header in httpRequestMessage.Headers.Where(h => h.Key != HttpRequestHeader.ContentLength.ToString()))
+            var headers = httpRequestMessage.Headers.Where(h => h.Key != HttpRequestHeader.ContentLength.ToString());
+            foreach (var header in headers)
             {
                 stringBuilder
                     .Append("-H")
@@ -102,7 +103,7 @@ internal static class Builder
         string contentType = content?.Headers?.ContentType?.MediaType;
         string body = content?.ReadAsStringAsync().GetAwaiter().GetResult();
 
-        if (content is not null && !_IsValidBody(body, contentType))
+        if (content is not null && !string.IsNullOrWhiteSpace(body) && !Helpers.IsValidBody(body, contentType))
             throw new JsonException($"exception in parsing body {contentType}!");
 
         if (contentType == "application/x-www-form-urlencoded")
@@ -134,16 +135,4 @@ internal static class Builder
             .Append(body)
             .Append('\'')
             .Append(' ');
-
-    private static bool _IsValidBody(string body, string contentType)
-    {
-        switch (contentType)
-        {
-            case MediaTypeNames.Application.Json when body.IsValidJson() == false:
-            case MediaTypeNames.Text.Xml when body.IsValidXml() == false:
-                return false;
-            default:
-                return true;
-        }
-    }
 }

@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using System.Net.Mime;
 
 namespace HttpClientToCurl.Utility;
 
@@ -53,5 +54,17 @@ public static class Helpers
         }
 
         return httpRequestMessage;
+    }
+    
+    public static bool IsValidBody(string body, string contentType)
+    {
+        switch (contentType)
+        {
+            case MediaTypeNames.Application.Json when body.IsValidJson() == false:
+            case MediaTypeNames.Text.Xml when body.IsValidXml() == false:
+                return false;
+            default:
+                return true;
+        }
     }
 }

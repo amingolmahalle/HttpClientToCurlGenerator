@@ -11,11 +11,40 @@ public class SuccessCurlGeneratorTests
     #region :: GenerateCurl_For_PostMethod ::
 
     [Theory]
-    public void GenerateCurl_For_PostMethods()
+    public void GenerateCurl_Without_Body_For_PostMethod()
     {
         // Arrange
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+        httpRequestMessage.Headers.Add("Authorization", "c332e9a1-1e0e-44c2-b819-b0e7e8ff7d45");
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213");
+
+        // Act
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            requestUri,
+            true);
+
+        // Assert
+        Assert.That(script, Is.Not.Null);
+        Assert.That(script, Is.Not.Empty);
+        Assert.That(script, Does.StartWith("curl -X POST"));
+        Assert.That(script?.Trim(),
+            Is.EqualTo(
+                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: c332e9a1-1e0e-44c2-b819-b0e7e8ff7d45' -H 'Content-Type: application/json; charset=utf-8' -d ''"));
+    }
+    
+    [Theory]
+    public void GenerateCurl_Without_Content_For_PostMethod()
+    {
+        // Arrange
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+        httpRequestMessage.Content = null;
         httpRequestMessage.Headers.Add("Authorization", "56bfa7a0-0541-4d71-9efc-8b28219ac31a");
 
         using var httpClient = new HttpClient();
@@ -65,6 +94,37 @@ public class SuccessCurlGeneratorTests
         Assert.That(script?.Trim(),
             Is.EqualTo(
                 @"curl -X POST http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }'"));
+    }
+    
+    [Theory]
+    public void GenerateCurl_With_ContentLength_For_PostMethod()
+    {
+        // Arrange
+        string requestBody = @"{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }";
+
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        httpRequestMessage.Headers.Add("Authorization", "f69406a4-6b62-4734-a8dc-158f0fc308ab");
+        httpRequestMessage.Headers.Add("ContentLength", "123");
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213");
+
+        // Act
+        string script = Generator.GenerateCurl(
+            httpClient,
+            httpRequestMessage,
+            requestUri,
+            true);
+
+        // Assert
+        Assert.That(script, Is.Not.Null);
+        Assert.That(script, Is.Not.Empty);
+        Assert.That(script, Does.StartWith("curl -X POST"));
+        Assert.That(script?.Trim(),
+            Is.EqualTo(
+                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: f69406a4-6b62-4734-a8dc-158f0fc308ab' -H 'Content-Type: application/json; charset=utf-8' -d '{ ""name"" : ""sara"",""requestId"" : 10001001,""amount"":20000 }'"));
     }
     
     [Theory]
