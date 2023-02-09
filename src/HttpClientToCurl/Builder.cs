@@ -32,13 +32,15 @@ internal static class Builder
             if (inputBaseUrl.EndsWith("/"))
                 inputBaseUrl = inputBaseUrl.Remove(inputBaseUrl.Length - 1);
 
-            string inputUri = requestUri?.Trim();
+            StringBuilder inputUri = new StringBuilder();
 
-            if (!string.IsNullOrWhiteSpace(inputUri) && inputUri.StartsWith("/"))
-                inputUri = inputUri.Remove(0, 1);
+            if (!string.IsNullOrWhiteSpace(requestUri?.Trim()) && !requestUri.StartsWith("/"))
+                inputUri = inputUri.Append('/');
+
+            inputUri.Append(requestUri?.Trim());
 
             return stringBuilder
-                .Append($"{inputBaseUrl}/{inputUri}")
+                .Append($"{inputBaseUrl}{inputUri}")
                 .Append(' ');
         }
 

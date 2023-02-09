@@ -7,13 +7,13 @@ namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Json;
 
 public class FailedCurlGeneratorTests
 {
-    #region :: GenerateCurl_For_PatchMethod ::
+    #region :: GenerateCurl For Post Method ::
 
     [Theory]
-    public void GenerateCurl_Invalid_HttpMethod()
+    public void GenerateCurl_When_Invalid_HttpMethod()
     {
         // Arrange
-        string requestBody = @"{ ""name"" : ""russel"",""requestId"" : 10001004,""amount"":50000 }";
+        string requestBody = @"{""name"":""russel"",""requestId"":10001004,""amount"":50000}";
 
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Trace, requestUri);
@@ -38,10 +38,10 @@ public class FailedCurlGeneratorTests
     }
 
     [Theory]
-    public void GenerateCurl_Invalid_JsonBody()
+    public void GenerateCurl_When_Invalid_JsonBody()
     {
         // Arrange
-        string requestBody = @"""name"" : ""steven"",""requestId"" : 10001005,""amount"":60000";
+        string requestBody = @"""name"":""steven"",""requestId"":10001005,""amount"":60000";
 
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -66,10 +66,10 @@ public class FailedCurlGeneratorTests
     }
 
     [Theory]
-    public void GenerateCurl_Invalid_BaseUrl()
+    public void GenerateCurl_When_Invalid_BaseUrl()
     {
         // Arrange
-        string requestBody = @"{ ""name"" : ""nancy"",""requestId"" : 10001006,""amount"":70000 }";
+        string requestBody = @"{""name"":""nancy"",""requestId"":10001006,""amount"":70000}";
 
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
