@@ -49,7 +49,7 @@ If you like this project, learn something or you are using it in your applicatio
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -77,7 +77,7 @@ If you like this project, learn something or you are using it in your applicatio
             new KeyValuePair<string, string>("session", "703438f3-16ad-4ba5-b923-8f72cd0f2db9"),
             new KeyValuePair<string, string>("payload", requestBody),
         });
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -110,7 +110,7 @@ If you like this project, learn something or you are using it in your applicatio
 
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "api/test");
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -139,7 +139,7 @@ If the filename variable is null or empty, then the current date will be set for
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -163,7 +163,7 @@ If the filename variable is null or empty, then the current date will be set for
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -192,7 +192,7 @@ If the filename variable is null or empty, then the current date will be set for
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -217,7 +217,7 @@ If the filename variable is null or empty, then the current date will be set for
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -247,7 +247,7 @@ If the filename variable is null or empty, then the current date will be set for
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -272,7 +272,7 @@ If the filename variable is null or empty, then the current date will be set for
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -302,7 +302,7 @@ If the filename variable is null or empty, then the current date will be set for
         string requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -327,7 +327,7 @@ If the filename variable is null or empty, then the current date will be set for
         string requestUri = $"api/test/{id}";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -357,7 +357,7 @@ If the filename variable is null or empty, then the current date will be set for
         string requestUri = $"api/test/{id}";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", Guid.NewGuid().ToString());
+        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");

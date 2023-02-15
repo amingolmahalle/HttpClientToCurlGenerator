@@ -22,7 +22,7 @@ public class SuccessCurlGeneratorTests
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Text.Xml);
-        httpRequestMessage.Headers.Add("Authorization", "4797c126-3f8a-454a-aff1-96c0220dae61");
+        httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213");
@@ -40,7 +40,7 @@ public class SuccessCurlGeneratorTests
         Assert.That(script, Does.StartWith("curl -X POST"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: text/xml; charset=utf-8' -d '<?xml version = ""1.0"" encoding = ""UTF-8""?>
+                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: text/xml; charset=utf-8' -d '<?xml version = ""1.0"" encoding = ""UTF-8""?>
             <Order>
             <Id>12</Id>
             <name>Jason</name>
