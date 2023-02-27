@@ -29,22 +29,32 @@ internal static class Builder
         if (!string.IsNullOrWhiteSpace(baseUrl))
         {
             string inputBaseUrl = baseUrl.Trim();
-            if (inputBaseUrl.EndsWith("/"))
+
+            string inputRequestUri = requestUri?.Trim();
+            if (!string.IsNullOrWhiteSpace(inputRequestUri))
+            {
+                if (inputRequestUri.StartsWith('/'))
+                {
+                    inputRequestUri = inputRequestUri.Remove(0, 1);
+                    var warningMessage = AddWarningMessageForAdditionalSlash();
+
+                    stringBuilder
+                        .Insert(0, warningMessage)
+                        .Insert(warningMessage.Length, Environment.NewLine);
+                }
+            }
+            else
                 inputBaseUrl = inputBaseUrl.Remove(inputBaseUrl.Length - 1);
-
-            StringBuilder inputUri = new StringBuilder();
-
-            if (!string.IsNullOrWhiteSpace(requestUri?.Trim()) && !requestUri.StartsWith("/"))
-                inputUri = inputUri.Append('/');
-
-            inputUri.Append(requestUri?.Trim());
-
+            
             return stringBuilder
-                .Append($"{inputBaseUrl}{inputUri}")
+                .Append($"{inputBaseUrl}{inputRequestUri}")
                 .Append(' ');
         }
 
         throw new InvalidDataException("baseUrl argument is null or empty!");
+
+        string AddWarningMessageForAdditionalSlash()
+            => "# Warning: you must remove the Slash at the first of the requestUri.";
     }
 
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders = true)

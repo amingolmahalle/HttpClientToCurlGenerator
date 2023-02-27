@@ -44,7 +44,7 @@ public class SuccessScenariosTests
         // Arrange
         string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
 
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "/api/test");
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "api/test");
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
