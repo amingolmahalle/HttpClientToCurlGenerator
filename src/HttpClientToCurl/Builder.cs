@@ -26,35 +26,56 @@ internal static class Builder
 
     internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string baseUrl, string requestUri)
     {
-        if (!string.IsNullOrWhiteSpace(baseUrl))
+        bool hasSlashEndOfBaseUrl = false;
+        bool hasSlashFirstOfRequestUri = false;
+        string splitterUrl = string.Empty;
+
+        string inputBaseUrl = baseUrl?.Trim();
+        if (!string.IsNullOrWhiteSpace(inputBaseUrl))
         {
-            string inputBaseUrl = baseUrl.Trim();
+            if (inputBaseUrl.EndsWith('/'))
+                hasSlashEndOfBaseUrl = true;
 
             string inputRequestUri = requestUri?.Trim();
             if (!string.IsNullOrWhiteSpace(inputRequestUri))
             {
                 if (inputRequestUri.StartsWith('/'))
-                {
-                    inputRequestUri = inputRequestUri.Remove(0, 1);
-                    var warningMessage = AddWarningMessageForAdditionalSlash();
+                    hasSlashFirstOfRequestUri = true;
 
+                string warningMessage = CheckAndAddWarningMessageForIncorrectSlash(hasSlashEndOfBaseUrl, hasSlashFirstOfRequestUri, out splitterUrl);
+                if (!string.IsNullOrEmpty(warningMessage))
+                {
                     stringBuilder
                         .Insert(0, warningMessage)
                         .Insert(warningMessage.Length, Environment.NewLine);
                 }
             }
-            else
+
+            if (hasSlashEndOfBaseUrl && (string.IsNullOrEmpty(inputRequestUri) || hasSlashFirstOfRequestUri))
                 inputBaseUrl = inputBaseUrl.Remove(inputBaseUrl.Length - 1);
-            
+
             return stringBuilder
-                .Append($"{inputBaseUrl}{inputRequestUri}")
+                .Append($"{inputBaseUrl}{splitterUrl}{inputRequestUri}")
                 .Append(' ');
         }
 
         throw new InvalidDataException("baseUrl argument is null or empty!");
 
-        string AddWarningMessageForAdditionalSlash()
-            => "# Warning: you must remove the Slash at the first of the requestUri.";
+        string CheckAndAddWarningMessageForIncorrectSlash(bool hasOnBaseUrl, bool hasOnRequestUri, out string splitter)
+        {
+            string message = string.Empty;
+            splitter = string.Empty;
+
+            if (hasOnBaseUrl && hasOnRequestUri)
+                message = "# Warning: you must remove the Slash at the end of base url or at the first of the requestUri.";
+            else if (!hasOnBaseUrl && !hasOnRequestUri)
+            {
+                splitter = "/";
+                message = "# Warning: you must add the Slash at the end of base url or at the first of the requestUri.";
+            }
+
+            return message;
+        }
     }
 
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders = true)

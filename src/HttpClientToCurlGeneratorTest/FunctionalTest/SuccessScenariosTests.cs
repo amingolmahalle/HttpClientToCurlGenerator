@@ -18,13 +18,13 @@ public class SuccessScenariosTests
         // Arrange
         string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
 
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage, requestUri);
@@ -35,7 +35,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
     }
 
     [Theory]
@@ -44,12 +44,12 @@ public class SuccessScenariosTests
         // Arrange
         string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
 
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "api/test");
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "/api/test");
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
@@ -60,7 +60,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
     }
 
     [Theory]
@@ -74,7 +74,7 @@ public class SuccessScenariosTests
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
@@ -85,20 +85,20 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+                @"curl -X POST http://localhost:1213/v1 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
     }
 
     [Theory]
     public void Success_GenerateCurlInString_When_RequestBody_Is_Null_For_PostMethod()
     {
         // Arrange
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage, requestUri);
@@ -109,19 +109,19 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d ''"));
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d ''"));
     }
 
     [Theory]
     public void Success_GenerateCurlInString_When_HttpContent_Is_Null_For_PostMethod()
     {
         // Arrange
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage, requestUri);
@@ -132,7 +132,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''"));
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''"));
     }
 
     [Theory]
@@ -148,12 +148,12 @@ public class SuccessScenariosTests
 
         JsonContent jsonContent = JsonContent.Create(requestObject);
 
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         HttpRequestHeaders httpRequestHeaders = new HttpRequestMessage().Headers;
         httpRequestHeaders.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
@@ -165,19 +165,19 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
     }
 
     [Theory]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_And_Body_Is_Null_For_PostMethod()
     {
         // Arrange
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         HttpRequestHeaders httpRequestHeaders = new HttpRequestMessage().Headers;
         httpRequestHeaders.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
@@ -189,7 +189,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''"));
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''"));
     }
 
     [Theory]
@@ -209,7 +209,7 @@ public class SuccessScenariosTests
         httpRequestHeaders.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
@@ -221,7 +221,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+                @"curl -X POST http://localhost:1213/v1 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
     }
 
     [Theory]
@@ -237,10 +237,10 @@ public class SuccessScenariosTests
 
         JsonContent jsonContent = JsonContent.Create(requestObject);
 
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
@@ -252,7 +252,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl -X POST http://localhost:1213/api/test -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
     }
 
     #endregion
@@ -263,13 +263,13 @@ public class SuccessScenariosTests
     public void Success_GenerateCurlInString_For_GetMethod()
     {
         // Arrange
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
@@ -279,7 +279,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Is.Not.Empty);
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
-            Is.EqualTo(@"curl http://localhost:1213/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
+            Is.EqualTo(@"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
     }
 
     [Theory]
@@ -290,13 +290,13 @@ public class SuccessScenariosTests
         {
             { "id", "12" }
         };
-        var requestUri = QueryHelpers.AddQueryString("api/test", queryString);
+        var requestUri = QueryHelpers.AddQueryString("/api/test", queryString);
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
@@ -306,7 +306,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Is.Not.Empty);
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
-            Is.EqualTo(@"curl http://localhost:1213/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
+            Is.EqualTo(@"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
     }
 
     [Theory]
@@ -318,7 +318,7 @@ public class SuccessScenariosTests
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
@@ -328,19 +328,19 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Is.Not.Empty);
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
-            Is.EqualTo(@"curl http://localhost:1213 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
+            Is.EqualTo(@"curl http://localhost:1213/v1 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
     }
 
     [Theory]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_For_GetMethod()
     {
         // Arrange
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         HttpRequestHeaders httpRequestHeaders = new HttpRequestMessage().Headers;
         httpRequestHeaders.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
@@ -352,7 +352,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl http://localhost:1213/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'"));
+                @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'"));
     }
 
     [Theory]
@@ -363,7 +363,7 @@ public class SuccessScenariosTests
         httpRequestHeaders.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
@@ -375,17 +375,17 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl http://localhost:1213 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'"));
+                @"curl http://localhost:1213/v1 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'"));
     }
 
     [Theory]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_And_HttpRequestHeader_Is_null_For_GetMethod()
     {
         // Arrange
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
@@ -397,7 +397,7 @@ public class SuccessScenariosTests
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
-                @"curl http://localhost:1213/api/test"));
+                @"curl http://localhost:1213/v1/api/test"));
     }
 
     #endregion

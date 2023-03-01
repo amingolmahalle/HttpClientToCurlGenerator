@@ -15,13 +15,13 @@ public class FailedCurlGeneratorTests
         // Arrange
         string requestBody = @"{""name"":""russel"",""requestId"":10001004,""amount"":50000}";
 
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Trace, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -43,13 +43,13 @@ public class FailedCurlGeneratorTests
         // Arrange
         string requestBody = @"""name"":""steven"",""requestId"":10001005,""amount"":60000";
 
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -71,7 +71,7 @@ public class FailedCurlGeneratorTests
         // Arrange
         string requestBody = @"{""name"":""nancy"",""requestId"":10001006,""amount"":70000}";
 
-        var requestUri = "api/test";
+        var requestUri = "/api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
