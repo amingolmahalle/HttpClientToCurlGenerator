@@ -28,7 +28,6 @@ public class SuccessCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -59,7 +58,6 @@ public class SuccessCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -93,7 +91,6 @@ public class SuccessCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -128,7 +125,6 @@ public class SuccessCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -155,7 +151,6 @@ public class SuccessCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -183,7 +178,6 @@ public class SuccessCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -196,7 +190,7 @@ public class SuccessCurlGeneratorTests
     }
 
     [Theory]
-    public void GenerateCurl_Along_With_Warning_When_Has__Additional_Slash_For_PostMethod()
+    public void GenerateCurl_Along_With_Warning_When_Has_Additional_Slash_For_PostMethod()
     {
         // Arrange
         string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
@@ -213,7 +207,6 @@ public class SuccessCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -225,7 +218,7 @@ public class SuccessCurlGeneratorTests
                 @"# Warning: you must remove the Slash at the end of base url or at the first of the requestUri.
 curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
     }
-    
+
     [Theory]
     public void GenerateCurl_Along_With_Warning_When_Has_Fewer_Slash_For_PostMethod()
     {
@@ -244,7 +237,6 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -277,7 +269,6 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -285,7 +276,8 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
         Assert.That(script, Is.Not.Empty);
         Assert.That(script, Does.StartWith("curl"));
         Assert.That(script?.Trim(),
-            Is.EqualTo(@"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
+            Is.EqualTo(
+                @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
     }
 
     [Theory]
@@ -308,7 +300,6 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -336,7 +327,6 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -347,7 +337,7 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
             Is.EqualTo(@"# Warning: you must remove the Slash at the end of base url or at the first of the requestUri.
 curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
     }
-    
+
     [Theory]
     public void GenerateCurl_Along_With_Warning_When_Has_Fewer_Slash_For_GetMethod()
     {
@@ -364,7 +354,6 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -398,7 +387,6 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -432,7 +420,6 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -465,7 +452,6 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert

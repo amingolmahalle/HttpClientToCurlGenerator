@@ -31,7 +31,6 @@ public class SuccessCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert

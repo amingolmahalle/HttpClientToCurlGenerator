@@ -27,7 +27,7 @@ public class SuccessScenariosTests
         httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
-        string curlResult = httpClient.GenerateCurlInString(httpRequestMessage, requestUri);
+        string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
         Assert.That(curlResult, Is.Not.Null);
@@ -101,7 +101,7 @@ public class SuccessScenariosTests
         httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
-        string curlResult = httpClient.GenerateCurlInString(httpRequestMessage, requestUri);
+        string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
         Assert.That(curlResult, Is.Not.Null);
@@ -124,7 +124,7 @@ public class SuccessScenariosTests
         httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
 
         // Act
-        string curlResult = httpClient.GenerateCurlInString(httpRequestMessage, requestUri);
+        string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
         Assert.That(curlResult, Is.Not.Null);

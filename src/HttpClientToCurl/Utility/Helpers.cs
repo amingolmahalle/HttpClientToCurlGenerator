@@ -35,7 +35,7 @@ public static class Helpers
         }
     }
 
-    public static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody)
+    public static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody, string requestUri)
     {
         var httpRequestMessage = new HttpRequestMessage
         {
@@ -53,9 +53,11 @@ public static class Helpers
             }
         }
 
+        httpRequestMessage.RequestUri = !string.IsNullOrWhiteSpace(requestUri) ? new Uri(requestUri, UriKind.RelativeOrAbsolute) : null;
+
         return httpRequestMessage;
     }
-    
+
     public static bool IsValidBody(string body, string contentType)
     {
         switch (contentType)

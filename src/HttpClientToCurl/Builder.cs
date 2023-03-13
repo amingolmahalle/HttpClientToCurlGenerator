@@ -81,6 +81,7 @@ internal static class Builder
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders = true)
     {
         bool hasHeader = false;
+        
         if (needAddDefaultHeaders && httpClient.DefaultRequestHeaders.Any())
         {
             var defaultHeaders = httpClient.DefaultRequestHeaders.Where(dh => dh.Key != HttpRequestHeader.ContentLength.ToString());
@@ -89,7 +90,7 @@ internal static class Builder
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {header.Value.FirstOrDefault()}\'")
+                    .Append($"\'{header.Key}: {header.Value?.FirstOrDefault()}\'")
                     .Append(' ');
             }
 
@@ -104,7 +105,7 @@ internal static class Builder
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {header.Value.FirstOrDefault()}\'")
+                    .Append($"\'{header.Key}: {header.Value?.FirstOrDefault()}\'")
                     .Append(' ');
             }
 
@@ -118,7 +119,7 @@ internal static class Builder
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {header.Value.FirstOrDefault()}\'")
+                    .Append($"\'{header.Key}: {header.Value?.FirstOrDefault()}\'")
                     .Append(' ');
             }
 

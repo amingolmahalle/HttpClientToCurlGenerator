@@ -27,7 +27,6 @@ public class FailedCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -55,7 +54,6 @@ public class FailedCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
@@ -83,7 +81,6 @@ public class FailedCurlGeneratorTests
         string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
-            requestUri,
             true);
 
         // Assert
