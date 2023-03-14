@@ -30,6 +30,13 @@ You have **3 ways** to see script result:
 
 - **Notice**: Parameters of 'requestUri' and 'config' for both of them are optional.
 
+**Read more about this extension:**
+
+[English Article](https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclient-in-net-c539da7c6588)
+
+[Persian Article](https://vrgl.ir/FPx11)
+
+
 I will be happy say me if you have any feedback and your solution to improve the code and also if you find a problem. 
 also, I will be extremely happy if you contribute to the implementation and improvement of the project.
 
