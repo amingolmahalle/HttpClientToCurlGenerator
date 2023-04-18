@@ -1,5 +1,5 @@
+using System.Text.Json;
 using System.Xml;
-using Newtonsoft.Json.Linq;
 
 namespace HttpClientToCurl.Utility;
 
@@ -24,8 +24,7 @@ public static class Extensions
 
         return color;
     }
-
-
+    
     public static string NormalizedPath(this string path)
     {
         string inputPath = path?.Trim();
@@ -54,7 +53,7 @@ public static class Extensions
         {
             try
             {
-                JToken.Parse(stringInput);
+                JsonDocument.Parse(stringInput);
                 return true;
             }
             catch

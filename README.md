@@ -17,15 +17,15 @@ It's easy to use. just you should install the package on your project from the b
 You have **3 ways** to see script result:
 
 **1: Show to the IDE Console**
-(e.g. **httpClient.GenerateCurlInConsole(httpRequestMessage, requestUri, null);**)
+(e.g. **httpClient.GenerateCurlInConsole(httpRequestMessage);**)
 
 - **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. you should **remove enters** from the script.
 
 **2: Write in a File**
-(e.g. **httpClient.GenerateCurlInFile(httpRequestMessage, requestUri, null);**)
+(e.g. **httpClient.GenerateCurlInFile(httpRequestMessage);**)
 
 **3: Put it in a String Variable.**
-(e.g. **string curlResult = httpClient.GenerateCurlInString(httpRequestMessage, requestUri, null);**)
+(e.g. **string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);**)
 
 
 - **Notice**: Parameters of 'requestUri' and 'config' for both of them are optional.
@@ -63,7 +63,6 @@ If you like this project, learn something or you are using it in your applicatio
 
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.TurnOn = true;
@@ -91,7 +90,6 @@ If you like this project, learn something or you are using it in your applicatio
 
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.TurnOn = true;
@@ -105,8 +103,6 @@ If you like this project, learn something or you are using it in your applicatio
 ### **Post Method** sample code for xml (it will be written in the **console**):
 
 ```
-  public void GenerateCurl_For_PostMethod()
-    {
         string requestBody = @"<?xml version = ""1.0"" encoding = ""UTF-8""?>
             <Order>
             <Id>12</Id>
@@ -153,7 +149,6 @@ If the filename variable is null or empty, then the current date will be set for
 
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.Filename = filename;
@@ -177,7 +172,6 @@ If the filename variable is null or empty, then the current date will be set for
 
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.TurnOn = true;
@@ -206,7 +200,6 @@ If the filename variable is null or empty, then the current date will be set for
 
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.Filename = filename;
@@ -231,7 +224,6 @@ If the filename variable is null or empty, then the current date will be set for
 
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.TurnOn = true;
@@ -261,7 +253,6 @@ If the filename variable is null or empty, then the current date will be set for
 
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.Filename = filename;
@@ -286,7 +277,6 @@ If the filename variable is null or empty, then the current date will be set for
 
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.TurnOn = true;
@@ -316,7 +306,6 @@ If the filename variable is null or empty, then the current date will be set for
 
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.Filename = filename;
@@ -341,7 +330,6 @@ If the filename variable is null or empty, then the current date will be set for
 
         httpClient.GenerateCurlInConsole(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.TurnOn = true;
@@ -371,7 +359,6 @@ If the filename variable is null or empty, then the current date will be set for
 
         httpClient.GenerateCurlInFile(
             httpRequestMessage,
-            requestUri,
             config =>
             {
                 config.Filename = filename;
