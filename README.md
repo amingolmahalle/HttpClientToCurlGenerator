@@ -16,19 +16,28 @@ It's easy to use. just you should install the package on your project from the b
 
 You have **3 ways** to see script result:
 
-**1:Put it in a string variable.**
-(e.g. **string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);**)
+**1: Put it in a string variable:**
 
-**2:Show to the IDE console**
-(e.g. **httpClient.GenerateCurlInConsole(httpRequestMessage);**)
+```
+string curlScript = httpClient.GenerateCurlInString(httpRequestMessage);
+```
 
-- **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. you should **remove enters** from the script.
+**2: Show to the IDE console:**
 
-**3:Write in a file**
-(e.g. **httpClient.GenerateCurlInFile(httpRequestMessage);**)
+```
+httpClient.GenerateCurlInConsole(httpRequestMessage);
+```
+- **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. 
+you should **remove enters** from the script.
+- **Notice**: 'config' Parameter is optional.
 
+**3: Write in a file:**
 
-- **Notice**: Parameters of 'requestUri' and 'config' for both of them are optional.
+```
+httpClient.GenerateCurlInFile(httpRequestMessage);
+```
+
+- **Notice**: 'config' Parameter is optional.
 
 **Read more about this extension:**
 
