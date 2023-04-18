@@ -16,16 +16,16 @@ It's easy to use. just you should install the package on your project from the b
 
 You have **3 ways** to see script result:
 
-**1: Show to the IDE Console**
+**1: Put it in a String Variable.**
+(e.g. **string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);**)
+
+**2: Show to the IDE Console**
 (e.g. **httpClient.GenerateCurlInConsole(httpRequestMessage);**)
 
 - **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. you should **remove enters** from the script.
 
-**2: Write in a File**
+**3: Write in a File**
 (e.g. **httpClient.GenerateCurlInFile(httpRequestMessage);**)
-
-**3: Put it in a String Variable.**
-(e.g. **string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);**)
 
 
 - **Notice**: Parameters of 'requestUri' and 'config' for both of them are optional.
