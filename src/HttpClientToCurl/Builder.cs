@@ -81,7 +81,7 @@ internal static class Builder
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders = true)
     {
         bool hasHeader = false;
-        
+
         if (needAddDefaultHeaders && httpClient.DefaultRequestHeaders.Any())
         {
             var defaultHeaders = httpClient.DefaultRequestHeaders.Where(dh => dh.Key != HttpRequestHeader.ContentLength.ToString());
@@ -138,7 +138,7 @@ internal static class Builder
         string body = content?.ReadAsStringAsync().GetAwaiter().GetResult();
 
         if (content is not null && !string.IsNullOrWhiteSpace(body) && !Helpers.IsValidBody(body, contentType))
-            throw new JsonException($"exception in parsing body {contentType}!");
+            throw new JsonException($"exception in parsing request body {contentType}!{Environment.NewLine}request body:{Environment.NewLine}{body}");
 
         if (contentType == "application/x-www-form-urlencoded")
             _AddFormUrlEncodedContentBody(stringBuilder, body);
