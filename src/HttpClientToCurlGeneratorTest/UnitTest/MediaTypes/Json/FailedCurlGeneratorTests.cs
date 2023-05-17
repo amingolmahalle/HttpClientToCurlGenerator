@@ -30,10 +30,9 @@ public class FailedCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("GenerateCurlError"));
-        Assert.That(script?.Trim(), Is.EqualTo($"GenerateCurlError => invalid HttpMethod: {httpRequestMessage.Method.Method}!."));
+        Assert.That(script?.Trim(), Is.EqualTo($"GenerateCurlError => invalid HttpMethod: {httpRequestMessage.Method.Method}!"));
     }
 
     [Theory]
@@ -57,10 +56,11 @@ public class FailedCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("GenerateCurlError"));
-        Assert.That(script?.Trim(), Is.EqualTo("GenerateCurlError => exception in parsing body application/json!."));
+        Assert.That(script?.Trim(), Is.EqualTo(@"GenerateCurlError => exception in parsing request body application/json!
+request body:
+""name"":""steven"",""requestId"":10001005,""amount"":60000"));
     }
 
     [Theory]
@@ -84,10 +84,9 @@ public class FailedCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("GenerateCurlError"));
-        Assert.That(script?.Trim(), Is.EqualTo("GenerateCurlError => baseUrl argument is null or empty!."));
+        Assert.That(script?.Trim(), Is.EqualTo("GenerateCurlError => baseUrl argument is null or empty!"));
     }
 
     #endregion

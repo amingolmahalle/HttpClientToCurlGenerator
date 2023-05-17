@@ -31,8 +31,7 @@ public class SuccessCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl -X POST"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -61,8 +60,7 @@ public class SuccessCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl -X POST"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -94,8 +92,7 @@ public class SuccessCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl -X POST"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -128,8 +125,7 @@ public class SuccessCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script?.Trim(),
             Is.EqualTo(
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/x-www-form-urlencoded' -d 'session=703438f3-16ad-4ba5-b923-8f72cd0f2db9' -d 'payload={""name"":""justin"",""requestId"":10001026,""amount"":26000}'"));
@@ -154,8 +150,7 @@ public class SuccessCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl -X POST"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -181,8 +176,7 @@ public class SuccessCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl -X POST"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -210,8 +204,7 @@ public class SuccessCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("# Warning"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -240,8 +233,7 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("# Warning"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -272,8 +264,7 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -303,8 +294,7 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -330,8 +320,7 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("# Warning"));
         Assert.That(script?.Trim(),
             Is.EqualTo(@"# Warning: you must remove the Slash at the end of base url or at the first of the requestUri.
@@ -357,8 +346,7 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("# Warning"));
         Assert.That(script?.Trim(),
             Is.EqualTo(@"# Warning: you must add the Slash at the end of base url or at the first of the requestUri.
@@ -390,8 +378,7 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl -X PUT"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -423,8 +410,7 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl -X PATCH"));
         Assert.That(script?.Trim(),
             Is.EqualTo(
@@ -455,8 +441,7 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
             true);
 
         // Assert
-        Assert.That(script, Is.Not.Null);
-        Assert.That(script, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
         Assert.That(script, Does.StartWith("curl -X DELETE"));
         Assert.That(script?.Trim(),
             Is.EqualTo(

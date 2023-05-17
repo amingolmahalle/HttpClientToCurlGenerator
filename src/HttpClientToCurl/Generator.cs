@@ -26,7 +26,8 @@ public static class Generator
         }
         catch (Exception exception)
         {
-            script = $"GenerateCurlError => {exception.Message}.{exception.InnerException}";
+            script = $"GenerateCurlError => {exception.Message} {exception.InnerException}";
+            script = $"GenerateCurlError => {exception.Message} {exception.InnerException}";
         }
 
         return script;

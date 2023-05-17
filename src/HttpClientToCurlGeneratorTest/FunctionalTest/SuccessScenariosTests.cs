@@ -30,8 +30,7 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -55,8 +54,7 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -80,8 +78,7 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -104,8 +101,7 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -127,8 +123,7 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -160,8 +155,7 @@ public class SuccessScenariosTests
             HttpMethod.Post, requestUri, httpRequestHeaders, jsonContent);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -184,8 +178,7 @@ public class SuccessScenariosTests
             HttpMethod.Post, requestUri, httpRequestHeaders);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -216,8 +209,7 @@ public class SuccessScenariosTests
             httpMethod: HttpMethod.Post, requestHeaders: httpRequestHeaders, requestBody: jsonContent);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -247,8 +239,7 @@ public class SuccessScenariosTests
             httpMethod: HttpMethod.Post, requestUri: requestUri, requestBody: jsonContent);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl -X POST"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -275,11 +266,11 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
-            Is.EqualTo(@"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
+            Is.EqualTo(
+                @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
     }
 
     [Theory]
@@ -302,11 +293,11 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
-            Is.EqualTo(@"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
+            Is.EqualTo(
+                @"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
     }
 
     [Theory]
@@ -324,8 +315,7 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(@"curl http://localhost:1213/v1 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
@@ -347,8 +337,7 @@ public class SuccessScenariosTests
             HttpMethod.Get, requestUri, httpRequestHeaders);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -370,8 +359,7 @@ public class SuccessScenariosTests
             httpMethod: HttpMethod.Get, requestHeaders: httpRequestHeaders);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
@@ -392,8 +380,7 @@ public class SuccessScenariosTests
             HttpMethod.Get, requestUri);
 
         // Assert
-        Assert.That(curlResult, Is.Not.Null);
-        Assert.That(curlResult, Is.Not.Empty);
+        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
         Assert.That(curlResult, Does.StartWith("curl"));
         Assert.That(curlResult?.Trim(),
             Is.EqualTo(
