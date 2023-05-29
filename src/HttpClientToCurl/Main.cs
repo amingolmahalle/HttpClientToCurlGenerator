@@ -45,6 +45,7 @@ public static class Main
         return script;
     }
 
+
     public static void GenerateCurlInConsole(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, Action<ConsoleConfig> config = null)
     {
         var consoleConfig = new ConsoleConfig();
