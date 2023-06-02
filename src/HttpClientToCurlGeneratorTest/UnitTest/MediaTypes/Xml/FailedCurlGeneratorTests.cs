@@ -1,14 +1,15 @@
-using System.Net.Mime;
-using System.Text;
+using FluentAssertions;
 using HttpClientToCurl;
 using NUnit.Framework;
+using System.Net.Mime;
+using System.Text;
 
 namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Xml;
 
 public class FailedCurlGeneratorTests
 {
     [Theory]
-    public void GenerateCurl_When_Invalid_Xml()
+    public void Get_Error_Message_When_Input_XML_Is_Invalid()
     {
         // Arrange
         string requestBody = @"<xml version = ""1.0"" encoding = ""UTF-8""?>
@@ -34,9 +35,10 @@ public class FailedCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
-        Assert.That(script, Does.StartWith("GenerateCurlError"));
-        Assert.That(script?.Trim(), Is.EqualTo(@"GenerateCurlError => exception in parsing request body text/xml!
+        script.Should().NotBeNull();
+        script.Should().NotBeEmpty();
+        script.Should().StartWith("GenerateCurlError");
+        script.Should().BeEquivalentTo(@"GenerateCurlError => exception in parsing request body text/xml!
 request body:
 <xml version = ""1.0"" encoding = ""UTF-8""?>
             <Order>
@@ -44,6 +46,6 @@ request body:
             <name>Jason</name>
             <requestId>10001024</requestId>
             <amount>240000</amount>
-            </Order>"));
+            </Order> ");
     }
 }
