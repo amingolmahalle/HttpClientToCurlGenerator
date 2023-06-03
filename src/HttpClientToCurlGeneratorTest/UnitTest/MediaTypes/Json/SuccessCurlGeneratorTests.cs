@@ -1,9 +1,9 @@
-using System.Net.Mime;
-using System.Text;
 using FluentAssertions;
 using HttpClientToCurl;
 using Microsoft.AspNetCore.WebUtilities;
 using NUnit.Framework;
+using System.Net.Mime;
+using System.Text;
 
 namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Json;
 
