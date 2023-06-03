@@ -1,5 +1,6 @@
 using System.Net.Mime;
 using System.Text;
+using FluentAssertions;
 using HttpClientToCurl;
 using NUnit.Framework;
 
@@ -7,8 +8,6 @@ namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Json;
 
 public class FailedCurlGeneratorTests
 {
-    #region :: GenerateCurl For Post Method ::
-
     [Theory]
     public void GenerateCurl_When_Invalid_HttpMethod()
     {
@@ -30,9 +29,9 @@ public class FailedCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
-        Assert.That(script, Does.StartWith("GenerateCurlError"));
-        Assert.That(script?.Trim(), Is.EqualTo($"GenerateCurlError => invalid HttpMethod: {httpRequestMessage.Method.Method}!"));
+        script.Should().NotBeNullOrEmpty();
+        script.Should().StartWith("GenerateCurlError");
+        script.Trim().Should().BeEquivalentTo($"GenerateCurlError => invalid HttpMethod: {httpRequestMessage.Method.Method}!");
     }
 
     [Theory]
@@ -56,11 +55,11 @@ public class FailedCurlGeneratorTests
             true);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
-        Assert.That(script, Does.StartWith("GenerateCurlError"));
-        Assert.That(script?.Trim(), Is.EqualTo(@"GenerateCurlError => exception in parsing request body application/json!
+        script.Should().NotBeNullOrEmpty();
+        script.Should().StartWith("GenerateCurlError");
+        script.Trim().Should().BeEquivalentTo(@"GenerateCurlError => exception in parsing request body application/json!
 request body:
-""name"":""steven"",""requestId"":10001005,""amount"":60000"));
+""name"":""steven"",""requestId"":10001005,""amount"":60000");
     }
 
     [Theory]
@@ -84,10 +83,10 @@ request body:
             true);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(script?.Trim()), Is.True);
-        Assert.That(script, Does.StartWith("GenerateCurlError"));
-        Assert.That(script?.Trim(), Is.EqualTo("GenerateCurlError => baseUrl argument is null or empty!"));
+        script.Should().NotBeNullOrEmpty();
+        script.Should().StartWith("GenerateCurlError");
+        script.Trim().Should().BeEquivalentTo("GenerateCurlError => baseUrl argument is null or empty!");
     }
 
-    #endregion
+
 }

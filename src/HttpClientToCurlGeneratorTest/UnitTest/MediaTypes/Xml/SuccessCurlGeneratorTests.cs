@@ -35,8 +35,7 @@ public class SuccessCurlGeneratorTests
             true);
 
         // Assert
-        script.Should().NotBeNull();
-        script.Should().NotBeEmpty();
+        script.Should().NotBeNullOrEmpty();
         script.Should().StartWith("curl -X POST");
         script.Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: text/xml; charset=utf-8' -d '<?xml version = ""1.0"" encoding = ""UTF-8""?>
             <Order>
