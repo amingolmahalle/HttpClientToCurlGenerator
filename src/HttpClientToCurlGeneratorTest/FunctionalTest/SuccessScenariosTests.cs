@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Net.Mime;
 using System.Text;
+using FluentAssertions;
 using HttpClientToCurl;
 using Microsoft.AspNetCore.WebUtilities;
 using NUnit.Framework;
@@ -30,11 +31,11 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl -X POST"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Theory]
@@ -54,11 +55,11 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl -X POST"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Theory]
@@ -78,11 +79,11 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl -X POST"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl -X POST http://localhost:1213/v1 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST http://localhost:1213/v1 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Theory]
@@ -101,11 +102,11 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl -X POST"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d ''"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d ''");
     }
 
     [Theory]
@@ -123,11 +124,9 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl -X POST"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''");
     }
 
     [Theory]
@@ -155,11 +154,11 @@ public class SuccessScenariosTests
             HttpMethod.Post, requestUri, httpRequestHeaders, jsonContent);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl -X POST"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Theory]
@@ -178,11 +177,9 @@ public class SuccessScenariosTests
             HttpMethod.Post, requestUri, httpRequestHeaders);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl -X POST"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''");
     }
 
     [Theory]
@@ -209,11 +206,11 @@ public class SuccessScenariosTests
             httpMethod: HttpMethod.Post, requestHeaders: httpRequestHeaders, requestBody: jsonContent);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl -X POST"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl -X POST http://localhost:1213/v1 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST http://localhost:1213/v1 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Theory]
@@ -239,11 +236,11 @@ public class SuccessScenariosTests
             httpMethod: HttpMethod.Post, requestUri: requestUri, requestBody: jsonContent);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl -X POST"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     #endregion
@@ -266,11 +263,11 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
     [Theory]
@@ -293,11 +290,11 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
     [Theory]
@@ -315,10 +312,10 @@ public class SuccessScenariosTests
         string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(@"curl http://localhost:1213/v1 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(@"curl http://localhost:1213/v1 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
     [Theory]
@@ -337,11 +334,9 @@ public class SuccessScenariosTests
             HttpMethod.Get, requestUri, httpRequestHeaders);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'");
     }
 
     [Theory]
@@ -359,11 +354,9 @@ public class SuccessScenariosTests
             httpMethod: HttpMethod.Get, requestHeaders: httpRequestHeaders);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl http://localhost:1213/v1 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'");
     }
 
     [Theory]
@@ -380,11 +373,9 @@ public class SuccessScenariosTests
             HttpMethod.Get, requestUri);
 
         // Assert
-        Assert.That(!string.IsNullOrWhiteSpace(curlResult?.Trim()), Is.True);
-        Assert.That(curlResult, Does.StartWith("curl"));
-        Assert.That(curlResult?.Trim(),
-            Is.EqualTo(
-                @"curl http://localhost:1213/v1/api/test"));
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/api/test");
     }
 
     #endregion
