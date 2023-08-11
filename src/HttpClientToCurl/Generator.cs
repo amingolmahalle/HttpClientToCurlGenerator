@@ -92,5 +92,5 @@ public static class Generator
             .ToString();
     }
 
-    #endregion
+    #endregion :: CURL GENERATORS ::
 }

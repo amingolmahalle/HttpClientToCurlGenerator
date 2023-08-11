@@ -88,7 +88,7 @@ public static class Main
     public static void GenerateCurlInConsole(
         this HttpClient httpClient,
         HttpMethod httpMethod,
-        string requestUri = null,
+        string requestUri = "",
         HttpRequestHeaders requestHeaders = null,
         HttpContent requestBody = null,
         Action<ConsoleConfig> config = null)
@@ -109,7 +109,7 @@ public static class Main
     public static void GenerateCurlInConsole(
         this HttpClient httpClient,
         HttpMethod httpMethod,
-        Uri requestUri = null,
+        Uri requestUri,
         HttpRequestHeaders requestHeaders = null,
         HttpContent requestBody = null,
         Action<ConsoleConfig> config = null)
@@ -147,7 +147,7 @@ public static class Main
     public static void GenerateCurlInFile(
         this HttpClient httpClient,
         HttpMethod httpMethod,
-        string requestUri,
+        string requestUri="",
         HttpRequestHeaders requestHeaders = null,
         HttpContent requestBody = null,
         Action<FileConfig> config = null)

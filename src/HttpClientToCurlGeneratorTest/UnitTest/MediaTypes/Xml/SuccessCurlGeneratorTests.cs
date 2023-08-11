@@ -9,7 +9,7 @@ namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Xml;
 public class SuccessCurlGeneratorTests
 {
     [Theory]
-    public void Get_Curl_Script_When_Input_XML_Is_Valid()
+    public void Get_Curl_Script_For_PostMethod()
     {
         // Arrange
         string requestBody = @"<?xml version = ""1.0"" encoding = ""UTF-8""?>
@@ -47,7 +47,7 @@ public class SuccessCurlGeneratorTests
     }
     
     [Theory]
-    public void Get_Error_Message_When_Input_XML_Is_Invalid()
+    public void Get_Error_Message_When_Input_XML_Is_Invalid_For_PostMethod()
     {
         // Arrange
         string requestBody = @"<xml version = ""1.0"" encoding = ""UTF-8""?>

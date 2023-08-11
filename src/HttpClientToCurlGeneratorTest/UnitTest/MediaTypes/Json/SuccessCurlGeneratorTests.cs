@@ -199,7 +199,7 @@ public class SuccessCurlGeneratorTests
     }
 
     [Theory]
-    public void GenerateCurl_When_Null_Base_Address_PostMethod()
+    public void GenerateCurl_When_BaseAddress_Is_Null_PostMethod()
     {
         // Arrange
         string requestBody = @"{""name"":""nancy"",""requestId"":10001006,""amount"":70000}";
@@ -351,5 +351,4 @@ public class SuccessCurlGeneratorTests
         script.Should().StartWith("curl -X DELETE");
         script.Trim().Should().BeEquivalentTo(@"curl -X DELETE http://localhost:1213/v1/api/test/12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
-
 }

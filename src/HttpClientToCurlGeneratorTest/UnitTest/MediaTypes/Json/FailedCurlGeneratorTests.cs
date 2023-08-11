@@ -9,7 +9,7 @@ namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Json;
 public class FailedCurlGeneratorTests
 {
     [Theory]
-    public void GenerateCurl_When_Invalid_HttpMethod()
+    public void GenerateCurl_When_HttpMethod_Is_Invalid()
     {
         // Arrange
         string requestBody = @"{""name"":""russel"",""requestId"":10001004,""amount"":50000}";
@@ -30,7 +30,7 @@ public class FailedCurlGeneratorTests
 
         // Assert
         script.Should().NotBeNullOrEmpty();
-        script.Should().StartWith("GenerateCurlError");
+        script.Should().StartWith("GenerateCurlError => not supported");
         script.Trim().Should().BeEquivalentTo($"GenerateCurlError => not supported {httpRequestMessage.Method.Method}!");
     }
 }

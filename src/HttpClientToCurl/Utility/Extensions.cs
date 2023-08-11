@@ -1,7 +1,32 @@
+using System.Text;
+using System.Web;
+
 namespace HttpClientToCurl.Utility;
 
 internal static class Extensions
 {
+    internal static void AppendBodyItem(this StringBuilder stringBuilder, object body)
+        => stringBuilder
+            .Append("-d")
+            .Append(' ')
+            .Append('\'')
+            .Append(body)
+            .Append('\'')
+            .Append(' ');
+    
+    internal static void AddFormUrlEncodedContentBody(this StringBuilder stringBuilder, string body)
+    {
+        string decodedBody = HttpUtility.UrlDecode(body);
+        string[] splitBodyArray = decodedBody.Split('&');
+        if (splitBodyArray.Any())
+        {
+            foreach (string item in splitBodyArray)
+            {
+                stringBuilder.AppendBodyItem(item);
+            }
+        }
+    }
+
     internal static ConsoleColor SetColor(this HttpMethod httpMethod)
     {
         ConsoleColor color;
