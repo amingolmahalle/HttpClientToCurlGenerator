@@ -22,11 +22,10 @@ public static class Generator
             else if (httpRequestMessage.Method == HttpMethod.Delete)
                 script = _GenerateDeleteMethod(httpClient, httpRequestMessage, needAddDefaultHeaders);
             else
-                throw new DataException($"invalid HttpMethod: {httpRequestMessage.Method.Method}!");
+                throw new DataException($"not supported {httpRequestMessage.Method.Method}!");
         }
         catch (Exception exception)
         {
-            script = $"GenerateCurlError => {exception.Message} {exception.InnerException}";
             script = $"GenerateCurlError => {exception.Message} {exception.InnerException}";
         }
 
@@ -40,7 +39,7 @@ public static class Generator
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
-            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri?.ToString())
+            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
             .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
             .Append(' ')
             .ToString();
@@ -51,7 +50,7 @@ public static class Generator
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
-            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri?.ToString())
+            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
             .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
             .AddBody(httpRequestMessage.Content)?
             .Append(' ')
@@ -63,7 +62,7 @@ public static class Generator
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
-            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri?.ToString())
+            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
             .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
             .AddBody(httpRequestMessage.Content)?
             .Append(' ')
@@ -75,7 +74,7 @@ public static class Generator
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
-            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri?.ToString())
+            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
             .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
             .AddBody(httpRequestMessage.Content)?
             .Append(' ')
@@ -87,7 +86,7 @@ public static class Generator
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
-            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri?.ToString())
+            .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
             .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
             .Append(' ')
             .ToString();

@@ -1,11 +1,10 @@
 using System.Net.Http.Headers;
-using System.Net.Mime;
 
 namespace HttpClientToCurl.Utility;
 
 public static class Helpers
 {
-    public static void WriteInConsole(string script, bool enableCodeBeautification, HttpMethod httpMethod)
+    internal static void WriteInConsole(string script, bool enableCodeBeautification, HttpMethod httpMethod)
     {
         if (!enableCodeBeautification)
             Console.WriteLine(script);
@@ -17,7 +16,7 @@ public static class Helpers
         }
     }
 
-    public static void WriteInFile(string script, string filename, string path)
+    internal static void WriteInFile(string script, string filename, string path)
     {
         path = path.NormalizedPath();
         filename = filename.NormalizedFilename();
@@ -35,7 +34,7 @@ public static class Helpers
         }
     }
 
-    public static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody, string requestUri)
+    internal static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody, Uri requestUri)
     {
         var httpRequestMessage = new HttpRequestMessage
         {
@@ -53,20 +52,26 @@ public static class Helpers
             }
         }
 
-        httpRequestMessage.RequestUri = !string.IsNullOrWhiteSpace(requestUri) ? new Uri(requestUri, UriKind.RelativeOrAbsolute) : null;
+        httpRequestMessage.RequestUri = requestUri;
 
         return httpRequestMessage;
     }
 
-    public static bool IsValidBody(string body, string contentType)
+    internal static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody, string requestUri)
     {
-        switch (contentType)
-        {
-            case MediaTypeNames.Application.Json when body.IsValidJson() == false:
-            case MediaTypeNames.Text.Xml when body.IsValidXml() == false:
-                return false;
-            default:
-                return true;
-        }
+        var httpRequestMessage = FillHttpRequestMessage(httpMethod, requestHeaders, requestBody, CreateUri(requestUri));
+
+        return httpRequestMessage;
     }
+
+    internal static bool IsHttpUri(Uri uri)
+    {
+        string scheme = uri.Scheme;
+
+        return (string.Compare("http", scheme, StringComparison.OrdinalIgnoreCase) == 0) ||
+               (string.Compare("https", scheme, StringComparison.OrdinalIgnoreCase) == 0);
+    }
+
+    public static Uri CreateUri(string uri)
+        => string.IsNullOrEmpty(uri) ? null : new Uri(uri, UriKind.RelativeOrAbsolute);
 }

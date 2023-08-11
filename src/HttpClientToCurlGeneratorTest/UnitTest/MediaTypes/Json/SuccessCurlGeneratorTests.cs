@@ -9,21 +9,19 @@ namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Json;
 
 public class SuccessCurlGeneratorTests
 {
-
-
     [Theory]
     public void GenerateCurl_For_PostMethod()
     {
         // Arrange
         string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
 
-        var requestUri = "/api/test";
+        var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -43,14 +41,14 @@ public class SuccessCurlGeneratorTests
         // Arrange
         string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
 
-        var requestUri = "/api/test";
+        var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer f69406a4-6b62-4734-a8dc-158f0fc308ab");
         httpRequestMessage.Headers.Add("ContentLength", "123");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -74,13 +72,13 @@ public class SuccessCurlGeneratorTests
         {
             { "id", "12" }
         };
-        var requestUri = QueryHelpers.AddQueryString("/api/test", queryString);
+        var requestUri = QueryHelpers.AddQueryString("api/test", queryString);
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -101,7 +99,7 @@ public class SuccessCurlGeneratorTests
         // Arrange
         string requestBody = @"{""name"":""justin"",""requestId"":10001026,""amount"":26000}";
 
-        var requestUri = "/api/test";
+        var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new FormUrlEncodedContent(new[]
         {
@@ -112,7 +110,7 @@ public class SuccessCurlGeneratorTests
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -130,13 +128,13 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_Without_RequestBody_For_PostMethod()
     {
         // Arrange
-        var requestUri = "/api/test";
+        var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
         httpRequestMessage.Headers.Add("Authorization", "Bearer c332e9a1-1e0e-44c2-b819-b0e7e8ff7d45");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -154,13 +152,13 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_Without_Content_For_PostMethod()
     {
         // Arrange
-        var requestUri = "/api/test";
+        var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = null;
         httpRequestMessage.Headers.Add("Authorization", "Bearer 56bfa7a0-0541-4d71-9efc-8b28219ac31a");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -173,14 +171,14 @@ public class SuccessCurlGeneratorTests
         script.Should().StartWith("curl -X POST");
         script.Trim().Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 56bfa7a0-0541-4d71-9efc-8b28219ac31a' -d ''");
     }
-
+    
     [Theory]
-    public void GenerateCurl_Along_With_Warning_When_Has_Additional_Slash_For_PostMethod()
+    public void GenerateCurl_When_Invalid_JsonBody_PostMethod()
     {
         // Arrange
-        string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
+        string requestBody = @"""name"":""steven"",""requestId"":10001005,""amount"":60000";
 
-        var requestUri = "/api/test";
+        var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
@@ -196,16 +194,15 @@ public class SuccessCurlGeneratorTests
 
         // Assert
         script.Should().NotBeNullOrEmpty();
-        script.Should().StartWith("# Warning");
-        script.Trim().Should().BeEquivalentTo(@"# Warning: you must remove the Slash at the end of base url or at the first of the requestUri.
-curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+        script.Should().StartWith("curl -X POST");
+        script.Trim().Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '""name"":""steven"",""requestId"":10001005,""amount"":60000'");
     }
 
     [Theory]
-    public void GenerateCurl_Along_With_Warning_When_Has_Fewer_Slash_For_PostMethod()
+    public void GenerateCurl_When_Null_Base_Address_PostMethod()
     {
         // Arrange
-        string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
+        string requestBody = @"{""name"":""nancy"",""requestId"":10001006,""amount"":70000}";
 
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -213,7 +210,7 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = null;
 
         // Act
         string script = Generator.GenerateCurl(
@@ -223,22 +220,21 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
 
         // Assert
         script.Should().NotBeNullOrEmpty();
-        script.Should().StartWith("# Warning");
-        script.Trim().Should().BeEquivalentTo(@"# Warning: you must add the Slash at the end of base url or at the first of the requestUri.
-curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+        script.Should().StartWith("curl -X POST");
+        script.Trim().Should().BeEquivalentTo(@"curl -X POST  -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""nancy"",""requestId"":10001006,""amount"":70000}'");
     }
-
+    
     [Theory]
     public void GenerateCurl_For_GetMethod()
     {
         // Arrange
-        var requestUri = "/api/test";
+        var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -260,31 +256,7 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
         {
             { "id", "12" }
         };
-        var requestUri = QueryHelpers.AddQueryString("/api/test", queryString);
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
-        httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
-
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
-
-        // Act
-        string script = Generator.GenerateCurl(
-            httpClient,
-            httpRequestMessage,
-            true);
-
-        // Assert
-        script.Should().NotBeNullOrEmpty();
-        script.Should().StartWith("curl");
-        script.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
-    }
-
-    [Theory]
-    public void GenerateCurl_Along_With_Warning_When_Has_Additional_Slash_For_GetMethod()
-    {
-        // Arrange
-        var requestUri = "/api/test";
+        var requestUri = QueryHelpers.AddQueryString("api/test", queryString);
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
@@ -300,49 +272,22 @@ curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c12
 
         // Assert
         script.Should().NotBeNullOrEmpty();
-        script.Should().StartWith("# Warning");
-        script.Trim().Should().BeEquivalentTo(@"# Warning: you must remove the Slash at the end of base url or at the first of the requestUri.
-curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
+        script.Should().StartWith("curl");
+        script.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
-
-    [Theory]
-    public void GenerateCurl_Along_With_Warning_When_Has_Fewer_Slash_For_GetMethod()
-    {
-        // Arrange
-        var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
-        httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
-
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
-
-        // Act
-        string script = Generator.GenerateCurl(
-            httpClient,
-            httpRequestMessage,
-            true);
-
-        // Assert
-        script.Should().NotBeNullOrEmpty();
-        script.Should().StartWith("# Warning");
-        script.Trim().Should().BeEquivalentTo(@"# Warning: you must add the Slash at the end of base url or at the first of the requestUri.
-curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
-    }
-
     [Theory]
     public void GenerateCurl_For_PutMethod()
     {
         // Arrange
         string requestBody = @"{""name"":""reza"",""requestId"":10001002,""amount"":30000}";
 
-        var requestUri = "/api/test";
+        var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -362,13 +307,13 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
         // Arrange
         string requestBody = @"{""name"":""hamed"",""requestId"":10001003,""amount"":40000}";
 
-        var requestUri = "/api/test";
+        var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
@@ -387,13 +332,13 @@ curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4
     {
         // Arrange
         var id = 12;
-        var requestUri = $"/api/test/{id}";
+        var requestUri = $"api/test/{id}";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
         using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1");
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(

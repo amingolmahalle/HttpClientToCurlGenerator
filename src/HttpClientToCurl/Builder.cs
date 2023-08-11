@@ -1,6 +1,5 @@
 using System.Net;
 using System.Text;
-using System.Text.Json;
 using System.Web;
 using HttpClientToCurl.Utility;
 
@@ -24,58 +23,39 @@ internal static class Builder
         return stringBuilder.Append(' ');
     }
 
-    internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string baseUrl, string requestUri)
+    internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string inputBaseAddress, Uri inputRequestUri)
     {
-        bool hasSlashEndOfBaseUrl = false;
-        bool hasSlashFirstOfRequestUri = false;
-        string splitterUrl = string.Empty;
+        Uri requestUri = null;
+        Uri baseAddressUri = Helpers.CreateUri(inputBaseAddress);
+        bool baseAddressIsAbsoluteUri = CheckAddressIsAbsoluteUri(baseAddressUri);
+        bool requestUriIsAbsoluteUri = CheckAddressIsAbsoluteUri(inputRequestUri);
+        
+        if (inputRequestUri is null && baseAddressUri is not null && baseAddressIsAbsoluteUri)
+            requestUri = baseAddressUri;
+        else if (baseAddressUri is null && inputRequestUri is not null && requestUriIsAbsoluteUri)
+            requestUri = inputRequestUri;
+        else if (baseAddressUri is not null && inputRequestUri is not null && baseAddressIsAbsoluteUri && !requestUriIsAbsoluteUri)
+            requestUri = new Uri(baseAddressUri, inputRequestUri);
+        else if (baseAddressUri is not null && inputRequestUri is not null && baseAddressIsAbsoluteUri)
+            requestUri = inputRequestUri;
 
-        string inputBaseUrl = baseUrl?.Trim();
-        if (!string.IsNullOrWhiteSpace(inputBaseUrl))
-        {
-            if (inputBaseUrl.EndsWith('/'))
-                hasSlashEndOfBaseUrl = true;
+        return stringBuilder
+            .Append($"{requestUri}")
+            .Append(' ');
+    }
 
-            string inputRequestUri = requestUri?.Trim();
-            if (!string.IsNullOrWhiteSpace(inputRequestUri))
-            {
-                if (inputRequestUri.StartsWith('/'))
-                    hasSlashFirstOfRequestUri = true;
+    private static bool CheckAddressIsAbsoluteUri(Uri baseAddress)
+    {
+        bool isValidAbsoluteAddress = true;
+        
+        if (baseAddress is null)
+            isValidAbsoluteAddress = false;
+        else if (!baseAddress.IsAbsoluteUri)
+            isValidAbsoluteAddress = false;
+        else if (!Helpers.IsHttpUri(baseAddress))
+            isValidAbsoluteAddress = false;
 
-                string warningMessage = CheckAndAddWarningMessageForIncorrectSlash(hasSlashEndOfBaseUrl, hasSlashFirstOfRequestUri, out splitterUrl);
-                if (!string.IsNullOrEmpty(warningMessage))
-                {
-                    stringBuilder
-                        .Insert(0, warningMessage)
-                        .Insert(warningMessage.Length, Environment.NewLine);
-                }
-            }
-
-            if (hasSlashEndOfBaseUrl && (string.IsNullOrEmpty(inputRequestUri) || hasSlashFirstOfRequestUri))
-                inputBaseUrl = inputBaseUrl.Remove(inputBaseUrl.Length - 1);
-
-            return stringBuilder
-                .Append($"{inputBaseUrl}{splitterUrl}{inputRequestUri}")
-                .Append(' ');
-        }
-
-        throw new InvalidDataException("baseUrl argument is null or empty!");
-
-        string CheckAndAddWarningMessageForIncorrectSlash(bool hasOnBaseUrl, bool hasOnRequestUri, out string splitter)
-        {
-            string message = string.Empty;
-            splitter = string.Empty;
-
-            if (hasOnBaseUrl && hasOnRequestUri)
-                message = "# Warning: you must remove the Slash at the end of base url or at the first of the requestUri.";
-            else if (!hasOnBaseUrl && !hasOnRequestUri)
-            {
-                splitter = "/";
-                message = "# Warning: you must add the Slash at the end of base url or at the first of the requestUri.";
-            }
-
-            return message;
-        }
+        return isValidAbsoluteAddress;
     }
 
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders = true)
@@ -136,10 +116,7 @@ internal static class Builder
     {
         string contentType = content?.Headers?.ContentType?.MediaType;
         string body = content?.ReadAsStringAsync().GetAwaiter().GetResult();
-
-        if (content is not null && !string.IsNullOrWhiteSpace(body) && !Helpers.IsValidBody(body, contentType))
-            throw new JsonException($"exception in parsing request body {contentType}!{Environment.NewLine}request body:{Environment.NewLine}{body}");
-
+        
         if (contentType == "application/x-www-form-urlencoded")
             _AddFormUrlEncodedContentBody(stringBuilder, body);
         else
