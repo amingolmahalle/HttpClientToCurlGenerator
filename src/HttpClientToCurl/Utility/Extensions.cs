@@ -13,7 +13,7 @@ internal static class Extensions
             .Append(body)
             .Append('\'')
             .Append(' ');
-    
+
     internal static void AddFormUrlEncodedContentBody(this StringBuilder stringBuilder, string body)
     {
         string decodedBody = HttpUtility.UrlDecode(body);
@@ -46,7 +46,7 @@ internal static class Extensions
 
         return color;
     }
-    
+
     internal static string NormalizedPath(this string path)
     {
         string inputPath = path?.Trim();

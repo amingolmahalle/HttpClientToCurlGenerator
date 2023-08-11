@@ -147,7 +147,7 @@ public static class Main
     public static void GenerateCurlInFile(
         this HttpClient httpClient,
         HttpMethod httpMethod,
-        string requestUri="",
+        string requestUri = "",
         HttpRequestHeaders requestHeaders = null,
         HttpContent requestBody = null,
         Action<FileConfig> config = null)

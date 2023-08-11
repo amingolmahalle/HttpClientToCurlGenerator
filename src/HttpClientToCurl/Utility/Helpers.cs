@@ -63,11 +63,11 @@ public static class Helpers
 
         return httpRequestMessage;
     }
-    
+
     internal static bool CheckAddressIsAbsoluteUri(Uri baseAddress)
     {
         bool isValidAbsoluteAddress = true;
-        
+
         if (baseAddress is null)
             isValidAbsoluteAddress = false;
         else if (!baseAddress.IsAbsoluteUri)

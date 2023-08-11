@@ -38,7 +38,7 @@ public class SuccessScenariosTests
             .BeEquivalentTo(
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
-    
+
     [Theory]
     public void Success_GenerateCurlInString_With_RequestUri_TypeOf_Uri_For_PostMethod()
     {
@@ -117,7 +117,7 @@ public class SuccessScenariosTests
     {
         // Arrange
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post,requestUri);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
@@ -186,7 +186,7 @@ public class SuccessScenariosTests
             .BeEquivalentTo(
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
-    
+
     [Theory]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_With_RequestUri_Typeof_Uri_For_PostMethod()
     {
@@ -261,7 +261,7 @@ public class SuccessScenariosTests
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
-            httpMethod: HttpMethod.Post, requestHeaders: httpRequestHeaders, requestBody: jsonContent,requestUri:string.Empty);
+            httpMethod: HttpMethod.Post, requestHeaders: httpRequestHeaders, requestBody: jsonContent, requestUri: string.Empty);
 
         // Assert
         curlResult.Should().NotBeNullOrEmpty();
