@@ -24,19 +24,23 @@ internal static class Builder
 
     internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string inputBaseAddress, Uri inputRequestUri)
     {
-        Uri requestUri = null;
+        string requestUri;
         Uri baseAddressUri = Helpers.CreateUri(inputBaseAddress);
         bool baseAddressIsAbsoluteUri = Helpers.CheckAddressIsAbsoluteUri(baseAddressUri);
         bool requestUriIsAbsoluteUri = Helpers.CheckAddressIsAbsoluteUri(inputRequestUri);
 
         if (inputRequestUri is null && baseAddressUri is not null && baseAddressIsAbsoluteUri)
-            requestUri = baseAddressUri;
+            requestUri = baseAddressUri.ToString();
         else if (baseAddressUri is null && inputRequestUri is not null && requestUriIsAbsoluteUri)
-            requestUri = inputRequestUri;
+            requestUri = inputRequestUri.ToString();
         else if (baseAddressUri is not null && inputRequestUri is not null && baseAddressIsAbsoluteUri && !requestUriIsAbsoluteUri)
-            requestUri = new Uri(baseAddressUri, inputRequestUri);
+            requestUri = new Uri(baseAddressUri, inputRequestUri).ToString();
         else if (baseAddressUri is not null && inputRequestUri is not null && baseAddressIsAbsoluteUri)
-            requestUri = inputRequestUri;
+            requestUri = inputRequestUri.ToString();
+        else if (baseAddressUri is null && inputRequestUri is null)
+            requestUri = null;
+        else
+            requestUri = $"{baseAddressUri}{inputRequestUri}";
 
         return stringBuilder
             .Append($"{requestUri}")

@@ -235,7 +235,7 @@ public class SuccessCurlGeneratorTests
         script.Should().StartWith("curl -X POST");
         script.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST  -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""nancy"",""requestId"":10001006,""amount"":70000}'");
+                @"curl -X POST api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""nancy"",""requestId"":10001006,""amount"":70000}'");
     }
 
     [Theory]
