@@ -1,11 +1,33 @@
-using System.Text.Json;
-using System.Xml;
+using System.Text;
+using System.Web;
 
 namespace HttpClientToCurl.Utility;
 
-public static class Extensions
+internal static class Extensions
 {
-    public static ConsoleColor SetColor(this HttpMethod httpMethod)
+    internal static void AppendBodyItem(this StringBuilder stringBuilder, object body)
+        => stringBuilder
+            .Append("-d")
+            .Append(' ')
+            .Append('\'')
+            .Append(body)
+            .Append('\'')
+            .Append(' ');
+
+    internal static void AddFormUrlEncodedContentBody(this StringBuilder stringBuilder, string body)
+    {
+        string decodedBody = HttpUtility.UrlDecode(body);
+        string[] splitBodyArray = decodedBody.Split('&');
+        if (splitBodyArray.Any())
+        {
+            foreach (string item in splitBodyArray)
+            {
+                stringBuilder.AppendBodyItem(item);
+            }
+        }
+    }
+
+    internal static ConsoleColor SetColor(this HttpMethod httpMethod)
     {
         ConsoleColor color;
 
@@ -24,8 +46,8 @@ public static class Extensions
 
         return color;
     }
-    
-    public static string NormalizedPath(this string path)
+
+    internal static string NormalizedPath(this string path)
     {
         string inputPath = path?.Trim();
         if (string.IsNullOrWhiteSpace(inputPath))
@@ -37,44 +59,8 @@ public static class Extensions
         return inputPath;
     }
 
-    public static string NormalizedFilename(this string filename)
+    internal static string NormalizedFilename(this string filename)
         => string.IsNullOrWhiteSpace(filename)
             ? DateTime.Now.Date.ToString("yyyyMMdd")
             : filename.Trim();
-    
-    public static bool IsValidJson(this string stringInput)
-    {
-        if (string.IsNullOrWhiteSpace(stringInput))
-            return false;
-
-        stringInput = stringInput.Trim();
-        if ((stringInput.StartsWith("{") && stringInput.EndsWith("}")) || // For object
-            (stringInput.StartsWith("[") && stringInput.EndsWith("]"))) //  For array
-        {
-            try
-            {
-                JsonDocument.Parse(stringInput);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    public static bool IsValidXml(this string stringInput)
-    {
-        try
-        {
-            new XmlDocument().LoadXml(stringInput);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
 }
