@@ -12,7 +12,16 @@ Also, it is new way and also a fast way to create or update a collection Postman
 
 It's easy to use. just you should install the package on your project from the below address and use sample codes for how to call and work with extensions.
 
+
+**For adding package to your project from Nuget use this command**
+
+```
+dotnet add package HttpClientToCurl 
+```
+
 [Nuget Package Address](https://www.nuget.org/packages/HttpClientToCurl/)
+
+
 
 You have **3 ways** to see script result:
 
