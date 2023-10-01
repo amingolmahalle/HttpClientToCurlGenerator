@@ -72,7 +72,7 @@ public static class Helpers
             isValidAbsoluteAddress = false;
         else if (!baseAddress.IsAbsoluteUri)
             isValidAbsoluteAddress = false;
-        else if (!Helpers.IsHttpUri(baseAddress))
+        else if (!IsHttpUri(baseAddress))
             isValidAbsoluteAddress = false;
 
         return isValidAbsoluteAddress;
