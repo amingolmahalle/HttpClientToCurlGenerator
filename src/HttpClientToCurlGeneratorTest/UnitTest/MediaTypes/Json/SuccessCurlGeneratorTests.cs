@@ -74,7 +74,9 @@ public class SuccessCurlGeneratorTests
 
         var queryString = new Dictionary<string, string>()
         {
-            { "id", "12" }
+            { "id", "12" },
+            { "name", "Morten Sjøgren" },
+            { "nationalCode", "123-456-7890" }
         };
         var requestUri = QueryHelpers.AddQueryString("api/test", queryString);
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -96,7 +98,7 @@ public class SuccessCurlGeneratorTests
         script.Should().StartWith("curl -X POST");
         script.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""amin"",""requestId"":10001000,""amount"":10000}'");
+                @"curl -X POST http://localhost:1213/v1/api/test?id=12&name=Morten%20Sj%C3%B8gren&nationalCode=123-456-7890 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""amin"",""requestId"":10001000,""amount"":10000}'");
     }
 
     [Theory]
@@ -179,7 +181,9 @@ public class SuccessCurlGeneratorTests
         // Assert
         script.Should().NotBeNullOrEmpty();
         script.Should().StartWith("curl -X POST");
-        script.Trim().Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 56bfa7a0-0541-4d71-9efc-8b28219ac31a' -d ''");
+        script.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 56bfa7a0-0541-4d71-9efc-8b28219ac31a' -d ''");
     }
 
     [Theory]
