@@ -36,10 +36,8 @@ https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclien
 
 Source Address:
 https://github.com/amingolmahalle/HttpClientToCurlGenerator
-
-
-
         </Description>
+
         <PackageReleaseNotes>
       This extension will help you see whatever is set in HttpClient as a curl script.
 Sometimes we may want to connect with an external service provider but when calling we come across many errors and we should spend a lot of time resolving errors. It happened to me many times;
@@ -68,9 +66,6 @@ https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclien
 
 Source Address:
 https://github.com/amingolmahalle/HttpClientToCurlGenerator
-
-
-
 
         </PackageReleaseNotes>
     </PropertyGroup>
