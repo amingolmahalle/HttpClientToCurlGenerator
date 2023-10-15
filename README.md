@@ -13,7 +13,7 @@ Also, it is new way and also a fast way to create or update a collection Postman
 It's easy to use. just you should install the package on your project from the below address and use sample codes for how to call and work with extensions.
 
 
-**For adding package to your project from Nuget use this command**
+**For adding a package to your project from Nuget use this command**
 
 ```
 dotnet add package HttpClientToCurl 
@@ -27,13 +27,13 @@ You have **3 ways** to see script result:
 
 **1: Put it in a string variable:**
 
-```
+```cs
 string curlScript = httpClient.GenerateCurlInString(httpRequestMessage);
 ```
 
 **2: Show to the IDE console:**
 
-```
+```cs
 httpClient.GenerateCurlInConsole(httpRequestMessage);
 ```
 - **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. 
@@ -42,7 +42,7 @@ you should **remove enters** from the script.
 
 **3: Write in a file:**
 
-```
+```cs
 httpClient.GenerateCurlInFile(httpRequestMessage);
 ```
 
@@ -55,7 +55,7 @@ httpClient.GenerateCurlInFile(httpRequestMessage);
 [Persian Article](https://vrgl.ir/FPx11)
 
 
-I will be happy say me if you have any feedback and your solution to improve the code and also if you find a problem. 
+Please let me know if you have any feedback and your solution to improve the code and also if you find a problem. 
 also, I will be extremely happy if you contribute to the implementation and improvement of the project.
 
 [Gmail Address](mailto:amin.golmahalle@gmail.com)
@@ -69,83 +69,83 @@ If you like this project, learn something or you are using it in your applicatio
 **You can see more samples in FunctionalTest Directory.**
 
 ### **Post Method** sample code (it will be written in the **console**):
-```
-        string requestBody = @"{""name"":""amin"",""requestId"":""10001000"",""amount"":10000}";
-        string requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+```cs
+string requestBody = @"{""name"":""amin"",""requestId"":""10001000"",""amount"":10000}";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        httpClient.GenerateCurlInConsole(
-            httpRequestMessage,
-            config =>
-            {
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-                config.EnableCodeBeautification = false;
-            });
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
 
-        // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
+ // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
 ### **Post Method** sample code for FormUrlEncodedContent (it will be written in the **console**):
-```
-        string requestBody = @"{""name"":""justin"",""requestId"":10001026,""amount"":26000}";
-        string requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-         httpRequestMessage.Content = new FormUrlEncodedContent(new[]
-        {
-            new KeyValuePair<string, string>("session", "703438f3-16ad-4ba5-b923-8f72cd0f2db9"),
-            new KeyValuePair<string, string>("payload", requestBody),
-        });
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+```cs
+string requestBody = @"{""name"":""justin"",""requestId"":10001026,""amount"":26000}";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+    httpRequestMessage.Content = new FormUrlEncodedContent(new[]
+{
+    new KeyValuePair<string, string>("session", "703438f3-16ad-4ba5-b923-8f72cd0f2db9"),
+    new KeyValuePair<string, string>("payload", requestBody),
+});
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        httpClient.GenerateCurlInConsole(
-            httpRequestMessage,
-            config =>
-            {
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-                config.EnableCodeBeautification = false;
-            });
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
 
-        // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
+// Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
 ### **Post Method** sample code for xml (it will be written in the **console**):
 
-```
-        string requestBody = @"<?xml version = ""1.0"" encoding = ""UTF-8""?>
-            <Order>
-            <Id>12</Id>
-            <name>Jason</name>
-            <requestId>10001024</requestId>
-            <amount>240000</amount>
-            </Order>";
+```cs
+string requestBody = @"<?xml version = ""1.0"" encoding = ""UTF-8""?>
+    <Order>
+    <Id>12</Id>
+    <name>Jason</name>
+    <requestId>10001024</requestId>
+    <amount>240000</amount>
+    </Order>";
 
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "api/test");
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "api/test");
+httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        httpClient.GenerateCurlInConsole(
-            httpRequestMessage,
-            config: config =>
-            {
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-                config.EnableCodeBeautification = false;
-            });
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config: config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
 
-      // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
+// Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
 ### **Post Method** sample code (it will be written in the **file**):
@@ -153,51 +153,53 @@ If you like this project, learn something or you are using it in your applicatio
 If the path variable is null or empty, then the file is created in the **root project**.
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
-```
-        string path = string.Empty;
-        string filename = "PostMethodResult" ;
-        string requestBody = @"{""name"":""sara"",""requestId"":""10001001"",""amount"":20000}";
-        string requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+```cs
+string path = string.Empty;
+string filename = "PostMethodResult" ;
+string requestBody = @"{""name"":""sara"",""requestId"":""10001001"",""amount"":20000}";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        httpClient.GenerateCurlInFile(
-            httpRequestMessage,
-            config =>
-            {
-                config.Filename = filename;
-                config.Path = path;
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-            });
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
+httpClient.GenerateCurlInFile(
+    httpRequestMessage,
+    config =>
+    {
+        config.Filename = filename;
+        config.Path = path;
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+    });
+
+// Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
 ### **Get Method** sample code (it will be written in the **console**):
-```
-        string requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+```cs
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        httpClient.GenerateCurlInConsole(
-            httpRequestMessage,
-            config =>
-            {
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-                config.EnableCodeBeautification = false;
-            });
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        // Call GetAsync => await client.GetAsync(requestUri);
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
+
+// Call GetAsync => await client.GetAsync(requestUri);
 ```
 
 ### **Get Method** sample code (it will be written in the **file**):
@@ -205,51 +207,53 @@ If the filename variable is null or empty, then the current date will be set for
 If the path variable is null or empty, then the file is created in the **root project**.
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
-```
-        string path = string.Empty;
-        string filename = "GetMethodResult";
-        string requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+```cs
+string path = string.Empty;
+string filename = "GetMethodResult";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        httpClient.GenerateCurlInFile(
-            httpRequestMessage,
-            config =>
-            {
-                config.Filename = filename;
-                config.Path = path;
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-            });
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        // Call GetAsync => await client.GetAsync(requestUri);
+httpClient.GenerateCurlInFile(
+    httpRequestMessage,
+    config =>
+    {
+        config.Filename = filename;
+        config.Path = path;
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+    });
+
+// Call GetAsync => await client.GetAsync(requestUri);
 ```
 
 ### **Put Method** sample code (it will be written in the **console**):
-```
-        string requestBody = @"{""name"":""jadi"",""requestId"":""10001003"",""amount"":30000}";
-        string requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+```cs
+string requestBody = @"{""name"":""jadi"",""requestId"":""10001003"",""amount"":30000}";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        httpClient.GenerateCurlInConsole(
-            httpRequestMessage,
-            config =>
-            {
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-                config.EnableCodeBeautification = false;
-            });
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        // Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
+
+// Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
 ```
 
 ### **Put Method** sample code (it will be written in the **file**):
@@ -257,52 +261,54 @@ If the filename variable is null or empty, then the current date will be set for
 If the path variable is null or empty, then the file is created in the **root project**.
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
-```
-        string path = string.Empty;
-        string filename = "PutMethodResult" ;
-        string requestBody = @"{ ""name"" : ""reza"",""requestId"" : ""10001004"",""amount"":40000 }";
-        string requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+```cs
+string path = string.Empty;
+string filename = "PutMethodResult" ;
+string requestBody = @"{ ""name"" : ""reza"",""requestId"" : ""10001004"",""amount"":40000 }";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        httpClient.GenerateCurlInFile(
-            httpRequestMessage,
-            config =>
-            {
-                config.Filename = filename;
-                config.Path = path;
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-            });
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        // Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
+httpClient.GenerateCurlInFile(
+    httpRequestMessage,
+    config =>
+    {
+        config.Filename = filename;
+        config.Path = path;
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+    });
+
+// Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
 ```
 
 ### **Patch Method** sample code (it will be written in the **console**):
-```
-        string requestBody = @"{""name"":""hamed"",""requestId"":""10001005"",""amount"":50000}";
-        string requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+```cs
+string requestBody = @"{""name"":""hamed"",""requestId"":""10001005"",""amount"":50000}";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
+httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        httpClient.GenerateCurlInConsole(
-            httpRequestMessage,
-            config =>
-            {
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-                config.EnableCodeBeautification = false;
-            });
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        // Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
+
+// Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
 ```
 
 ### **Patch Method** sample code (it will be written in the **file**):
@@ -310,52 +316,54 @@ If the filename variable is null or empty, then the current date will be set for
 If the path variable is null or empty, then the file is created in the **root project**.
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
-```
-        string path = string.Empty;
-        string filename = "PatchMethodResult" ;
-        string requestBody = @"{ ""name"" : ""zara"",""requestId"" : ""10001006"",""amount"":60000 }";
-        string requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+```cs
+string path = string.Empty;
+string filename = "PatchMethodResult" ;
+string requestBody = @"{ ""name"" : ""zara"",""requestId"" : ""10001006"",""amount"":60000 }";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
+httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        httpClient.GenerateCurlInFile(
-            httpRequestMessage,
-            config =>
-            {
-                config.Filename = filename;
-                config.Path = path;
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-            });
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        // Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
+httpClient.GenerateCurlInFile(
+    httpRequestMessage,
+    config =>
+    {
+        config.Filename = filename;
+        config.Path = path;
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+    });
+
+// Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
 ```
 
 ### **Delete Method** sample code (it will be written in the **console**):
-```
-        int id = 12;
-        string requestUri = $"api/test/{id}";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+```cs
+int id = 12;
+string requestUri = $"api/test/{id}";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        httpClient.GenerateCurlInConsole(
-            httpRequestMessage,
-            config =>
-            {
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-                config.EnableCodeBeautification = false;
-            });
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
-        // Call DeleteAsync => await client.DeleteAsync(requestUri);
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
+
+// Call DeleteAsync => await client.DeleteAsync(requestUri);
 ```
 
 ### **Delete Method** sample code (it will be written in the **file**):
@@ -363,31 +371,32 @@ If the filename variable is null or empty, then the current date will be set for
 If the path variable is null or empty, then the file is created in the **root project**.
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
+
+```cs
+string path = string.Empty;
+string filename = "DeleteMethodResult";
+int id = 12;
+string requestUri = $"api/test/{id}";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+httpClient.GenerateCurlInFile(
+    httpRequestMessage,
+    config =>
+    {
+        config.Filename = filename;
+        config.Path = path;
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+    });
+
+// Call DeleteAsync => await client.DeleteAsync(requestUri);
 ```
-        string path = string.Empty;
-        string filename = "DeleteMethodResult";
-        int id = 12;
-        string requestUri = $"api/test/{id}";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-        httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+**You can see more samples in the Functional Tests Directory.**
 
-        httpClient.GenerateCurlInFile(
-            httpRequestMessage,
-            config =>
-            {
-                config.Filename = filename;
-                config.Path = path;
-                config.TurnOn = true;
-                config.NeedAddDefaultHeaders = true;
-            });
-
-        // Call DeleteAsync => await client.DeleteAsync(requestUri);
-```
-
-**You can see more samples in FunctionalTest Directory.**
-
-I hope enjoying this extension in your projects.
+I hope you enjoy this extension in your projects.
