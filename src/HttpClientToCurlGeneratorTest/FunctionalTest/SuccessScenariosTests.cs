@@ -1,12 +1,12 @@
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Net.Mime;
-using System.Text;
 using FluentAssertions;
 using HttpClientToCurl;
 using HttpClientToCurl.Utility;
 using Microsoft.AspNetCore.WebUtilities;
-using NUnit.Framework;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Net.Mime;
+using System.Text;
+using Xunit;
 
 namespace HttpClientToCurlGeneratorTest.FunctionalTest;
 
@@ -14,7 +14,7 @@ public class SuccessScenariosTests
 {
     #region :: GenerateCurlInString For Post Method ::
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_For_PostMethod()
     {
         // Arrange
@@ -39,7 +39,7 @@ public class SuccessScenariosTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_With_RequestUri_TypeOf_Uri_For_PostMethod()
     {
         // Arrange
@@ -64,7 +64,7 @@ public class SuccessScenariosTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_When_Set_RequestUri_Inside_HttpRequestMessage_For_PostMethod()
     {
         // Arrange
@@ -88,7 +88,7 @@ public class SuccessScenariosTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_When_RequestUri_Is_Null_For_PostMethod()
     {
         // Arrange
@@ -112,7 +112,7 @@ public class SuccessScenariosTests
                 @"curl -X POST http://localhost:1213/v1/ -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_When_RequestBody_Is_Null_For_PostMethod()
     {
         // Arrange
@@ -135,7 +135,7 @@ public class SuccessScenariosTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d ''");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_When_HttpContent_Is_Null_For_PostMethod()
     {
         // Arrange
@@ -155,7 +155,7 @@ public class SuccessScenariosTests
         curlResult.Trim().Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_For_PostMethod()
     {
         // Arrange
@@ -187,7 +187,7 @@ public class SuccessScenariosTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_With_RequestUri_Typeof_Uri_For_PostMethod()
     {
         // Arrange
@@ -219,7 +219,7 @@ public class SuccessScenariosTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_And_Body_Is_Null_For_PostMethod()
     {
         // Arrange
@@ -240,7 +240,7 @@ public class SuccessScenariosTests
         curlResult.Trim().Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_And_RequestUri_Is_Null_For_PostMethod()
     {
         // Arrange
@@ -271,7 +271,7 @@ public class SuccessScenariosTests
                 @"curl -X POST http://localhost:1213/v1/ -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_And_HttpRequestHeader_Is_null_For_PostMethod()
     {
         // Arrange
@@ -305,7 +305,7 @@ public class SuccessScenariosTests
 
     #region :: GenerateCurlInString For Get Method ::
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_For_GetMethod()
     {
         // Arrange
@@ -328,7 +328,7 @@ public class SuccessScenariosTests
                 @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_With_QueryString_For_GetMethod()
     {
         // Arrange
@@ -355,7 +355,7 @@ public class SuccessScenariosTests
                 @"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_When_RequestUri_Is_Null_For_GetMethod()
     {
         // Arrange
@@ -376,7 +376,7 @@ public class SuccessScenariosTests
             .BeEquivalentTo(@"curl http://localhost:1213/v1/ -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_For_GetMethod()
     {
         // Arrange
@@ -397,7 +397,7 @@ public class SuccessScenariosTests
         curlResult.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_And_RequestUri_Is_Null_For_GetMethod()
     {
         // Arrange
@@ -417,7 +417,7 @@ public class SuccessScenariosTests
         curlResult.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/ -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'");
     }
 
-    [Theory]
+    [Fact]
     public void Success_GenerateCurlInString_Without_HttpRequestMessage_And_HttpRequestHeader_Is_null_For_GetMethod()
     {
         // Arrange
