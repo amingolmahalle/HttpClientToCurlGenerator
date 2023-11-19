@@ -1,14 +1,14 @@
 using FluentAssertions;
 using HttpClientToCurl;
-using NUnit.Framework;
 using System.Net.Mime;
 using System.Text;
+using Xunit;
 
 namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Xml;
 
 public class SuccessCurlGeneratorTests
 {
-    [Theory]
+    [Fact]
     public void Get_Curl_Script_For_PostMethod()
     {
         // Arrange
@@ -47,7 +47,7 @@ public class SuccessCurlGeneratorTests
             </Order>'");
     }
 
-    [Theory]
+    [Fact]
     public void Get_Error_Message_When_Input_XML_Is_Invalid_For_PostMethod()
     {
         // Arrange

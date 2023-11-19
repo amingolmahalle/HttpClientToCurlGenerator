@@ -1,14 +1,14 @@
 using FluentAssertions;
 using HttpClientToCurl;
-using NUnit.Framework;
 using System.Net.Mime;
 using System.Text;
+using Xunit;
 
 namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Json;
 
 public class FailedCurlGeneratorTests
 {
-    [Theory]
+    [Fact]
     public void GenerateCurl_When_HttpMethod_Is_Invalid()
     {
         // Arrange

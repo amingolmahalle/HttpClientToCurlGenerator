@@ -1,15 +1,15 @@
 using FluentAssertions;
 using HttpClientToCurl;
 using Microsoft.AspNetCore.WebUtilities;
-using NUnit.Framework;
 using System.Net.Mime;
 using System.Text;
+using Xunit;
 
 namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Json;
 
 public class SuccessCurlGeneratorTests
 {
-    [Theory]
+    [Fact]
     public void GenerateCurl_For_PostMethod()
     {
         // Arrange
@@ -37,7 +37,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_With_ContentLength_For_PostMethod()
     {
         // Arrange
@@ -66,7 +66,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer f69406a4-6b62-4734-a8dc-158f0fc308ab' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_With_QueryString_For_PostMethod()
     {
         // Arrange
@@ -101,7 +101,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X POST http://localhost:1213/v1/api/test?id=12&name=Morten%20Sj%C3%B8gren&nationalCode=123-456-7890 -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""amin"",""requestId"":10001000,""amount"":10000}'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_UrlEncoded_For_PostMethod()
     {
         // Arrange
@@ -134,7 +134,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/x-www-form-urlencoded' -d 'session=703438f3-16ad-4ba5-b923-8f72cd0f2db9' -d 'payload={""name"":""justin"",""requestId"":10001026,""amount"":26000}'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_Without_RequestBody_For_PostMethod()
     {
         // Arrange
@@ -160,7 +160,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer c332e9a1-1e0e-44c2-b819-b0e7e8ff7d45' -H 'Content-Type: application/json; charset=utf-8' -d ''");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_Without_Content_For_PostMethod()
     {
         // Arrange
@@ -186,7 +186,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 56bfa7a0-0541-4d71-9efc-8b28219ac31a' -d ''");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_When_Invalid_JsonBody_PostMethod()
     {
         // Arrange
@@ -214,7 +214,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '""name"":""steven"",""requestId"":10001005,""amount"":60000'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_When_BaseAddress_Is_Null_PostMethod()
     {
         // Arrange
@@ -242,7 +242,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X POST api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""nancy"",""requestId"":10001006,""amount"":70000}'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_For_GetMethod()
     {
         // Arrange
@@ -268,7 +268,7 @@ public class SuccessCurlGeneratorTests
                 @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_With_QueryString_For_GetMethod()
     {
         // Arrange
@@ -298,7 +298,7 @@ public class SuccessCurlGeneratorTests
                 @"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_For_PutMethod()
     {
         // Arrange
@@ -326,7 +326,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X PUT http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""reza"",""requestId"":10001002,""amount"":30000}'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_For_PatchMethod()
     {
         // Arrange
@@ -354,7 +354,7 @@ public class SuccessCurlGeneratorTests
                 @"curl -X PATCH http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""hamed"",""requestId"":10001003,""amount"":40000}'");
     }
 
-    [Theory]
+    [Fact]
     public void GenerateCurl_For_DeleteMethod()
     {
         // Arrange
