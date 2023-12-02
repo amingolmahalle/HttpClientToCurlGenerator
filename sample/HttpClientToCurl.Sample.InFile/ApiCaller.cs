@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Text;
 
-namespace HttpClientToCurl.Sample.InConsole
+namespace HttpClientToCurl.Sample.InFile
 {
     public static class ApiCaller
     {
@@ -27,11 +27,17 @@ namespace HttpClientToCurl.Sample.InConsole
                 // Set the request content with the JSON payload
                 request.Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
-                // Log the curl command for debugging or testing.
-                // This generates a curl command that can be imported into Postman.
-                // Use it to check and compare against all the requirements.
-
-                client.GenerateCurlInConsole(request);
+                // Generate a curl command and write it to a file for debugging or testing.
+                // This command can be imported into Postman for checking and comparing against all the requirements.
+                // config is optional 
+                client.GenerateCurlInFile(request, config =>
+                {
+                    // Customize file configuration if needed
+                    config.TurnOn = true; // Enable generating curl command to file
+                    config.Filename = "curl_command.txt"; // Specify the file name
+                    config.Path = "C:\\Path\\To\\Directory"; // Specify the directory path
+                    config.NeedAddDefaultHeaders = true; // Specify if default headers should be included
+                });
 
                 // Send the request
                 HttpResponseMessage response = await client.SendAsync(request);
