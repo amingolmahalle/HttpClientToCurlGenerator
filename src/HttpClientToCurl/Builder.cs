@@ -103,7 +103,7 @@ internal static class Builder
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {header.Value?.FirstOrDefault()}\'")
+                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
                     .Append(' ');
             }
 
@@ -118,7 +118,7 @@ internal static class Builder
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {header.Value?.FirstOrDefault()}\'")
+                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
                     .Append(' ');
             }
 
@@ -133,7 +133,7 @@ internal static class Builder
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {header.Value?.FirstOrDefault()}\'")
+                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
                     .Append(' ');
             }
 
