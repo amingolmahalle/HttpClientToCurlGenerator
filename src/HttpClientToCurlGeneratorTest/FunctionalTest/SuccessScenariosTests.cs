@@ -301,6 +301,34 @@ public class SuccessScenariosTests
                 @"curl -X POST http://localhost:1213/v1/api/test -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
+    [Fact]
+    public void Success_GenerateCurlInString_With_Multiple_Value_For_A_Header_PostMethod()
+    {
+        // Arrange
+        string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
+
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
+        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
+
+        List<string?> headerValues = new List<string?>() { "_ga=GA1.1.41226618.1701506283", "mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05", "sp_ses.13cb=*" };
+        httpRequestMessage.Headers.Add("cookie", headerValues);
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+        // Act
+        string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
+
+        // Assert
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Cookie: _ga=GA1.1.41226618.1701506283; mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05; sp_ses.13cb=*' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+    }
+
     #endregion
 
     #region :: GenerateCurlInString For Get Method ::
@@ -434,6 +462,33 @@ public class SuccessScenariosTests
         curlResult.Should().NotBeNullOrEmpty();
         curlResult.Should().StartWith("curl");
         curlResult.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/api/test");
+    }
+
+
+    [Fact]
+    public void Success_GenerateCurlInString_With_Multiple_Value_For_A_Header_GetMethod()
+    {
+        // Arrange
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
+        httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
+
+        List<string?> headerValues = new List<string?>() { "_ga=GA1.1.41226618.1701506283", "mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05", "sp_ses.13cb=*" };
+        httpRequestMessage.Headers.Add("cookie", headerValues);
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+        // Act
+        string curlResult = httpClient.GenerateCurlInString(httpRequestMessage);
+
+        // Assert
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Cookie: _ga=GA1.1.41226618.1701506283; mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05; sp_ses.13cb=*' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
     #endregion
