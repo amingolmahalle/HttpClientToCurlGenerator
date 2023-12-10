@@ -22,33 +22,49 @@ internal static class Builder
         return stringBuilder.Append(' ');
     }
 
-    internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string inputBaseAddress,
-        Uri inputRequestUri)
+    internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string baseAddress, Uri requestUri)
     {
-        string address;
-        Uri baseAddressUri = Helpers.CreateUri(inputBaseAddress);
+        Uri baseAddressUri = Helpers.CreateUri(baseAddress);
         bool baseAddressIsAbsoluteUri = Helpers.CheckAddressIsAbsoluteUri(baseAddressUri);
-        bool requestUriIsAbsoluteUri = Helpers.CheckAddressIsAbsoluteUri(inputRequestUri);
+        bool requestUriIsAbsoluteUri = Helpers.CheckAddressIsAbsoluteUri(requestUri);
 
-        if (inputRequestUri is null && baseAddressUri is not null && baseAddressIsAbsoluteUri)
-            address = baseAddressUri.ToString();
-        else if (baseAddressUri is null && inputRequestUri is not null && requestUriIsAbsoluteUri)
-            address = inputRequestUri.ToString();
-        else if (baseAddressUri is not null && inputRequestUri is not null && baseAddressIsAbsoluteUri &&
-                 !requestUriIsAbsoluteUri)
-            address = new Uri(baseAddressUri, inputRequestUri).ToString();
-        else if (baseAddressUri is not null && inputRequestUri is not null && baseAddressIsAbsoluteUri)
-            address = inputRequestUri.ToString();
-        else if (baseAddressUri is null && inputRequestUri is null)
-            address = null;
-        else
-            address = $"{baseAddressUri}{inputRequestUri}";
+        string address = GetAbsoluteAddress(baseAddressUri, baseAddressIsAbsoluteUri, requestUri, requestUriIsAbsoluteUri);
 
         var encodedAddress = ApplyEncodeUri(address);
 
         return stringBuilder
             .Append($"{encodedAddress ?? address}")
             .Append(' ');
+    }
+
+    private static string GetAbsoluteAddress(Uri baseAddressUri, bool baseAddressIsAbsoluteUri, Uri requestUri, bool requestUriIsAbsoluteUri)
+    {
+        if (requestUri is null && baseAddressUri is not null && baseAddressIsAbsoluteUri)
+        {
+            return baseAddressUri.ToString();
+        }
+
+        if (baseAddressUri is null && requestUri is not null && requestUriIsAbsoluteUri)
+        {
+            return requestUri.ToString();
+        }
+
+        if (baseAddressUri is not null && requestUri is not null && baseAddressIsAbsoluteUri && !requestUriIsAbsoluteUri)
+        {
+            return new Uri(baseAddressUri, requestUri).ToString();
+        }
+
+        if (baseAddressUri is not null && requestUri is not null && baseAddressIsAbsoluteUri)
+        {
+            return requestUri.ToString();
+        }
+
+        if (baseAddressUri is null && requestUri is null)
+        {
+            return null;
+        }
+
+        return $"{baseAddressUri}{requestUri}";
     }
 
     private static string ApplyEncodeUri(string address)
@@ -141,7 +157,9 @@ internal static class Builder
         }
 
         if (!hasHeader)
+        {
             stringBuilder.Append(' ');
+        }
 
         return stringBuilder;
     }
@@ -152,9 +170,13 @@ internal static class Builder
         string body = content?.ReadAsStringAsync().GetAwaiter().GetResult();
 
         if (contentType == "application/x-www-form-urlencoded")
+        {
             stringBuilder.AddFormUrlEncodedContentBody(body);
+        }
         else
+        {
             stringBuilder.AppendBodyItem(body);
+        }
 
         return stringBuilder;
     }
