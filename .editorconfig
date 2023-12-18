@@ -670,3 +670,57 @@ dotnet_diagnostic.IDE0010.severity = suggestion
 dotnet_diagnostic.IDE0003.severity = none
 
 dotnet_diagnostic.SA1513.severity = none # on short methods, it does not apply
+
+# ASYNC0001: Asynchronous method names should end with Async
+dotnet_diagnostic.ASYNC0001.severity = error
+
+# VSTHRD200: Use "Async" suffix for async methods
+dotnet_diagnostic.VSTHRD200.severity = error
+
+#RCS1046: Asynchronous method name should end with 'Async'.
+dotnet_diagnostic.RCS1046.severity = error
+
+# VSTHRD002: Avoid problematic synchronous waits
+dotnet_diagnostic.VSTHRD002.severity = error
+
+# MA0045: Do not use blocking call (make method async)
+dotnet_diagnostic.MA0045.severity = error
+
+# AsyncifyInvocation: Use Task Async
+dotnet_diagnostic.AsyncifyInvocation.severity = error
+
+# AsyncifyVariable: Use Task Async
+dotnet_diagnostic.AsyncifyVariable.severity = error
+
+# # ASYNC0004: Use ConfigureAwait(false) on await expression
+# dotnet_diagnostic.ASYNC0004.severity = error
+
+# # MA0004: Use .ConfigureAwait(false)
+# dotnet_diagnostic.MA0004.severity = error
+
+# # RCS1090: Call 'ConfigureAwait(false)'.
+# dotnet_diagnostic.RCS1090.severity = error
+
+# # VSTHRD111: Use ConfigureAwait(bool)
+# dotnet_diagnostic.VSTHRD111.severity = error
+
+# # CA2007: Consider calling ConfigureAwait on the awaited task
+# dotnet_diagnostic.CA2007.severity = error
+
+# MA0022: Return Task.FromResult instead of returning null
+dotnet_diagnostic.MA0022.severity = error
+
+# RCS1210: Return Task.FromResult instead of returning null.
+dotnet_diagnostic.RCS1210.severity = error
+
+# VSTHRD114: Avoid returning a null Task
+dotnet_diagnostic.VSTHRD114.severity = error
+
+# VSTHRD200: Use "Async" suffix for async methods
+dotnet_diagnostic.VSTHRD200.severity = error
+
+# ASYNC0002: Non asynchronous method names should end with Async
+dotnet_diagnostic.ASYNC0002.severity = error
+
+# RCS1047: Non-asynchronous method name should not end with 'Async'.
+dotnet_diagnostic.RCS1047.severity = error
