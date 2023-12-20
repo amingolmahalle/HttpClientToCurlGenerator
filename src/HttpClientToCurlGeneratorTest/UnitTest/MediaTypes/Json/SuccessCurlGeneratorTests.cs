@@ -72,13 +72,13 @@ public class SuccessCurlGeneratorTests
         // Arrange
         string requestBody = @"{""name"":""amin"",""requestId"":10001000,""amount"":10000}";
 
-        var queryString = new Dictionary<string, string>()
+        var queryString = new Dictionary<string, string>
         {
             { "id", "12" },
             { "name", "Morten Sjøgren" },
             { "nationalCode", "123-456-7890" }
         };
-        var requestUri = QueryHelpers.AddQueryString("api/test", queryString);
+        var requestUri = QueryHelpers.AddQueryString("api/test", queryString!);
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
@@ -272,11 +272,11 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_With_QueryString_For_GetMethod()
     {
         // Arrange
-        var queryString = new Dictionary<string, string>()
+        var queryString = new Dictionary<string, string>
         {
             { "id", "12" }
         };
-        var requestUri = QueryHelpers.AddQueryString("api/test", queryString);
+        var requestUri = QueryHelpers.AddQueryString("api/test", queryString!);
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");

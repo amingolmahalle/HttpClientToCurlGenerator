@@ -312,7 +312,7 @@ public class SuccessScenariosTests
         httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
-        List<string?> headerValues = new List<string?>() { "_ga=GA1.1.41226618.1701506283", "mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05", "sp_ses.13cb=*" };
+        List<string?> headerValues = new() { "_ga=GA1.1.41226618.1701506283", "mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05", "sp_ses.13cb=*" };
         httpRequestMessage.Headers.Add("cookie", headerValues);
 
         using var httpClient = new HttpClient();
@@ -360,11 +360,11 @@ public class SuccessScenariosTests
     public void Success_GenerateCurlInString_With_QueryString_For_GetMethod()
     {
         // Arrange
-        var queryString = new Dictionary<string, string>()
+        var queryString = new Dictionary<string, string>
         {
             { "id", "12" }
         };
-        var requestUri = QueryHelpers.AddQueryString("api/test", queryString);
+        var requestUri = QueryHelpers.AddQueryString("api/test", queryString!);
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
