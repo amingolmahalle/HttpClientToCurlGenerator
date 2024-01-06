@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HttpClientToCurl\HttpClientToCurl.csproj" />
+      <ProjectReference Include="..\..\src\HttpClientToCurl\HttpClientToCurl.csproj" />
     </ItemGroup>
 
 </Project>
