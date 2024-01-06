@@ -3,17 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurl", "HttpClientToCurl\HttpClientToCurl.csproj", "{18B3309D-B84C-453D-8EF7-16CA9E58F5DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurl", "src\HttpClientToCurl\HttpClientToCurl.csproj", "{18B3309D-B84C-453D-8EF7-16CA9E58F5DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurlGeneratorTest", "HttpClientToCurlGeneratorTest\HttpClientToCurlGeneratorTest.csproj", "{BF3321A5-A590-44DD-BA5D-44978D9B6125}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurlGeneratorTest", "tests\HttpClientToCurlGeneratorTest\HttpClientToCurlGeneratorTest.csproj", "{BF3321A5-A590-44DD-BA5D-44978D9B6125}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{A8574DB9-8411-4F81-A82E-F97AD00EF8AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClientToCurl.Sample.InConsole", "..\sample\HttpClientToCurl.Sample.InConsole\HttpClientToCurl.Sample.InConsole.csproj", "{323022D2-AAA7-443B-895C-77F5B1634D68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurl.Sample.InConsole", "examples\HttpClientToCurl.Sample.InConsole\HttpClientToCurl.Sample.InConsole.csproj", "{323022D2-AAA7-443B-895C-77F5B1634D68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClientToCurl.Sample.InString", "..\sample\HttpClientToCurl.Sample.InString\HttpClientToCurl.Sample.InString.csproj", "{F7B35144-A00C-45BE-BC41-36C1B21FCD18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurl.Sample.InString", "examples\HttpClientToCurl.Sample.InString\HttpClientToCurl.Sample.InString.csproj", "{F7B35144-A00C-45BE-BC41-36C1B21FCD18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClientToCurl.Sample.InFile", "..\sample\HttpClientToCurl.Sample.InFile\HttpClientToCurl.Sample.InFile.csproj", "{403B236B-D7D8-43FB-B47E-DCCAF8BA96C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurl.Sample.InFile", "examples\HttpClientToCurl.Sample.InFile\HttpClientToCurl.Sample.InFile.csproj", "{403B236B-D7D8-43FB-B47E-DCCAF8BA96C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D3967ABF-F7C6-4432-9B67-A3F804CBC3E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E36BF269-7F5D-4DE7-99B0-14567F9CD6B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +50,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{18B3309D-B84C-453D-8EF7-16CA9E58F5DC} = {D3967ABF-F7C6-4432-9B67-A3F804CBC3E7}
+		{BF3321A5-A590-44DD-BA5D-44978D9B6125} = {E36BF269-7F5D-4DE7-99B0-14567F9CD6B3}
 		{323022D2-AAA7-443B-895C-77F5B1634D68} = {A8574DB9-8411-4F81-A82E-F97AD00EF8AF}
 		{F7B35144-A00C-45BE-BC41-36C1B21FCD18} = {A8574DB9-8411-4F81-A82E-F97AD00EF8AF}
 		{403B236B-D7D8-43FB-B47E-DCCAF8BA96C4} = {A8574DB9-8411-4F81-A82E-F97AD00EF8AF}
