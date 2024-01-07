@@ -33,7 +33,7 @@ internal static class Builder
         var encodedAddress = ApplyEncodeUri(address);
 
         return stringBuilder
-            .Append($"{encodedAddress ?? address}")
+            .Append($"{AddCotation(encodedAddress) ?? AddCotation(address)}")
             .Append(' ');
     }
 
@@ -179,5 +179,10 @@ internal static class Builder
         }
 
         return stringBuilder;
+    }
+
+    private static string AddCotation(string address)
+    {
+        return address != null ? $"'{address}'" : null;
     }
 }

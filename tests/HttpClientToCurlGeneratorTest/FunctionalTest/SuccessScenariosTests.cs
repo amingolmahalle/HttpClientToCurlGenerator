@@ -36,7 +36,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+                @"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Fact]
@@ -61,7 +61,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+                @"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Fact]
@@ -85,7 +85,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+                @"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Fact]
@@ -109,7 +109,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/ -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+                @"curl -X POST 'http://localhost:1213/v1/' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Fact]
@@ -132,7 +132,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d ''");
+                @"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d ''");
     }
 
     [Fact]
@@ -152,7 +152,7 @@ public class SuccessScenariosTests
         // Assert
         curlResult.Should().NotBeNullOrEmpty();
         curlResult.Should().StartWith("curl -X POST");
-        curlResult.Trim().Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''");
     }
 
     [Fact]
@@ -184,7 +184,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+                @"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Fact]
@@ -216,7 +216,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+                @"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Fact]
@@ -237,7 +237,7 @@ public class SuccessScenariosTests
         // Assert
         curlResult.Should().NotBeNullOrEmpty();
         curlResult.Should().StartWith("curl -X POST");
-        curlResult.Trim().Should().BeEquivalentTo(@"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -d ''");
     }
 
     [Fact]
@@ -268,7 +268,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/ -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+                @"curl -X POST 'http://localhost:1213/v1/' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Fact]
@@ -298,7 +298,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+                @"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     [Fact]
@@ -326,7 +326,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl -X POST");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl -X POST http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Cookie: _ga=GA1.1.41226618.1701506283; mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05; sp_ses.13cb=*' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+                @"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61' -H 'Cookie: _ga=GA1.1.41226618.1701506283; mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05; sp_ses.13cb=*' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
     }
 
     #endregion
@@ -353,7 +353,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
+                @"curl 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
     [Fact]
@@ -380,7 +380,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl http://localhost:1213/v1/api/test?id=12 -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
+                @"curl 'http://localhost:1213/v1/api/test?id=12' -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
     [Fact]
@@ -401,7 +401,7 @@ public class SuccessScenariosTests
         curlResult.Should().NotBeNullOrEmpty();
         curlResult.Should().StartWith("curl");
         curlResult.Trim().Should()
-            .BeEquivalentTo(@"curl http://localhost:1213/v1/ -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
+            .BeEquivalentTo(@"curl 'http://localhost:1213/v1/' -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
     [Fact]
@@ -422,7 +422,7 @@ public class SuccessScenariosTests
         // Assert
         curlResult.Should().NotBeNullOrEmpty();
         curlResult.Should().StartWith("curl");
-        curlResult.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'");
     }
 
     [Fact]
@@ -442,7 +442,7 @@ public class SuccessScenariosTests
         // Assert
         curlResult.Should().NotBeNullOrEmpty();
         curlResult.Should().StartWith("curl");
-        curlResult.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/ -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl 'http://localhost:1213/v1/' -H 'Authorization: Bearer 4797c126-3f8a-454a-aff1-96c0220dae61'");
     }
 
     [Fact]
@@ -461,7 +461,7 @@ public class SuccessScenariosTests
         // Assert
         curlResult.Should().NotBeNullOrEmpty();
         curlResult.Should().StartWith("curl");
-        curlResult.Trim().Should().BeEquivalentTo(@"curl http://localhost:1213/v1/api/test");
+        curlResult.Trim().Should().BeEquivalentTo(@"curl 'http://localhost:1213/v1/api/test'");
     }
 
 
@@ -488,7 +488,7 @@ public class SuccessScenariosTests
         curlResult.Should().StartWith("curl");
         curlResult.Trim().Should()
             .BeEquivalentTo(
-                @"curl http://localhost:1213/v1/api/test -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Cookie: _ga=GA1.1.41226618.1701506283; mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05; sp_ses.13cb=*' -H 'Content-Type: application/json; charset=utf-8'");
+                @"curl 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Cookie: _ga=GA1.1.41226618.1701506283; mywebsite-sp=cbf42587-7ec5-4179-aac5-cbc9ae6fbf05; sp_ses.13cb=*' -H 'Content-Type: application/json; charset=utf-8'");
     }
 
     #endregion
