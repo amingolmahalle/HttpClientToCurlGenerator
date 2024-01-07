@@ -33,8 +33,13 @@ internal static class Builder
         var encodedAddress = ApplyEncodeUri(address);
 
         return stringBuilder
-            .Append($"{AddCotation(encodedAddress) ?? AddCotation(address)}")
+            .Append($"{AddSingleQuotationMark(encodedAddress ?? address)}")
             .Append(' ');
+
+        static string AddSingleQuotationMark(string address)
+        {
+            return address is not null ? $"'{address}'" : null;
+        }
     }
 
     private static string GetAbsoluteAddress(Uri baseAddressUri, bool baseAddressIsAbsoluteUri, Uri requestUri, bool requestUriIsAbsoluteUri)
@@ -179,10 +184,5 @@ internal static class Builder
         }
 
         return stringBuilder;
-    }
-
-    private static string AddCotation(string address)
-    {
-        return address != null ? $"'{address}'" : null;
     }
 }
