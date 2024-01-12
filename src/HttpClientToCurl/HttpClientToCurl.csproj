@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <Authors>Amin Golmahalleh</Authors>
-        <Version>2.0.3</Version>
-        <PackageReleaseNotes>2.0.3</PackageReleaseNotes>
+        <Version>2.0.4</Version>
+        <PackageReleaseNotes>2.0.4</PackageReleaseNotes>
         <TargetFramework>netstandard2.1</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
@@ -19,7 +19,7 @@ After getting the curl, we can now call it in the terminal or import it in the P
 
 You have 3 ways to see script results:
 
-1- Write in the console:
+1- Print in the console:
 
      httpClient.GenerateCurlInConsole(httpRequestMessage, null);
 

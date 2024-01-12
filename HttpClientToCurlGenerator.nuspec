@@ -3,9 +3,9 @@
   <metadata>
 
     <id>HttpClientToCurlGenerator</id>
-    <version>2.0.3</version>
+    <version>2.0.4</version>
     <title>Generating Curl script of HttpClient</title>
-    <authors>amingolmahalle</authors>
+    <authors>Amin Golmahalleh</authors>
     <description>An extension for generating Curl script of HttpClient</description>
     <summary>
       This extension will help you to see whatever is set in **HttpClient** in the form of a curl script.
