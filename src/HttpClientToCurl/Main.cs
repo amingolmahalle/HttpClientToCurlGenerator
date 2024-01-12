@@ -30,8 +30,8 @@ public static class Main
         this HttpClient httpClient,
         HttpMethod httpMethod,
         string requestUri = "",
-        HttpRequestHeaders requestHeaders = null,
-        HttpContent requestBody = null,
+        HttpRequestHeaders httpRequestHeaders = null,
+        HttpContent httpContent = null,
         Action<StringConfig> config = null)
     {
         var stringConfig = new StringConfig();
@@ -40,7 +40,7 @@ public static class Main
         if (!stringConfig.TurnOn)
             return string.Empty;
 
-        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, requestHeaders, requestBody, requestUri);
+        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, stringConfig.NeedAddDefaultHeaders);
 
@@ -51,8 +51,8 @@ public static class Main
         this HttpClient httpClient,
         HttpMethod httpMethod,
         Uri requestUri,
-        HttpRequestHeaders requestHeaders = null,
-        HttpContent requestBody = null,
+        HttpRequestHeaders httpRequestHeaders = null,
+        HttpContent httpContent = null,
         Action<StringConfig> config = null)
     {
         var stringConfig = new StringConfig();
@@ -61,7 +61,7 @@ public static class Main
         if (!stringConfig.TurnOn)
             return string.Empty;
 
-        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, requestHeaders, requestBody, requestUri);
+        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, stringConfig.NeedAddDefaultHeaders);
 
@@ -89,8 +89,8 @@ public static class Main
         this HttpClient httpClient,
         HttpMethod httpMethod,
         string requestUri = "",
-        HttpRequestHeaders requestHeaders = null,
-        HttpContent requestBody = null,
+        HttpRequestHeaders httpRequestHeaders = null,
+        HttpContent httpContent = null,
         Action<ConsoleConfig> config = null)
     {
         var consoleConfig = new ConsoleConfig();
@@ -99,7 +99,7 @@ public static class Main
         if (!consoleConfig.TurnOn)
             return;
 
-        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, requestHeaders, requestBody, requestUri);
+        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig.NeedAddDefaultHeaders);
 
@@ -110,8 +110,8 @@ public static class Main
         this HttpClient httpClient,
         HttpMethod httpMethod,
         Uri requestUri,
-        HttpRequestHeaders requestHeaders = null,
-        HttpContent requestBody = null,
+        HttpRequestHeaders httpRequestHeaders = null,
+        HttpContent httpContent = null,
         Action<ConsoleConfig> config = null)
     {
         var consoleConfig = new ConsoleConfig();
@@ -120,7 +120,7 @@ public static class Main
         if (!consoleConfig.TurnOn)
             return;
 
-        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, requestHeaders, requestBody, requestUri);
+        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig.NeedAddDefaultHeaders);
 
@@ -129,7 +129,7 @@ public static class Main
 
     #endregion : Print in the console :
 
-    #region : Print in a file :
+    #region : Write in a file :
 
     public static void GenerateCurlInFile(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, Action<FileConfig> config = null)
     {
@@ -148,8 +148,8 @@ public static class Main
         this HttpClient httpClient,
         HttpMethod httpMethod,
         string requestUri = "",
-        HttpRequestHeaders requestHeaders = null,
-        HttpContent requestBody = null,
+        HttpRequestHeaders httpRequestHeaders = null,
+        HttpContent httpContent = null,
         Action<FileConfig> config = null)
     {
         var fileConfig = new FileConfig();
@@ -158,7 +158,7 @@ public static class Main
         if (!fileConfig.TurnOn)
             return;
 
-        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, requestHeaders, requestBody, requestUri);
+        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig.NeedAddDefaultHeaders);
 
@@ -169,8 +169,8 @@ public static class Main
         this HttpClient httpClient,
         HttpMethod httpMethod,
         Uri requestUri,
-        HttpRequestHeaders requestHeaders = null,
-        HttpContent requestBody = null,
+        HttpRequestHeaders httpRequestHeaders = null,
+        HttpContent httpContent = null,
         Action<FileConfig> config = null)
     {
         var fileConfig = new FileConfig();
@@ -179,14 +179,14 @@ public static class Main
         if (!fileConfig.TurnOn)
             return;
 
-        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, requestHeaders, requestBody, requestUri);
+        var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig.NeedAddDefaultHeaders);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
 
-    #endregion : Print in a file :
+    #endregion : Write in a file :
 
     #endregion :: EXTENSIONS ::
 }

@@ -261,7 +261,7 @@ public class SuccessScenariosTests
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
-            httpMethod: HttpMethod.Post, requestHeaders: httpRequestHeaders, requestBody: jsonContent, requestUri: string.Empty);
+            httpMethod: HttpMethod.Post, httpRequestHeaders: httpRequestHeaders, httpContent: jsonContent, requestUri: string.Empty);
 
         // Assert
         curlResult.Should().NotBeNullOrEmpty();
@@ -291,7 +291,7 @@ public class SuccessScenariosTests
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
-            httpMethod: HttpMethod.Post, requestUri: requestUri, requestBody: jsonContent);
+            httpMethod: HttpMethod.Post, requestUri: requestUri, httpContent: jsonContent);
 
         // Assert
         curlResult.Should().NotBeNullOrEmpty();
@@ -437,7 +437,7 @@ public class SuccessScenariosTests
 
         // Act
         string curlResult = httpClient.GenerateCurlInString(
-            httpMethod: HttpMethod.Get, requestHeaders: httpRequestHeaders);
+            httpMethod: HttpMethod.Get, httpRequestHeaders: httpRequestHeaders);
 
         // Assert
         curlResult.Should().NotBeNullOrEmpty();
