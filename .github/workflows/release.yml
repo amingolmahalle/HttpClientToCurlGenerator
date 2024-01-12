@@ -4,6 +4,8 @@ on:
   push:
     tags:
     - "v[0-9]+.[0-9]+.[0-9]+"
+    paths:
+      - 'HttpClientToCurlGenerator.nuspec'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,11 +26,30 @@ jobs:
     - name: Test
       run: dotnet test --configuration Release /p:Version=${VERSION} --no-build
       working-directory: src/HttpClientToCurl
-    - name: Pack
-      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
-      working-directory: src/HttpClientToCurl
-    - name: Push
-      run: dotnet nuget push HttpClientToCurl.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${GITHUB_TOKEN}
-      working-directory: src/HttpClientToCurl
-      env:
-        GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
+    # - name: Pack
+    #   run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
+    #   working-directory: src/HttpClientToCurl
+    # - name: Push
+    #   run: dotnet nuget push HttpClientToCurl.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${GITHUB_TOKEN}
+    #   working-directory: src/HttpClientToCurl
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
+  publish:
+    name: Publish to NuGet.org
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout code
+
+      - uses: nuget/setup-nuget@v1
+        name: Setup NuGet
+        with:
+          nuget-version: '6.x'
+
+      - name: Create the package
+        run: nuget pack HttpClientToCurl.nuspec -NoDefaultExcludes
+        
+      - name: Publish the package
+        run: nuget push *.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate
