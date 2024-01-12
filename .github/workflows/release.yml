@@ -49,6 +49,7 @@ jobs:
           nuget-version: '6.x'
 
       - name: Create the package
+        working-directory: ./
         run: nuget pack HttpClientToCurl.nuspec -NoDefaultExcludes
         
       - name: Publish the package
