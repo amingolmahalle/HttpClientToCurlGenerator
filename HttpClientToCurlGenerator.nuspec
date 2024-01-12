@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+
+    <id>HttpClientToCurlGenerator</id>
+    <version>2.0.3</version>
+    <title>Generating Curl script of HttpClient</title>
+    <authors>amingolmahalle</authors>
+    <description>An extension for generating Curl script of HttpClient</description>
+    <summary>
+      This extension will help you to see whatever is set in **HttpClient** in the form of a curl script.
+    </summary>
+    <releaseNotes>
+      Some improvements.
+    </releaseNotes>
+    <readme>readme.md</readme>
+
+    <projectUrl>https://github.com/amingolmahalle/HttpClientToCurlGenerator</projectUrl>
+    <repository type="git" url="https://github.com/amingolmahalle/HttpClientToCurlGenerator.git" branch="master" />
+
+    <license type="file">LICENSE.md</license>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>package json extension csharp dotnet curl aspnetcore nuget xml dotnetcore httpclient postman dotnet-core aspnet-core asp-net-core asp-net dotnet-standard nuget-package asp-net-core-web-api httpclients</tags>
+    <icon>icon.png</icon>
+    <readme>README.md</readme> 
+
+  </metadata>
+
+  <files> 
+    <file src="README.md" />
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;.\.vs\**;.\.vscode\**;.\.git\**;.\.github\workflows\dotnet.yml;.\.github\workflows\release.yml;.\.github\ISSUE_TEMPLATE\**;.\.github\icon.png;.\CODE_OF_CONDUCT.md;.\LICENSE;.\README.md;" />
+  </files>
+
+</package>
