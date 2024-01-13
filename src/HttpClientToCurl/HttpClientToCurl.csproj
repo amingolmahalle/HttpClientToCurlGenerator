@@ -8,6 +8,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <LangVersion>latest</LangVersion>
+        <PackageLicenseFile>License.md</PackageLicenseFile>
         <Description>
       This extension will help you see whatever is set in HttpClient as a curl script.
 Sometimes we may want to connect with an external service provider but when calling we come across many errors and we should spend a lot of time resolving errors. It happened to me many times;
