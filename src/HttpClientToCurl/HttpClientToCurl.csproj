@@ -1,77 +1,78 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <Authors>Amin Golmahalleh</Authors>
-        <Version>2.0.4</Version>
-        <PackageReleaseNotes>2.0.4</PackageReleaseNotes>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>disable</Nullable>
-        <LangVersion>latest</LangVersion>
-        <PackageLicenseFile>License.md</PackageLicenseFile>
-        <Description>
+  <PropertyGroup>
+    <Authors>Amin Golmahalleh</Authors>
+    <Version>2.0.4</Version>
+    <PackageReleaseNotes>2.0.4</PackageReleaseNotes>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <PackageLicenseFile>License.md</PackageLicenseFile>
+    <Description>
       This extension will help you see whatever is set in HttpClient as a curl script.
-Sometimes we may want to connect with an external service provider but when calling we come across many errors and we should spend a lot of time resolving errors. It happened to me many times;
-for example, the external service provider expects properties a request to be sent to it in the form of The Camel case but we send data to it in the form of The Pascal Case. after much investigation, we have realized this issue. Or it is possible we forget to send one Property or a Header or we made a mistake in filling in the value of a Header or Property
-and many issues like these, which we spent a lot of time resolving.
-this extension makes our work very easy.
-Before sending data to the service provider, this extension can show us exactly what we send it. (in the form of a curl in the console or in the file).
-After getting the curl, we can now call it in the terminal or import it in the Postman and check with the documents provided by the provider.
+      Sometimes we may want to connect with an external service provider but when calling we come across many errors and we should spend a lot of time resolving errors. It happened to me many times;
+      for example, the external service provider expects properties a request to be sent to it in the form of The Camel case but we send data to it in the form of The Pascal Case. after much investigation, we have realized this issue. Or it is possible we forget to send one Property or a Header or we made a mistake in filling in the value of a Header or Property
+      and many issues like these, which we spent a lot of time resolving.
+      this extension makes our work very easy.
+      Before sending data to the service provider, this extension can show us exactly what we send it. (in the form of a curl in the console or in the file).
+      After getting the curl, we can now call it in the terminal or import it in the Postman and check with the documents provided by the provider.
 
-You have 3 ways to see script results:
+      You have 3 ways to see script results:
 
-1- Print in the console:
+      1- Print in the console:
 
-     httpClient.GenerateCurlInConsole(httpRequestMessage, null);
+      httpClient.GenerateCurlInConsole(httpRequestMessage, null);
 
-2- Write in a file:
+      2- Write in a file:
 
-     httpClient.GenerateCurlInFile(httpRequestMessage, null);
+      httpClient.GenerateCurlInFile(httpRequestMessage, null);
 
-3- Put into a variable:
+      3- Put into a variable:
 
-    string script = httpClient.GenerateCurlInString(httpRequestMessage, null);
+      string script = httpClient.GenerateCurlInString(httpRequestMessage, null);
 
-Read more about this extension:
-https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclient-in-net-c539da7c6588
+      Read more about this extension:
+      https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclient-in-net-c539da7c6588
 
-Source Address:
-https://github.com/amingolmahalle/HttpClientToCurlGenerator
-        </Description>
+      Source Address:
+      https://github.com/amingolmahalle/HttpClientToCurlGenerator
+    </Description>
 
-        <PackageReleaseNotes>
+    <PackageReleaseNotes>
       This extension will help you see whatever is set in HttpClient as a curl script.
-Sometimes we may want to connect with an external service provider but when calling we come across many errors and we should spend a lot of time resolving errors. It happened to me many times;
-for example, the external service provider expects properties a request to be sent to it in the form of The Camel case but we send data to it in the form of The Pascal Case. after much investigation, we have realized this issue. Or it is possible we forget to send one Property or a Header or we made a mistake in filling in the value of a Header or Property
-and many issues like these, which we spent a lot of time resolving.
-this extension makes our work very easy.
-Before sending data to the service provider, this extension can show us exactly what we send it. (in the form of a curl in the console or in the file).
-After getting the curl, we can now call it in the terminal or import it in the Postman and check with the documents provided by the provider.
+      Sometimes we may want to connect with an external service provider but when calling we come across many errors and we should spend a lot of time resolving errors. It happened to me many times;
+      for example, the external service provider expects properties a request to be sent to it in the form of The Camel case but we send data to it in the form of The Pascal Case. after much investigation, we have realized this issue. Or it is possible we forget to send one Property or a Header or we made a mistake in filling in the value of a Header or Property
+      and many issues like these, which we spent a lot of time resolving.
+      this extension makes our work very easy.
+      Before sending data to the service provider, this extension can show us exactly what we send it. (in the form of a curl in the console or in the file).
+      After getting the curl, we can now call it in the terminal or import it in the Postman and check with the documents provided by the provider.
 
-You have 3 ways to see script results:
+      You have 3 ways to see script results:
 
-1- Write in the console:
+      1- Write in the console:
 
-     httpClient.GenerateCurlInConsole(httpRequestMessage, null);
+      httpClient.GenerateCurlInConsole(httpRequestMessage, null);
 
-2- Write in a file:
+      2- Write in a file:
 
-     httpClient.GenerateCurlInFile(httpRequestMessage, null);
+      httpClient.GenerateCurlInFile(httpRequestMessage, null);
 
-3- Put into a variable:
+      3- Put into a variable:
 
-    string script = httpClient.GenerateCurlInString(httpRequestMessage, null);
+      string script = httpClient.GenerateCurlInString(httpRequestMessage, null);
 
-Read more about this extension:
-https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclient-in-net-c539da7c6588
+      Read more about this extension:
+      https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclient-in-net-c539da7c6588
 
-Source Address:
-https://github.com/amingolmahalle/HttpClientToCurlGenerator
+      Source Address:
+      https://github.com/amingolmahalle/HttpClientToCurlGenerator
 
-        </PackageReleaseNotes>
-    </PropertyGroup>
+    </PackageReleaseNotes>
+  </PropertyGroup>
 
-    <ItemGroup>
-    </ItemGroup>
+  <ItemGroup>
+    <None Include="..\License.md" Pack="true" PackagePath=""/>
+  </ItemGroup>
 
 </Project>
