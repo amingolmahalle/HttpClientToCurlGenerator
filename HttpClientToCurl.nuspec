@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
 
-    <id>HttpClientToCurlGenerator</id>
+    <id>HttpClientToCurl</id>
     <version>2.0.4</version>
     <title>Generating Curl script of HttpClient</title>
-    <authors>Amin Golmahalleh</authors>
+    <authors>amingolmahalle</authors>
     <description>An extension for generating Curl script of HttpClient</description>
     <summary>
       This extension will help you to see whatever is set in **HttpClient** in the form of a curl script.
