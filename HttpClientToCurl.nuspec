@@ -13,22 +13,22 @@
     <releaseNotes>
       Some improvements.
     </releaseNotes>
-    <readme>readme.md</readme>
+    <readme>README.md</readme>
 
     <projectUrl>https://github.com/amingolmahalle/HttpClientToCurlGenerator</projectUrl>
     <repository type="git" url="https://github.com/amingolmahalle/HttpClientToCurlGenerator.git" branch="master" />
 
-    <!-- <license type="file">LICENSE.md</license>
+    <license type="file">LICENSE.md</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <tags>package json extension csharp dotnet curl aspnetcore nuget xml dotnetcore httpclient postman dotnet-core aspnet-core asp-net-core asp-net dotnet-standard nuget-package asp-net-core-web-api httpclients</tags> -->
+    <tags>package json extension csharp dotnet curl aspnetcore nuget xml dotnetcore httpclient postman dotnet-core aspnet-core asp-net-core asp-net dotnet-standard nuget-package asp-net-core-web-api httpclients</tags>
 <!--    <icon>icon.png</icon>-->
 
   </metadata>
 
   <files> 
     <file src="README.md" />
-    <!-- <file src="LICENSE.md"/> -->
-    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;.\.vs\**;.\.vscode\**;.\.git\**;.\.github\workflows\dotnet.yml;.\.github\workflows\release.yml;.\.github\ISSUE_TEMPLATE\**;.\.github\icon.png;.\CODE_OF_CONDUCT.md;.\LICENSE.md;.\README.md;" />
+    <file src="LICENSE.md"/>
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;.\.github\workflows\dotnet.yml;.\.github\workflows\release.yml;" />
   </files>
 
 </package>
