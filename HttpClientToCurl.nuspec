@@ -27,7 +27,7 @@
 
   <files> 
     <file src="README.md" />
-    <file src="LICENSE.md" target="" />
+    <file src="LICENSE.md"/>
     <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;.\.vs\**;.\.vscode\**;.\.git\**;.\.github\workflows\dotnet.yml;.\.github\workflows\release.yml;.\.github\ISSUE_TEMPLATE\**;.\.github\icon.png;.\CODE_OF_CONDUCT.md;.\LICENSE.md;.\README.md;" />
   </files>
 
