@@ -71,8 +71,4 @@
     </PackageReleaseNotes>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\License.md" Pack="true" PackagePath=""/>
-  </ItemGroup>
-
 </Project>
