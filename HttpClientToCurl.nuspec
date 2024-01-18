@@ -28,7 +28,7 @@
   <files> 
     <file src="README.md"/>
     <file src="LICENSE.md"/>
-    <!-- <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;.\.github\workflows\dotnet.yml;.\.github\workflows\release.yml;" /> -->
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;.\.github\workflows\dotnet.yml;.\.github\workflows\release.yml;" />
   </files>
 
 </package>
