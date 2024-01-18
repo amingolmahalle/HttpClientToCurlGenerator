@@ -21,7 +21,7 @@
     <license type="file">LICENSE.md</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>package json extension csharp dotnet curl aspnetcore nuget xml dotnetcore httpclient postman dotnet-core aspnet-core asp-net-core asp-net dotnet-standard nuget-package asp-net-core-web-api httpclients</tags>
-<!--    <icon>icon.png</icon>-->
+    <!--    <icon>icon.png</icon>-->
 
   </metadata>
 

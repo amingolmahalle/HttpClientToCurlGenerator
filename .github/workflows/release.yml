@@ -26,14 +26,7 @@ jobs:
     - name: Test
       run: dotnet test --configuration Release /p:Version=${VERSION} --no-build
       working-directory: src/HttpClientToCurl
-    # - name: Pack
-    #   run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
-    #   working-directory: src/HttpClientToCurl
-    # - name: Push
-    #   run: dotnet nuget push HttpClientToCurl.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${GITHUB_TOKEN}
-    #   working-directory: src/HttpClientToCurl
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
+    
   publish:
     name: Publish to NuGet.org
 
