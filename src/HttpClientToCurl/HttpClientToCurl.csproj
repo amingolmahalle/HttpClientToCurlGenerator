@@ -8,66 +8,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
-    <Description>
-      This extension will help you see whatever is set in HttpClient as a curl script.
-      Sometimes we may want to connect with an external service provider but when calling we come across many errors and we should spend a lot of time resolving errors. It happened to me many times;
-      for example, the external service provider expects properties a request to be sent to it in the form of The Camel case but we send data to it in the form of The Pascal Case. after much investigation, we have realized this issue. Or it is possible we forget to send one Property or a Header or we made a mistake in filling in the value of a Header or Property
-      and many issues like these, which we spent a lot of time resolving.
-      this extension makes our work very easy.
-      Before sending data to the service provider, this extension can show us exactly what we send it. (in the form of a curl in the console or in the file).
-      After getting the curl, we can now call it in the terminal or import it in the Postman and check with the documents provided by the provider.
-
-      You have 3 ways to see script results:
-
-      1- Print in the console:
-
-      httpClient.GenerateCurlInConsole(httpRequestMessage, null);
-
-      2- Write in a file:
-
-      httpClient.GenerateCurlInFile(httpRequestMessage, null);
-
-      3- Put into a variable:
-
-      string script = httpClient.GenerateCurlInString(httpRequestMessage, null);
-
-      Read more about this extension:
-      https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclient-in-net-c539da7c6588
-
-      Source Address:
-      https://github.com/amingolmahalle/HttpClientToCurlGenerator
-    </Description>
-
-    <PackageReleaseNotes>
-      This extension will help you see whatever is set in HttpClient as a curl script.
-      Sometimes we may want to connect with an external service provider but when calling we come across many errors and we should spend a lot of time resolving errors. It happened to me many times;
-      for example, the external service provider expects properties a request to be sent to it in the form of The Camel case but we send data to it in the form of The Pascal Case. after much investigation, we have realized this issue. Or it is possible we forget to send one Property or a Header or we made a mistake in filling in the value of a Header or Property
-      and many issues like these, which we spent a lot of time resolving.
-      this extension makes our work very easy.
-      Before sending data to the service provider, this extension can show us exactly what we send it. (in the form of a curl in the console or in the file).
-      After getting the curl, we can now call it in the terminal or import it in the Postman and check with the documents provided by the provider.
-
-      You have 3 ways to see script results:
-
-      1- Print in the console:
-
-      httpClient.GenerateCurlInConsole(httpRequestMessage, null);
-
-      2- Write in a file:
-
-      httpClient.GenerateCurlInFile(httpRequestMessage, null);
-
-      3- Put into a variable:
-
-      string script = httpClient.GenerateCurlInString(httpRequestMessage, null);
-
-      Read more about this extension:
-      https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclient-in-net-c539da7c6588
-
-      Source Address:
-      https://github.com/amingolmahalle/HttpClientToCurlGenerator
-
-    </PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>This extension will help you to see whatever is set in **HttpClient** in the form of a curl script.</Description>
+    <PackageTags>package json extension csharp dotnet curl aspnetcore nuget xml dotnetcore httpclient postman dotnet-core aspnet-core asp-net-core asp-net dotnet-standard nuget-package asp-net-core-web-api httpclients</PackageTags>
+    <PackageProjectUrl>https://github.com/amingolmahalle/HttpClientToCurlGenerator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/amingolmahalle/HttpClientToCurlGenerator</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="True" Visible="False" PackagePath="" />
+  </ItemGroup>
 
 </Project>
