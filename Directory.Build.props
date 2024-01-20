@@ -1,0 +1,15 @@
+<Project>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Copy SourceFiles="$(SolutionDir)pre-commit" DestinationFiles="$(SolutionDir).git\hooks\pre-commit" SkipUnchangedFiles="true" ContinueOnError="true"/>
+    <Copy SourceFiles="$(SolutionDir)pre-push" DestinationFiles="$(SolutionDir).git\hooks\pre-push" SkipUnchangedFiles="true" ContinueOnError="true"/>
+  </Target>
+  <PropertyGroup>
+    <TargetFramework>netstansard2.1</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>annotations</Nullable>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+</Project>
