@@ -13,11 +13,13 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_For_PostMethod()
     {
         // Arrange
-        string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
+        string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
 
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
@@ -41,11 +43,13 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_With_ContentLength_For_PostMethod()
     {
         // Arrange
-        string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
+        string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
 
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer f69406a4-6b62-4734-a8dc-158f0fc308ab");
         httpRequestMessage.Headers.Add("ContentLength", "123");
 
@@ -70,7 +74,7 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_With_QueryString_For_PostMethod()
     {
         // Arrange
-        string requestBody = @"{""name"":""amin"",""requestId"":10001000,""amount"":10000}";
+        string requestBody = /*lang=json,strict*/ @"{""name"":""amin"",""requestId"":10001000,""amount"":10000}";
 
         var queryString = new Dictionary<string, string>
         {
@@ -79,8 +83,10 @@ public class SuccessCurlGeneratorTests
             { "nationalCode", "123-456-7890" }
         };
         var requestUri = QueryHelpers.AddQueryString("api/test", queryString!);
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
@@ -105,15 +111,17 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_UrlEncoded_For_PostMethod()
     {
         // Arrange
-        string requestBody = @"{""name"":""justin"",""requestId"":10001026,""amount"":26000}";
+        string requestBody = /*lang=json,strict*/ @"{""name"":""justin"",""requestId"":10001026,""amount"":26000}";
 
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = new FormUrlEncodedContent(new[]
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new FormUrlEncodedContent(new[]
         {
             new KeyValuePair<string, string>("session", "703438f3-16ad-4ba5-b923-8f72cd0f2db9"),
             new KeyValuePair<string, string>("payload", requestBody),
-        });
+        })
+        };
 
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
@@ -139,8 +147,10 @@ public class SuccessCurlGeneratorTests
     {
         // Arrange
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new StringContent(string.Empty, Encoding.UTF8, "application/json")
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer c332e9a1-1e0e-44c2-b819-b0e7e8ff7d45");
 
         using var httpClient = new HttpClient();
@@ -165,8 +175,10 @@ public class SuccessCurlGeneratorTests
     {
         // Arrange
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = null;
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = null
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 56bfa7a0-0541-4d71-9efc-8b28219ac31a");
 
         using var httpClient = new HttpClient();
@@ -193,8 +205,10 @@ public class SuccessCurlGeneratorTests
         string requestBody = @"""name"":""steven"",""requestId"":10001005,""amount"":60000";
 
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
@@ -218,11 +232,13 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_When_BaseAddress_Is_Null_PostMethod()
     {
         // Arrange
-        string requestBody = @"{""name"":""nancy"",""requestId"":10001006,""amount"":70000}";
+        string requestBody = /*lang=json,strict*/ @"{""name"":""nancy"",""requestId"":10001006,""amount"":70000}";
 
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
@@ -247,8 +263,10 @@ public class SuccessCurlGeneratorTests
     {
         // Arrange
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri)
+        {
+            Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
         using var httpClient = new HttpClient();
@@ -277,8 +295,10 @@ public class SuccessCurlGeneratorTests
             { "id", "12" }
         };
         var requestUri = QueryHelpers.AddQueryString("api/test", queryString!);
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri)
+        {
+            Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
         using var httpClient = new HttpClient();
@@ -302,11 +322,13 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_For_PutMethod()
     {
         // Arrange
-        string requestBody = @"{""name"":""reza"",""requestId"":10001002,""amount"":30000}";
+        string requestBody = /*lang=json,strict*/ @"{""name"":""reza"",""requestId"":10001002,""amount"":30000}";
 
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri)
+        {
+            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
@@ -330,11 +352,13 @@ public class SuccessCurlGeneratorTests
     public void GenerateCurl_For_PatchMethod()
     {
         // Arrange
-        string requestBody = @"{""name"":""hamed"",""requestId"":10001003,""amount"":40000}";
+        string requestBody = /*lang=json,strict*/ @"{""name"":""hamed"",""requestId"":10001003,""amount"":40000}";
 
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
-        httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri)
+        {
+            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
@@ -360,8 +384,10 @@ public class SuccessCurlGeneratorTests
         // Arrange
         var id = 12;
         var requestUri = $"api/test/{id}";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
-        httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json);
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri)
+        {
+            Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
         using var httpClient = new HttpClient();

@@ -32,17 +32,29 @@ internal static class Extensions
         ConsoleColor color;
 
         if (httpMethod == HttpMethod.Post)
+        {
             color = ConsoleColor.Green;
+        }
         else if (httpMethod == HttpMethod.Get)
+        {
             color = ConsoleColor.Cyan;
+        }
         else if (httpMethod == HttpMethod.Put)
+        {
             color = ConsoleColor.Yellow;
+        }
         else if (httpMethod == HttpMethod.Patch)
+        {
             color = ConsoleColor.Magenta;
+        }
         else if (httpMethod == HttpMethod.Delete)
+        {
             color = ConsoleColor.Red;
+        }
         else
+        {
             color = ConsoleColor.White;
+        }
 
         return color;
     }
@@ -51,10 +63,14 @@ internal static class Extensions
     {
         string inputPath = path?.Trim();
         if (string.IsNullOrWhiteSpace(inputPath))
+        {
             inputPath = Directory.GetCurrentDirectory();
+        }
 
         if (inputPath.EndsWith('/'))
+        {
             inputPath = inputPath.Remove(inputPath.Length - 1);
+        }
 
         return inputPath;
     }
