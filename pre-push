@@ -1,0 +1,20 @@
+#!/bin/sh
+LC_ALL=C
+
+local_branch="$(git rev-parse --abbrev-ref HEAD)"
+
+echo -e "\n"
+echo -e "->Your branch name is: ($local_branch)"
+
+valid_branch_regex="^(main|develop|dev|master)+|((hot|bug)fix|refactor|optimize|feature|document)+(\/HCG-)+([0-9]{1,5})$"
+
+if [[ ! $local_branch =~ $valid_branch_regex ]]
+then
+    echo -e "->Branch name must adhere to this contract: $valid_branch_regex.
+->Your commit will not be pushed to the repository. You must rename your branch to a valid name and then try again."
+    exit 1
+fi
+
+echo -e "->Branch name verified "
+echo -e "\n"
+exit 0

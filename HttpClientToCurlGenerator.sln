@@ -19,6 +19,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D3967ABF-F7C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E36BF269-7F5D-4DE7-99B0-14567F9CD6B3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solutionItems", "solutionItems", "{3C59B0E2-F8B4-41D0-9E27-5A1B04411241}"
+	ProjectSection(SolutionItems) = preProject
+		pre-commit = pre-commit
+		pre-push = pre-push
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

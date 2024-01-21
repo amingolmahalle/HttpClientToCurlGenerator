@@ -16,7 +16,9 @@ public static class Main
         config?.Invoke(stringConfig);
 
         if (!stringConfig.TurnOn)
+        {
             return string.Empty;
+        }
 
         string script = Generator.GenerateCurl(
             httpClient,
@@ -38,7 +40,9 @@ public static class Main
         config?.Invoke(stringConfig);
 
         if (!stringConfig.TurnOn)
+        {
             return string.Empty;
+        }
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
@@ -59,7 +63,9 @@ public static class Main
         config?.Invoke(stringConfig);
 
         if (!stringConfig.TurnOn)
+        {
             return string.Empty;
+        }
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
@@ -78,7 +84,9 @@ public static class Main
         config?.Invoke(consoleConfig);
 
         if (!consoleConfig.TurnOn)
+        {
             return;
+        }
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig.NeedAddDefaultHeaders);
 
@@ -97,7 +105,9 @@ public static class Main
         config?.Invoke(consoleConfig);
 
         if (!consoleConfig.TurnOn)
+        {
             return;
+        }
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
@@ -118,7 +128,9 @@ public static class Main
         config?.Invoke(consoleConfig);
 
         if (!consoleConfig.TurnOn)
+        {
             return;
+        }
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
@@ -137,7 +149,9 @@ public static class Main
         config?.Invoke(fileConfig);
 
         if (!fileConfig.TurnOn)
+        {
             return;
+        }
 
         string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig.NeedAddDefaultHeaders);
 
@@ -156,7 +170,9 @@ public static class Main
         config?.Invoke(fileConfig);
 
         if (!fileConfig.TurnOn)
+        {
             return;
+        }
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
@@ -177,7 +193,9 @@ public static class Main
         config?.Invoke(fileConfig);
 
         if (!fileConfig.TurnOn)
+        {
             return;
+        }
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 

@@ -7,7 +7,9 @@ public static class Helpers
     internal static void WriteInConsole(string script, bool enableCodeBeautification, HttpMethod httpMethod)
     {
         if (!enableCodeBeautification)
+        {
             Console.WriteLine(script);
+        }
         else
         {
             Console.ForegroundColor = httpMethod.SetColor();
@@ -21,7 +23,7 @@ public static class Helpers
         path = path.NormalizedPath();
         filename = filename.NormalizedFilename();
 
-        string fullPath = $"{path}{Path.DirectorySeparatorChar.ToString()}{filename}.curl";
+        string fullPath = $"{path}{Path.DirectorySeparatorChar}{filename}.curl";
         if (File.Exists(fullPath))
         {
             using var streamWriter = new StreamWriter(fullPath, true);
@@ -42,7 +44,9 @@ public static class Helpers
         };
 
         if (requestBody is not null)
+        {
             httpRequestMessage.Content = requestBody;
+        }
 
         if (requestHeaders is not null && requestHeaders.Any())
         {
@@ -69,11 +73,17 @@ public static class Helpers
         bool isValidAbsoluteAddress = true;
 
         if (baseAddress is null)
+        {
             isValidAbsoluteAddress = false;
+        }
         else if (!baseAddress.IsAbsoluteUri)
+        {
             isValidAbsoluteAddress = false;
+        }
         else if (!IsHttpUri(baseAddress))
+        {
             isValidAbsoluteAddress = false;
+        }
 
         return isValidAbsoluteAddress;
     }
