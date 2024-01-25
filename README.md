@@ -1,14 +1,14 @@
 # :1st_place_medal: HttpClientToCurlGenerator :1st_place_medal:
-An extension for generating Curl script of HttpClient.
+An extension for generating the Curl script of HttpClient.
 
 [![license](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGeneratore/blob/master/LICENSE) [![forks](https://img.shields.io/github/forks/amingolmahalle/HttpClientToCurlGenerator)]() [![stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator)  
 ![example workflow](https://github.com/amingolmahalle/HttpClientToCurlGenerator/actions/workflows/dotnet.yml/badge.svg)
 
 This extension will help you to see whatever is set in **HttpClient** in the form of a curl script.
 
-And you can check if that is the correct data for sending to an external service or not. and also if you have an error, you can check the script and find your problem and fix that. so easily.
+And you can check if that is the correct data for sending to an external service or not. also if you have an error, you can check the script find your problem, and fix that. so easily.
 
-Also, it is new way and also a fast way to create or update a collection Postman, when you haven't got a **postman collection** for your desired external service.
+Also, it is the new way and fast way to create or update a collection of Postman, when you haven't got a **postman collection** for your desired external service.
 
 It's easy to use. just you should install the package on your project from the below address and use sample codes for how to call and work with extensions.
 
@@ -38,7 +38,7 @@ httpClient.GenerateCurlInConsole(httpRequestMessage);
 ```
 - **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. 
 you should **remove enters** from the script.
-- **Notice**: 'config' Parameter is optional.
+- **Notice**: The 'config' Parameter is optional.
 
 **3: Write in a file:**
 
@@ -46,7 +46,7 @@ you should **remove enters** from the script.
 httpClient.GenerateCurlInFile(httpRequestMessage);
 ```
 
-- **Notice**: 'config' Parameter is optional.
+- **Notice**: The 'config' Parameter is optional.
 
 **Read more about this extension:**
 
@@ -62,11 +62,11 @@ also, I will be extremely happy if you contribute to the implementation and impr
 
 ## **Give a Star!** :star:
 
-If you like this project, learn something or you are using it in your applications, please give it a star. Thanks!
+If you like this project, learn something, or are using it in your applications, please give it a star. Thanks!
 
 ## **How to use HttpClientToCurlGenerator Extensions**:
 
-**You can see more samples in FunctionalTest Directory.**
+**You can see more samples in the FunctionalTest Directory.**
 
 ### **Post Method** sample code (it will be written in the **console**):
 ```cs
@@ -118,7 +118,7 @@ httpClient.GenerateCurlInConsole(
 // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
 ```
 
-### **Post Method** sample code for xml (it will be written in the **console**):
+### **Post Method** sample code for XML (it will be written in the **console**):
 
 ```cs
 string requestBody = @"<?xml version = ""1.0"" encoding = ""UTF-8""?>
