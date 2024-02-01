@@ -88,7 +88,7 @@ httpClient.GenerateCurlInConsole(
         config.EnableCodeBeautification = false;
     });
 
- // Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
+ // Call PostAsync => await client.PostAsync(requestUri, httpRequestMessage.Content);
 ```
 
 ### **Post Method** sample code for FormUrlEncodedContent (it will be written in the **console**):
@@ -115,7 +115,7 @@ httpClient.GenerateCurlInConsole(
         config.EnableCodeBeautification = false;
     });
 
-// Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
+// Call PostAsync => await client.PostAsync(requestUri, httpRequestMessage.Content);
 ```
 
 ### **Post Method** sample code for XML (it will be written in the **console**):
@@ -145,7 +145,7 @@ httpClient.GenerateCurlInConsole(
         config.EnableCodeBeautification = false;
     });
 
-// Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
+// Call PostAsync => await client.PostAsync(requestUri, httpRequestMessage.Content);
 ```
 
 ### **Post Method** sample code (it will be written in the **file**):
@@ -176,7 +176,7 @@ httpClient.GenerateCurlInFile(
         config.NeedAddDefaultHeaders = true;
     });
 
-// Call PostAsync => await client.PostAsync(requestUri, httpRequest.Content);
+// Call PostAsync => await client.PostAsync(requestUri, httpRequestMessage.Content);
 ```
 
 ### **Get Method** sample code (it will be written in the **console**):
@@ -253,7 +253,7 @@ httpClient.GenerateCurlInConsole(
         config.EnableCodeBeautification = false;
     });
 
-// Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
+// Call PutAsync => await client.PutAsync(requestUri, httpRequestMessage.Content);
 ```
 
 ### **Put Method** sample code (it will be written in the **file**):
@@ -284,7 +284,7 @@ httpClient.GenerateCurlInFile(
         config.NeedAddDefaultHeaders = true;
     });
 
-// Call PutAsync => await client.PutAsync(requestUri, httpRequest.Content);
+// Call PutAsync => await client.PutAsync(requestUri, httpRequestMessage.Content);
 ```
 
 ### **Patch Method** sample code (it will be written in the **console**):
@@ -308,7 +308,7 @@ httpClient.GenerateCurlInConsole(
         config.EnableCodeBeautification = false;
     });
 
-// Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
+// Call PatchAsync => await client.PatchAsync(requestUri, httpRequestMessage.Content);
 ```
 
 ### **Patch Method** sample code (it will be written in the **file**):
@@ -339,7 +339,7 @@ httpClient.GenerateCurlInFile(
         config.NeedAddDefaultHeaders = true;
     });
 
-// Call PatchAsync => await client.PatchAsync(requestUri, httpRequest.Content);
+// Call PatchAsync => await client.PatchAsync(requestUri, httpRequestMessage.Content);
 ```
 
 ### **Delete Method** sample code (it will be written in the **console**):
