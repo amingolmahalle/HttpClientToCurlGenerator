@@ -1,5 +1,5 @@
 # :1st_place_medal: HttpClientToCurlGenerator :1st_place_medal:
-An extension for generating the Curl script of HttpClient.
+An extension for generating the Curl script of HttpClient in .NET
 
 [![license](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGeneratore/blob/master/LICENSE) [![forks](https://img.shields.io/github/forks/amingolmahalle/HttpClientToCurlGenerator)]() [![stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator)  
 ![example workflow](https://github.com/amingolmahalle/HttpClientToCurlGenerator/actions/workflows/dotnet.yml/badge.svg)
