@@ -50,7 +50,7 @@ httpClient.GenerateCurlInFile(httpRequestMessage);
 
 **Read more about this extension:**
 
-[English Article](https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclient-in-net-c539da7c6588)
+[English Article]([https://medium.com/@amin.golmahalle/how-to-generate-curl-script-of-the-httpclient-in-net-c539da7c6588](https://www.c-sharpcorner.com/article/how-to-generate-curl-script-of-the-httpclient-in-net/))
 
 [Persian Article](https://vrgl.ir/FPx11)
 
