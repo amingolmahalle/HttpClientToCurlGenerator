@@ -1,5 +1,5 @@
 namespace HttpClientToCurl.Config;
 
-public class StringConfig : BaseConfig
+public sealed class StringConfig : BaseConfig
 {
 }

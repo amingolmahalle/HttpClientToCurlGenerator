@@ -1,11 +1,12 @@
 using System.Data;
 using System.Text;
+using HttpClientToCurl.Config;
 
 namespace HttpClientToCurl;
 
 public static class Generator
 {
-    public static string GenerateCurl(HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders)
+    public static string CreateCurl(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config)
     {
         string script;
 
@@ -13,23 +14,23 @@ public static class Generator
         {
             if (httpRequestMessage.Method == HttpMethod.Post)
             {
-                script = GeneratePostMethod(httpClient, httpRequestMessage, needAddDefaultHeaders);
+                script = GenerateForPostMethod(httpClient, httpRequestMessage, config);
             }
             else if (httpRequestMessage.Method == HttpMethod.Get)
             {
-                script = GenerateGetMethod(httpClient, httpRequestMessage, needAddDefaultHeaders);
+                script = GenerateForGetMethod(httpClient, httpRequestMessage, config);
             }
             else if (httpRequestMessage.Method == HttpMethod.Put)
             {
-                script = GeneratePutMethod(httpClient, httpRequestMessage, needAddDefaultHeaders);
+                script = GenerateForPutMethod(httpClient, httpRequestMessage, config);
             }
             else if (httpRequestMessage.Method == HttpMethod.Patch)
             {
-                script = GeneratePatchMethod(httpClient, httpRequestMessage, needAddDefaultHeaders);
+                script = GenerateForPatchMethod(httpClient, httpRequestMessage, config);
             }
             else if (httpRequestMessage.Method == HttpMethod.Delete)
             {
-                script = GenerateDeleteMethod(httpClient, httpRequestMessage, needAddDefaultHeaders);
+                script = GenerateForDeleteMethod(httpClient, httpRequestMessage, config);
             }
             else
             {
@@ -46,62 +47,57 @@ public static class Generator
 
     #region :: CURL GENERATORS ::
 
-    private static string GenerateGetMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders)
+    private static string GenerateForGetMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
-            .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
-            .Append(' ')
-            .ToString();
+            .AddHeaders(httpClient, httpRequestMessage, config?.NeedAddDefaultHeaders ?? new BaseConfig().NeedAddDefaultHeaders)?
+            .Finalize(config?.EnableCompression ?? new BaseConfig().EnableCompression);
     }
 
-    private static string GeneratePostMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders)
+    private static string GenerateForPostMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
-            .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
+            .AddHeaders(httpClient, httpRequestMessage, config?.NeedAddDefaultHeaders ?? new BaseConfig().NeedAddDefaultHeaders)?
             .AddBody(httpRequestMessage.Content)?
-            .Append(' ')
-            .ToString();
+            .Finalize(config?.EnableCompression ?? new BaseConfig().EnableCompression);
     }
 
-    private static string GeneratePutMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders)
+    private static string GenerateForPutMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
-            .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
+            .AddHeaders(httpClient, httpRequestMessage, config?.NeedAddDefaultHeaders ?? new BaseConfig().NeedAddDefaultHeaders)?
             .AddBody(httpRequestMessage.Content)?
-            .Append(' ')
-            .ToString();
+            .Finalize(config?.EnableCompression ?? new BaseConfig().EnableCompression);
     }
 
-    private static string GeneratePatchMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders)
+    private static string GenerateForPatchMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
-            .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
+            .AddHeaders(httpClient, httpRequestMessage, config?.NeedAddDefaultHeaders ?? new BaseConfig().NeedAddDefaultHeaders)?
             .AddBody(httpRequestMessage.Content)?
-            .Append(' ')
-            .ToString();
+            .Finalize(config?.EnableCompression ?? new BaseConfig().EnableCompression);
     }
 
-    private static string GenerateDeleteMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders)
+    private static string GenerateForDeleteMethod(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config)
     {
         StringBuilder stringBuilder = Builder.Initialize(httpRequestMessage.Method);
 
         return stringBuilder
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
-            .AddHeaders(httpClient, httpRequestMessage, needAddDefaultHeaders)?
-            .Append(' ')
-            .ToString();
+            .AddHeaders(httpClient, httpRequestMessage, config?.NeedAddDefaultHeaders ?? new BaseConfig().NeedAddDefaultHeaders)?
+            .Finalize(config?.EnableCompression ?? new BaseConfig().EnableCompression);
     }
 
     #endregion :: CURL GENERATORS ::

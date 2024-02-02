@@ -1,7 +1,15 @@
 namespace HttpClientToCurl.Config;
 
-public abstract class BaseConfig
+public class BaseConfig
 {
-    public bool NeedAddDefaultHeaders { get; set; } = true;
-    public bool TurnOn { get; set; } = true;
+    public BaseConfig()
+    {
+        TurnOn = true;
+        NeedAddDefaultHeaders = true;
+        EnableCompression = false;
+    }
+
+    public bool TurnOn { get; set; }
+    public bool NeedAddDefaultHeaders { get; set; }
+    public bool EnableCompression { get; set; }
 }

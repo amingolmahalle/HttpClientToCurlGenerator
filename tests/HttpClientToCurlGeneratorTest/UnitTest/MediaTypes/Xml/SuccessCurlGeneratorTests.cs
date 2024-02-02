@@ -31,10 +31,10 @@ public class SuccessCurlGeneratorTests
         httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
-        string script = Generator.GenerateCurl(
+        string script = Generator.CreateCurl(
             httpClient,
             httpRequestMessage,
-            true);
+            null);
 
         // Assert
         script.Should().NotBeNullOrEmpty();
@@ -72,10 +72,10 @@ public class SuccessCurlGeneratorTests
         httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
-        string script = Generator.GenerateCurl(
+        string script = Generator.CreateCurl(
             httpClient,
             httpRequestMessage,
-            true);
+            null);
 
         // Assert
         script.Should().NotBeNull();

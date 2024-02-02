@@ -22,6 +22,16 @@ internal static class Builder
         return stringBuilder.Append(' ');
     }
 
+    internal static string Finalize(this StringBuilder stringBuilder, bool enableCompression)
+    {
+        return enableCompression
+            ? stringBuilder
+                .Append(' ')
+                .Append("--compressed")
+                .ToString()
+            : stringBuilder.ToString();
+    }
+
     internal static StringBuilder AddAbsoluteUrl(this StringBuilder stringBuilder, string baseAddress, Uri requestUri)
     {
         Uri baseAddressUri = Helpers.CreateUri(baseAddress);

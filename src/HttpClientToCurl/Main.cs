@@ -20,10 +20,10 @@ public static class Main
             return string.Empty;
         }
 
-        string script = Generator.GenerateCurl(
+        string script = Generator.CreateCurl(
             httpClient,
             httpRequestMessage,
-            stringConfig.NeedAddDefaultHeaders);
+            stringConfig);
 
         return script;
     }
@@ -46,7 +46,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, stringConfig.NeedAddDefaultHeaders);
+        string script = Generator.CreateCurl(httpClient, httpRequestMessage, stringConfig);
 
         return script;
     }
@@ -69,14 +69,14 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, stringConfig.NeedAddDefaultHeaders);
+        string script = Generator.CreateCurl(httpClient, httpRequestMessage, stringConfig);
 
         return script;
     }
 
     #endregion : Put in a variable :
 
-    #region : Print in the console :
+    #region : Show in the console :
 
     public static void GenerateCurlInConsole(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, Action<ConsoleConfig> config = null)
     {
@@ -88,7 +88,7 @@ public static class Main
             return;
         }
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig.NeedAddDefaultHeaders);
+        string script = Generator.CreateCurl(httpClient, httpRequestMessage, consoleConfig);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
@@ -111,7 +111,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig.NeedAddDefaultHeaders);
+        string script = Generator.CreateCurl(httpClient, httpRequestMessage, consoleConfig);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
@@ -134,7 +134,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig.NeedAddDefaultHeaders);
+        string script = Generator.CreateCurl(httpClient, httpRequestMessage, consoleConfig);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
@@ -153,7 +153,7 @@ public static class Main
             return;
         }
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig.NeedAddDefaultHeaders);
+        string script = Generator.CreateCurl(httpClient, httpRequestMessage, fileConfig);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
@@ -176,7 +176,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig.NeedAddDefaultHeaders);
+        string script = Generator.CreateCurl(httpClient, httpRequestMessage, fileConfig);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
@@ -199,7 +199,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig.NeedAddDefaultHeaders);
+        string script = Generator.CreateCurl(httpClient, httpRequestMessage, fileConfig);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
