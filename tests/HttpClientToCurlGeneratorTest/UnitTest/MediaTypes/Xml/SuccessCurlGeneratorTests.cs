@@ -2,6 +2,7 @@ using FluentAssertions;
 using HttpClientToCurl;
 using System.Net.Mime;
 using System.Text;
+using HttpClientToCurl.Builder;
 using Xunit;
 
 namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Xml;
@@ -31,7 +32,7 @@ public class SuccessCurlGeneratorTests
         httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
-        string script = Generator.CreateCurl(
+        string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
             null);
@@ -72,7 +73,7 @@ public class SuccessCurlGeneratorTests
         httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
-        string script = Generator.CreateCurl(
+        string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
             null);

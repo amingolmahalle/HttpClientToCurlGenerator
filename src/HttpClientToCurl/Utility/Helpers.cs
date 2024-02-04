@@ -12,7 +12,7 @@ public static class Helpers
         }
         else
         {
-            Console.ForegroundColor = httpMethod.SetColor();
+            Console.ForegroundColor = SetColor(httpMethod);
             Console.WriteLine(script);
             Console.ResetColor();
         }
@@ -20,8 +20,8 @@ public static class Helpers
 
     internal static void WriteInFile(string script, string filename, string path)
     {
-        path = path.NormalizedPath();
-        filename = filename.NormalizedFilename();
+        path = NormalizedPath(path);
+        filename = NormalizedFilename(filename);
 
         string fullPath = $"{path}{Path.DirectorySeparatorChar}{filename}.curl";
         if (File.Exists(fullPath))
@@ -36,12 +36,62 @@ public static class Helpers
         }
     }
 
+    private static ConsoleColor SetColor(HttpMethod httpMethod)
+    {
+        ConsoleColor color;
+
+        if (httpMethod == HttpMethod.Post)
+        {
+            color = ConsoleColor.Green;
+        }
+        else if (httpMethod == HttpMethod.Get)
+        {
+            color = ConsoleColor.Cyan;
+        }
+        else if (httpMethod == HttpMethod.Put)
+        {
+            color = ConsoleColor.Yellow;
+        }
+        else if (httpMethod == HttpMethod.Patch)
+        {
+            color = ConsoleColor.Magenta;
+        }
+        else if (httpMethod == HttpMethod.Delete)
+        {
+            color = ConsoleColor.Red;
+        }
+        else
+        {
+            color = ConsoleColor.White;
+        }
+
+        return color;
+    }
+
+    private static string NormalizedPath(string path)
+    {
+        string inputPath = path?.Trim();
+        if (string.IsNullOrWhiteSpace(inputPath))
+        {
+            inputPath = Directory.GetCurrentDirectory();
+        }
+
+        if (inputPath.EndsWith('/'))
+        {
+            inputPath = inputPath.Remove(inputPath.Length - 1);
+        }
+
+        return inputPath;
+    }
+
+    private static string NormalizedFilename(string filename)
+        => string.IsNullOrWhiteSpace(filename)
+            ? DateTime.Now.Date.ToString("yyyyMMdd")
+            : filename.Trim();
+
     internal static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody, Uri requestUri)
     {
-        var httpRequestMessage = new HttpRequestMessage
-        {
-            Method = httpMethod
-        };
+        var httpRequestMessage = new HttpRequestMessage { Method = httpMethod };
 
         if (requestBody is not null)
         {
