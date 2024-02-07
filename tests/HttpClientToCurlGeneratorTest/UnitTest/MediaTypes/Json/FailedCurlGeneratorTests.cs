@@ -33,6 +33,6 @@ public class FailedCurlGeneratorTests
         // Assert
         script.Should().NotBeNullOrEmpty();
         script.Should().StartWith("GenerateCurlError => not supported");
-        script.Trim().Should().BeEquivalentTo($"GenerateCurlError => not supported {httpRequestMessage.Method.Method}!");
+        script.Trim().Should().BeEquivalentTo($"GenerateCurlError => not supported {httpRequestMessage.Method.Method} by HttpClientToCurl!");
     }
 }
