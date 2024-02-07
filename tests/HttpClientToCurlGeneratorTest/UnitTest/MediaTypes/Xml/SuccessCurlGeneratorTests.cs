@@ -1,5 +1,4 @@
 using FluentAssertions;
-using HttpClientToCurl;
 using System.Net.Mime;
 using System.Text;
 using HttpClientToCurl.Builder;
