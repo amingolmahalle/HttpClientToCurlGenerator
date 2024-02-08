@@ -21,10 +21,7 @@ public class SuccessCurlGeneratorTests
             </Order>";
 
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
-        {
-            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Text.Xml)
-        };
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Text.Xml) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();
@@ -62,10 +59,7 @@ public class SuccessCurlGeneratorTests
             </Order>";
 
         var requestUri = "api/test";
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
-        {
-            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Text.Xml)
-        };
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Text.Xml) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
         using var httpClient = new HttpClient();

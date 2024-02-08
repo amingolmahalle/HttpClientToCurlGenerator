@@ -85,9 +85,11 @@ public static class Helpers
     }
 
     private static string NormalizedFilename(string filename)
-        => string.IsNullOrWhiteSpace(filename)
+    {
+        return string.IsNullOrWhiteSpace(filename)
             ? DateTime.Now.Date.ToString("yyyyMMdd")
             : filename.Trim();
+    }
 
     internal static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody, Uri requestUri)
     {
@@ -147,5 +149,7 @@ public static class Helpers
     }
 
     public static Uri CreateUri(string uri)
-        => string.IsNullOrEmpty(uri) ? null : new Uri(uri, UriKind.RelativeOrAbsolute);
+    {
+        return string.IsNullOrEmpty(uri) ? null : new Uri(uri, UriKind.RelativeOrAbsolute);
+    }
 }

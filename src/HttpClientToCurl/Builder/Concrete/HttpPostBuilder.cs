@@ -1,9 +1,10 @@
 using HttpClientToCurl.Builder.Concrete.Common;
 using HttpClientToCurl.Config;
+using HttpClientToCurl.Builder.Interface;
 
 namespace HttpClientToCurl.Builder.Concrete;
 
-public sealed class HttpPostBuilder : BaseBuilder, Interface.IBuilder
+public sealed class HttpPostBuilder : BaseBuilder, IBuilder
 {
     public string Create(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config)
     {
