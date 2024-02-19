@@ -1,14 +1,15 @@
 using System.Net;
 using System.Text;
+using System.Web;
 using HttpClientToCurl.Utility;
 
-namespace HttpClientToCurl;
+namespace HttpClientToCurl.Builder.Concrete.Common;
 
-internal static class Builder
+internal static class Extensions
 {
-    internal static StringBuilder Initialize(HttpMethod httpMethod)
+    internal static StringBuilder Initialize(this StringBuilder stringBuilder, HttpMethod httpMethod)
     {
-        var stringBuilder = new StringBuilder("curl");
+        stringBuilder.Append("curl");
 
         if (httpMethod != HttpMethod.Get)
         {
@@ -40,7 +41,7 @@ internal static class Builder
 
         string address = GetAbsoluteAddress(baseAddressUri, baseAddressIsAbsoluteUri, requestUri, requestUriIsAbsoluteUri);
 
-        var encodedAddress = ApplyEncodeUri(address);
+        var encodedAddress = address.ApplyEncodeUri();
 
         return stringBuilder
             .Append($"{AddSingleQuotationMark(encodedAddress ?? address)}")
@@ -82,7 +83,7 @@ internal static class Builder
         return $"{baseAddressUri}{requestUri}";
     }
 
-    private static string ApplyEncodeUri(string address)
+    private static string ApplyEncodeUri(this string address)
     {
         string result = null;
 
@@ -194,5 +195,27 @@ internal static class Builder
         }
 
         return stringBuilder;
+    }
+
+    private static void AppendBodyItem(this StringBuilder stringBuilder, object body)
+        => stringBuilder
+            .Append("-d")
+            .Append(' ')
+            .Append('\'')
+            .Append(body)
+            .Append('\'')
+            .Append(' ');
+
+    private static void AddFormUrlEncodedContentBody(this StringBuilder stringBuilder, string body)
+    {
+        string decodedBody = HttpUtility.UrlDecode(body);
+        string[] splitBodyArray = decodedBody.Split('&');
+        if (splitBodyArray.Any())
+        {
+            foreach (string item in splitBodyArray)
+            {
+                stringBuilder.AppendBodyItem(item);
+            }
+        }
     }
 }

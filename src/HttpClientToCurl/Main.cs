@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using HttpClientToCurl.Builder;
 using HttpClientToCurl.Config;
 using HttpClientToCurl.Utility;
 
@@ -20,7 +21,7 @@ public static class Main
             return string.Empty;
         }
 
-        string script = Generator.CreateCurl(
+        string script = Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
             stringConfig);
@@ -46,7 +47,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.CreateCurl(httpClient, httpRequestMessage, stringConfig);
+        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, stringConfig);
 
         return script;
     }
@@ -69,7 +70,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.CreateCurl(httpClient, httpRequestMessage, stringConfig);
+        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, stringConfig);
 
         return script;
     }
@@ -88,7 +89,7 @@ public static class Main
             return;
         }
 
-        string script = Generator.CreateCurl(httpClient, httpRequestMessage, consoleConfig);
+        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
@@ -111,7 +112,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.CreateCurl(httpClient, httpRequestMessage, consoleConfig);
+        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
@@ -134,7 +135,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.CreateCurl(httpClient, httpRequestMessage, consoleConfig);
+        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
@@ -153,7 +154,7 @@ public static class Main
             return;
         }
 
-        string script = Generator.CreateCurl(httpClient, httpRequestMessage, fileConfig);
+        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
@@ -176,7 +177,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.CreateCurl(httpClient, httpRequestMessage, fileConfig);
+        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
@@ -199,7 +200,7 @@ public static class Main
 
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
 
-        string script = Generator.CreateCurl(httpClient, httpRequestMessage, fileConfig);
+        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
