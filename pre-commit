@@ -1,7 +1,23 @@
 #!/bin/sh
 
-echo "dotnet build"
+exists=0
+echo "do a check for .cs files in change set"
+while read status file; do
+    if [ "${file: -3}" == ".cs" ] ; then
+        exists=1
+        echo "find .cs file"
+        break
+    fi
+done <<<$(git diff --cached --name-status)
 
+echo $exists
+if [[ $exists -eq 0 ]] ; then
+    exit 0
+else
+    echo "exists .cs file, so build the project"
+fi
+
+echo "dotnet build"
 dotnet clean; dotnet build
 rc=$?
 
