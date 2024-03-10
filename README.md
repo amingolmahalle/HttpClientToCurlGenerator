@@ -400,3 +400,8 @@ httpClient.GenerateCurlInFile(
 **You can see more samples in the Functional Tests Directory.**
 
 I hope you enjoy this extension in your projects.
+
+### All Thanks to Our Contributors:
+<a href="https://github.com/amingolmahalle/HttpClientToCurlGenerator/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=amingolmahalle/HttpClientToCurlGenerator" />
+</a>
