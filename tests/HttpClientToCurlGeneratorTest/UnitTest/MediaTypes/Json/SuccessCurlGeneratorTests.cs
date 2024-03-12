@@ -45,7 +45,7 @@ public class SuccessCurlGeneratorTests
         var requestUri = "api/test";
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer f69406a4-6b62-4734-a8dc-158f0fc308ab");
-        httpRequestMessage.Headers.Add("ContentLength", "123");
+        httpRequestMessage.Content.Headers.Add("Content-Length", "123");
 
         using var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
