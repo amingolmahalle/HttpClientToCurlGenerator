@@ -1,4 +1,3 @@
-using System.Net;
 using System.Text;
 using System.Web;
 using HttpClientToCurl.Utility;
@@ -129,7 +128,7 @@ internal static class Extensions
         if (needAddDefaultHeaders && httpClient.DefaultRequestHeaders.Any())
         {
             var defaultHeaders =
-                httpClient.DefaultRequestHeaders.Where(dh => dh.Key != HttpRequestHeader.ContentLength.ToString());
+                httpClient.DefaultRequestHeaders.Where(dh => dh.Key != Constants.ContentLength);
             foreach (var header in defaultHeaders)
             {
                 stringBuilder
@@ -144,7 +143,7 @@ internal static class Extensions
 
         if (httpRequestMessage.Headers.Any())
         {
-            var headers = httpRequestMessage.Headers.Where(h => h.Key != HttpRequestHeader.ContentLength.ToString());
+            var headers = httpRequestMessage.Headers.Where(h => h.Key != Constants.ContentLength);
             foreach (var header in headers)
             {
                 stringBuilder
@@ -159,8 +158,7 @@ internal static class Extensions
 
         if (httpRequestMessage.Content is not null && httpRequestMessage.Content.Headers.Any())
         {
-            foreach (var header in httpRequestMessage.Content.Headers.Where(h =>
-                         h.Key != HttpRequestHeader.ContentLength.ToString()))
+            foreach (var header in httpRequestMessage.Content.Headers.Where(h => h.Key != Constants.ContentLength))
             {
                 stringBuilder
                     .Append("-H")
@@ -185,7 +183,7 @@ internal static class Extensions
         string contentType = content?.Headers?.ContentType?.MediaType;
         string body = content?.ReadAsStringAsync().GetAwaiter().GetResult();
 
-        if (contentType == "application/x-www-form-urlencoded")
+        if (contentType == Constants.FormUrlEncodedContentType)
         {
             stringBuilder.AddFormUrlEncodedContentBody(body);
         }
