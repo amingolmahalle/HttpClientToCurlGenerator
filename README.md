@@ -25,13 +25,13 @@ dotnet add package HttpClientToCurl
 
 You have **3 ways** to see script result:
 
-**1: Put it in a string variable:**
+**1- Put it in a string variable:**
 
 ```cs
 string curlScript = httpClient.GenerateCurlInString(httpRequestMessage);
 ```
 
-**2: Show to the IDE console:**
+**2- Show to the IDE console:**
 
 ```cs
 httpClient.GenerateCurlInConsole(httpRequestMessage);
@@ -40,7 +40,7 @@ httpClient.GenerateCurlInConsole(httpRequestMessage);
 you should **remove enters** from the script.
 - **Notice**: The 'config' Parameter is optional.
 
-**3: Write in a file:**
+**3- Write in a file:**
 
 ```cs
 httpClient.GenerateCurlInFile(httpRequestMessage);
