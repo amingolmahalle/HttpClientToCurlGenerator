@@ -28,25 +28,25 @@ You have **3 ways** to see script result:
 **1- Put it in a string variable:**
 
 ```cs
-string curlScript = httpClient.GenerateCurlInString(httpRequestMessage);
+string curlScript = httpClientInstance.GenerateCurlInString(httpRequestMessage);
 ```
 
 **2- Show to the IDE console:**
 
 ```cs
-httpClient.GenerateCurlInConsole(httpRequestMessage);
+httpClientInstance.GenerateCurlInConsole(httpRequestMessage);
 ```
 - **Notice**: when the curl script was written in the console, maybe your **IDE console** applies **WordWrap** automatically. 
 you should **remove enters** from the script.
-- **Notice**: The 'config' Parameter is optional.
+- **Notice**: You can set specific configurations for your result in the optional **second parameter**.
 
 **3- Write in a file:**
 
 ```cs
-httpClient.GenerateCurlInFile(httpRequestMessage);
+httpClientInstance.GenerateCurlInFile(httpRequestMessage);
 ```
 
-- **Notice**: The 'config' Parameter is optional.
+- **Notice**: You can set specific configurations for your result in the optional **second parameter**.
 
 **Read more about this extension:**
 
@@ -64,9 +64,7 @@ also, I will be extremely happy if you contribute to the implementation and impr
 
 If you like this project, learn something, or are using it in your applications, please give it a star. Thanks!
 
-## **How to use HttpClientToCurlGenerator Extensions**:
-
-**You can see more samples in the FunctionalTest Directory.**
+## **How to use HttpClientToCurl Extensions**:
 
 ### **Post Method** sample code (it will be written in the **console**):
 ```cs
