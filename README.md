@@ -74,7 +74,7 @@ string requestBody = @"{""name"":""amin"",""requestId"":""10001000"",""amount"":
 string requestUri = "api/test";
 var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
 httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
 
 using var httpClient = new HttpClient();
 httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
@@ -96,16 +96,14 @@ httpClient.GenerateCurlInConsole(
 string requestBody = @"{""name"":""justin"",""requestId"":10001026,""amount"":26000}";
 string requestUri = "api/test";
 var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-    httpRequestMessage.Content = new FormUrlEncodedContent(new[]
+httpRequestMessage.Content = new FormUrlEncodedContent(new[]
 {
     new KeyValuePair<string, string>("session", "703438f3-16ad-4ba5-b923-8f72cd0f2db9"),
     new KeyValuePair<string, string>("payload", requestBody),
 });
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
-
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid
 using var httpClient = new HttpClient();
-httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
-
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1
 httpClient.GenerateCurlInConsole(
     httpRequestMessage,
     config =>
@@ -131,7 +129,7 @@ string requestBody = @"<?xml version = ""1.0"" encoding = ""UTF-8""?>
 
 var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "api/test");
 httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
 
 using var httpClient = new HttpClient();
 httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
@@ -148,6 +146,101 @@ httpClient.GenerateCurlInConsole(
 // Call PostAsync => await client.PostAsync(requestUri, httpRequestMessage.Content);
 ```
 
+### **Get Method** sample code (it will be written in the **console**):
+
+```cs
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
+
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
+
+// Call GetAsync => await client.GetAsync(requestUri);
+```
+
+### **Put Method** sample code (it will be written in the **console**):
+
+```cs
+string requestBody = @"{""name"":""jadi"",""requestId"":""10001003"",""amount"":30000}";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
+
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
+
+// Call PutAsync => await client.PutAsync(requestUri, httpRequestMessage.Content);
+```
+
+### **Patch Method** sample code (it will be written in the **console**):
+
+```cs
+string requestBody = @"{""name"":""hamed"",""requestId"":""10001005"",""amount"":50000}";
+string requestUri = "api/test";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
+httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
+
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
+
+// Call PatchAsync => await client.PatchAsync(requestUri, httpRequestMessage.Content);
+```
+
+### **Delete Method** sample code (it will be written in the **console**):
+
+```cs
+int id = 12;
+string requestUri = $"api/test/{id}";
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
+
+using var httpClient = new HttpClient();
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+httpClient.GenerateCurlInConsole(
+    httpRequestMessage,
+    config =>
+    {
+        config.TurnOn = true;
+        config.NeedAddDefaultHeaders = true;
+        config.EnableCodeBeautification = false;
+    });
+
+// Call DeleteAsync => await client.DeleteAsync(requestUri);
+```
+
 ### **Post Method** sample code (it will be written in the **file**):
 
 If the path variable is null or empty, then the file is created in the **root project**.
@@ -161,7 +254,7 @@ string requestBody = @"{""name"":""sara"",""requestId"":""10001001"",""amount"":
 string requestUri = "api/test";
 var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
 httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
 
 using var httpClient = new HttpClient();
 httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
@@ -179,29 +272,6 @@ httpClient.GenerateCurlInFile(
 // Call PostAsync => await client.PostAsync(requestUri, httpRequestMessage.Content);
 ```
 
-### **Get Method** sample code (it will be written in the **console**):
-
-```cs
-string requestUri = "api/test";
-var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
-
-using var httpClient = new HttpClient();
-httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
-
-httpClient.GenerateCurlInConsole(
-    httpRequestMessage,
-    config =>
-    {
-        config.TurnOn = true;
-        config.NeedAddDefaultHeaders = true;
-        config.EnableCodeBeautification = false;
-    });
-
-// Call GetAsync => await client.GetAsync(requestUri);
-```
-
 ### **Get Method** sample code (it will be written in the **file**):
 
 If the path variable is null or empty, then the file is created in the **root project**.
@@ -214,7 +284,7 @@ string filename = "GetMethodResult";
 string requestUri = "api/test";
 var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
 httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
 
 using var httpClient = new HttpClient();
 httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
@@ -230,30 +300,6 @@ httpClient.GenerateCurlInFile(
     });
 
 // Call GetAsync => await client.GetAsync(requestUri);
-```
-
-### **Put Method** sample code (it will be written in the **console**):
-
-```cs
-string requestBody = @"{""name"":""jadi"",""requestId"":""10001003"",""amount"":30000}";
-string requestUri = "api/test";
-var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
-httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
-
-using var httpClient = new HttpClient();
-httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
-
-httpClient.GenerateCurlInConsole(
-    httpRequestMessage,
-    config =>
-    {
-        config.TurnOn = true;
-        config.NeedAddDefaultHeaders = true;
-        config.EnableCodeBeautification = false;
-    });
-
-// Call PutAsync => await client.PutAsync(requestUri, httpRequestMessage.Content);
 ```
 
 ### **Put Method** sample code (it will be written in the **file**):
@@ -269,7 +315,7 @@ string requestBody = @"{ ""name"" : ""reza"",""requestId"" : ""10001004"",""amou
 string requestUri = "api/test";
 var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
 httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
 
 using var httpClient = new HttpClient();
 httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
@@ -287,30 +333,6 @@ httpClient.GenerateCurlInFile(
 // Call PutAsync => await client.PutAsync(requestUri, httpRequestMessage.Content);
 ```
 
-### **Patch Method** sample code (it will be written in the **console**):
-
-```cs
-string requestBody = @"{""name"":""hamed"",""requestId"":""10001005"",""amount"":50000}";
-string requestUri = "api/test";
-var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
-httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
-
-using var httpClient = new HttpClient();
-httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
-
-httpClient.GenerateCurlInConsole(
-    httpRequestMessage,
-    config =>
-    {
-        config.TurnOn = true;
-        config.NeedAddDefaultHeaders = true;
-        config.EnableCodeBeautification = false;
-    });
-
-// Call PatchAsync => await client.PatchAsync(requestUri, httpRequestMessage.Content);
-```
-
 ### **Patch Method** sample code (it will be written in the **file**):
 
 If the path variable is null or empty, then the file is created in the **root project**.
@@ -324,7 +346,7 @@ string requestBody = @"{ ""name"" : ""zara"",""requestId"" : ""10001006"",""amou
 string requestUri = "api/test";
 var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri);
 httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
 
 using var httpClient = new HttpClient();
 httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
@@ -342,30 +364,6 @@ httpClient.GenerateCurlInFile(
 // Call PatchAsync => await client.PatchAsync(requestUri, httpRequestMessage.Content);
 ```
 
-### **Delete Method** sample code (it will be written in the **console**):
-
-```cs
-int id = 12;
-string requestUri = $"api/test/{id}";
-var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
-httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
-
-using var httpClient = new HttpClient();
-httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
-
-httpClient.GenerateCurlInConsole(
-    httpRequestMessage,
-    config =>
-    {
-        config.TurnOn = true;
-        config.NeedAddDefaultHeaders = true;
-        config.EnableCodeBeautification = false;
-    });
-
-// Call DeleteAsync => await client.DeleteAsync(requestUri);
-```
-
 ### **Delete Method** sample code (it will be written in the **file**):
 
 If the path variable is null or empty, then the file is created in the **root project**.
@@ -379,7 +377,7 @@ int id = 12;
 string requestUri = $"api/test/{id}";
 var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
 httpRequestMessage.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid().ToString()}");
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
 
 using var httpClient = new HttpClient();
 httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
