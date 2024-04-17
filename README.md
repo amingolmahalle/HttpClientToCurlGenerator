@@ -243,7 +243,7 @@ httpClient.GenerateCurlInConsole(
 
 ### **Post Method** sample code (it will be written in the **file**):
 
-If the path variable is null or empty, then the file is created in the **root project**.
+If the path variable is null or empty, then the file is created in the **yourProjectPath/bin/Debug/netx.0**
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 
@@ -274,7 +274,7 @@ httpClient.GenerateCurlInFile(
 
 ### **Get Method** sample code (it will be written in the **file**):
 
-If the path variable is null or empty, then the file is created in the **root project**.
+If the path variable is null or empty, then the file is created in the **yourProjectPath/bin/Debug/netx.0**
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 
@@ -304,7 +304,7 @@ httpClient.GenerateCurlInFile(
 
 ### **Put Method** sample code (it will be written in the **file**):
 
-If the path variable is null or empty, then the file is created in the **root project**.
+If the path variable is null or empty, then the file is created in the **yourProjectPath/bin/Debug/netx.0**
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 
@@ -335,7 +335,7 @@ httpClient.GenerateCurlInFile(
 
 ### **Patch Method** sample code (it will be written in the **file**):
 
-If the path variable is null or empty, then the file is created in the **root project**.
+If the path variable is null or empty, then the file is created in the **yourProjectPath/bin/Debug/netx.0**
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 
@@ -366,7 +366,7 @@ httpClient.GenerateCurlInFile(
 
 ### **Delete Method** sample code (it will be written in the **file**):
 
-If the path variable is null or empty, then the file is created in the **root project**.
+If the path variable is null or empty, then the file is created in the **yourProjectPath/bin/Debug/netx.0**
 
 If the filename variable is null or empty, then the current date will be set for it with this format: **yyyyMMdd**
 
