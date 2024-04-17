@@ -101,9 +101,9 @@ httpRequestMessage.Content = new FormUrlEncodedContent(new[]
     new KeyValuePair<string, string>("session", "703438f3-16ad-4ba5-b923-8f72cd0f2db9"),
     new KeyValuePair<string, string>("payload", requestBody),
 });
-httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid
+httpRequestMessage.Headers.Add("Authorization", $"Bearer {Guid.NewGuid()}");
 using var httpClient = new HttpClient();
-httpClient.BaseAddress = new Uri("http://localhost:1213/v1
+httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 httpClient.GenerateCurlInConsole(
     httpRequestMessage,
     config =>
