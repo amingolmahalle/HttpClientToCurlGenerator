@@ -5,7 +5,7 @@ using HttpClientToCurl.Utility;
 
 namespace HttpClientToCurl;
 
-public static class Main
+public static class HttpClientExtensions
 {
     #region :: EXTENSIONS ::
 
