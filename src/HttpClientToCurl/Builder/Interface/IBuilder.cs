@@ -4,5 +4,5 @@ namespace HttpClientToCurl.Builder.Interface;
 
 public interface IBuilder
 {
-    string Create(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config);
+    string CreateCurl(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config);
 }

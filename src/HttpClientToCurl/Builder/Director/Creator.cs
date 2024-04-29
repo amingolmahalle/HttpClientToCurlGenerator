@@ -1,12 +1,12 @@
+using System.Text;
 using HttpClientToCurl.Config;
 using HttpClientToCurl.Builder.Interface;
 
 namespace HttpClientToCurl.Builder.Director;
 
-public class Creator(IBuilder builder)
+public abstract class BaseBuilder : IBuilder
 {
-    public string CreateCurl(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config)
-    {
-        return builder.Create(httpClient, httpRequestMessage, config);
-    }
+    protected readonly StringBuilder _stringBuilder = new();
+
+    public abstract string CreateCurl(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config);
 }

@@ -1,6 +1,5 @@
-using System.Data;
 using HttpClientToCurl.Builder.Concrete;
-using HttpClientToCurl.Builder.Director;
+using HttpClientToCurl.Builder.Interface;
 using HttpClientToCurl.Config;
 
 namespace HttpClientToCurl.Builder;
@@ -9,45 +8,21 @@ public static class Generator
 {
     public static string GenerateCurl(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config)
     {
-        string script;
+        var builder = GetBuilder(httpRequestMessage.Method);
+        return builder.CreateCurl(httpClient, httpRequestMessage, config);
+    }
 
-        try
+    private static IBuilder GetBuilder(HttpMethod method)
+    {
+        string methodName = method.Method;
+        return methodName switch
         {
-            if (httpRequestMessage.Method == HttpMethod.Get)
-            {
-                var instance = new Creator(new HttpGetBuilder());
-                script = instance.CreateCurl(httpClient, httpRequestMessage, config);
-            }
-            else if (httpRequestMessage.Method == HttpMethod.Post)
-            {
-                var instance = new Creator(new HttpPostBuilder());
-                script = instance.CreateCurl(httpClient, httpRequestMessage, config);
-            }
-            else if (httpRequestMessage.Method == HttpMethod.Put)
-            {
-                var instance = new Creator(new HttpPutBuilder());
-                script = instance.CreateCurl(httpClient, httpRequestMessage, config);
-            }
-            else if (httpRequestMessage.Method == HttpMethod.Patch)
-            {
-                var instance = new Creator(new HttpPatchBuilder());
-                script = instance.CreateCurl(httpClient, httpRequestMessage, config);
-            }
-            else if (httpRequestMessage.Method == HttpMethod.Delete)
-            {
-                var instance = new Creator(new HttpDeleteBuilder());
-                script = instance.CreateCurl(httpClient, httpRequestMessage, config);
-            }
-            else
-            {
-                throw new DataException($"not supported {httpRequestMessage.Method.Method} by HttpClientToCurl!");
-            }
-        }
-        catch (Exception exception)
-        {
-            script = $"GenerateCurlError => {exception.Message} {exception.InnerException}";
-        }
-
-        return script;
+            "GET" => new HttpGetBuilder(),
+            "POST" => new HttpPostBuilder(),
+            "PUT" => new HttpPutBuilder(),
+            "PATCH" => new HttpPatchBuilder(),
+            "DELETE" => new HttpDeleteBuilder(),
+            _ => throw new NotSupportedException($"HTTP method {method} is not supported."),
+        };
     }
 }
