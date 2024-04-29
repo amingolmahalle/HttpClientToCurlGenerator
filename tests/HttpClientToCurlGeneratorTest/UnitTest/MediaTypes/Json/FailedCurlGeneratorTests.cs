@@ -24,7 +24,7 @@ public class FailedCurlGeneratorTests
         httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act - Assert
-        Assert.Throws<Exception>(() => Generator.GenerateCurl(
+        Assert.Throws<NotSupportedException>(() => Generator.GenerateCurl(
             httpClient,
             httpRequestMessage,
             null));
