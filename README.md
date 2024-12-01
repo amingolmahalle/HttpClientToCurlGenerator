@@ -52,7 +52,7 @@ httpClientInstance.GenerateCurlInFile(httpRequestMessage);
 
 [English Article](https://www.c-sharpcorner.com/article/how-to-generate-curl-script-of-the-httpclient-in-net/)
 
-[Persian Article](https://vrgl.ir/FPx11/)
+[Persian Article](https://vrgl.ir/FE5s4)
 
 
 Please let me know if you have any feedback and your solution to improve the code and also if you find a problem. 
