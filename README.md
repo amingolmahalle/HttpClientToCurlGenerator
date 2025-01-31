@@ -48,6 +48,15 @@ httpClientInstance.GenerateCurlInFile(httpRequestMessage);
 
 - **Notice**: You can set specific configurations for your result in the optional **second parameter**.
 
+:rocket: :rocket: :rocket:
+___
+*Additionally*, there is another overload option for adding everything as plain:
+```cs
+httpClientInstance.GenerateCurlInString(yourHttpMethod, "yourRequestUri", "yourHeader", "yourContent");
+```
+:fire:
+___
+
 **Read more about this extension:**
 
 [English Article](https://www.c-sharpcorner.com/article/how-to-generate-curl-script-of-the-httpclient-in-net/)
@@ -55,8 +64,8 @@ httpClientInstance.GenerateCurlInFile(httpRequestMessage);
 [Persian Article](https://vrgl.ir/FE5s4)
 
 
-Please let me know if you have any feedback and your solution to improve the code and also if you find a problem. 
-also, I will be extremely happy if you contribute to the implementation and improvement of the project.
+Please let me know if you have any feedback and your solution to improve the code also if you find a problem. 
+Also, I would be extremely happy if you could contribute to the implementation and improvement of the project.
 
 [Gmail Address](mailto:amin.golmahalle@gmail.com)
 
@@ -394,6 +403,8 @@ httpClient.GenerateCurlInFile(
 ```
 
 **You can see more samples in the Functional Tests Directory.**
+
+[More Samples](https://github.com/amingolmahalle/HttpClientToCurlGenerator/tree/master/tests/HttpClientToCurlGeneratorTest/FunctionalTest)
 
 I hope you enjoy this extension in your projects.
 
