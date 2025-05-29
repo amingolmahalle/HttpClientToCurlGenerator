@@ -84,8 +84,6 @@ internal static class Extensions
 
     private static string ApplyEncodeUri(this string address)
     {
-        string result = null;
-
         if (address is not null)
         {
             var questionMarkItems = address.Split('?');
@@ -110,14 +108,14 @@ internal static class Extensions
                         }
                     }
 
-                    result = addressEncodedStringBuilder
+                    return addressEncodedStringBuilder
                         .Remove(addressEncodedStringBuilder.Length - 1, 1)
                         .ToString();
                 }
             }
         }
 
-        return result;
+        return null;
     }
 
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient,
