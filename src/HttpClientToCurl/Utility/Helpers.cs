@@ -115,41 +115,29 @@ public static class Helpers
 
     internal static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody, string requestUri)
     {
-        var httpRequestMessage = FillHttpRequestMessage(httpMethod, requestHeaders, requestBody, CreateUri(requestUri));
-
-        return httpRequestMessage;
+        return FillHttpRequestMessage(httpMethod, requestHeaders, requestBody, CreateUri(requestUri));
     }
 
     internal static bool CheckAddressIsAbsoluteUri(Uri baseAddress)
     {
-        bool isValidAbsoluteAddress = true;
-
-        if (baseAddress is null)
+        if (baseAddress is null || !baseAddress.IsAbsoluteUri || !IsHttpUri(baseAddress))
         {
-            isValidAbsoluteAddress = false;
-        }
-        else if (!baseAddress.IsAbsoluteUri)
-        {
-            isValidAbsoluteAddress = false;
-        }
-        else if (!IsHttpUri(baseAddress))
-        {
-            isValidAbsoluteAddress = false;
+            return false;
         }
 
-        return isValidAbsoluteAddress;
+        return true;
     }
 
     private static bool IsHttpUri(Uri uri)
     {
         string scheme = uri.Scheme;
 
-        return (string.Compare("http", scheme, StringComparison.OrdinalIgnoreCase) == 0) ||
-               (string.Compare("https", scheme, StringComparison.OrdinalIgnoreCase) == 0);
+        return string.Equals("http", scheme, StringComparison.OrdinalIgnoreCase) ||
+               string.Equals("https", scheme, StringComparison.OrdinalIgnoreCase);
     }
 
     public static Uri CreateUri(string uri)
     {
-        return string.IsNullOrEmpty(uri) ? null : new Uri(uri, UriKind.RelativeOrAbsolute);
+        return string.IsNullOrWhiteSpace(uri) ? null : new Uri(uri, UriKind.RelativeOrAbsolute);
     }
 }
