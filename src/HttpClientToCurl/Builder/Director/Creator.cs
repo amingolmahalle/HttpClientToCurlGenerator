@@ -9,4 +9,6 @@ public abstract class BaseBuilder : IBuilder
     protected readonly StringBuilder _stringBuilder = new();
 
     public abstract string CreateCurl(HttpClient httpClient, HttpRequestMessage httpRequestMessage, BaseConfig config);
+
+    public abstract string CreateCurl(HttpRequestMessage httpRequestMessage, Uri baseAddress, BaseConfig config);
 }
