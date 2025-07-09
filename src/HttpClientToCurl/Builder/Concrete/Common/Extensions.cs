@@ -176,6 +176,48 @@ internal static class Extensions
         return stringBuilder;
     }
 
+    internal static StringBuilder AddHeaders(this StringBuilder stringBuilder,
+       HttpRequestMessage httpRequestMessage)
+    {
+        bool hasHeader = false;
+
+        if (httpRequestMessage.Headers.Any())
+        {
+            var headers = httpRequestMessage.Headers.Where(h => h.Key != Constants.ContentLength);
+            foreach (var header in headers)
+            {
+                stringBuilder
+                    .Append("-H")
+                    .Append(' ')
+                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
+                    .Append(' ');
+            }
+
+            hasHeader = true;
+        }
+
+        if (httpRequestMessage.Content is not null && httpRequestMessage.Content.Headers.Any())
+        {
+            foreach (var header in httpRequestMessage.Content.Headers.Where(h => h.Key != Constants.ContentLength))
+            {
+                stringBuilder
+                    .Append("-H")
+                    .Append(' ')
+                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
+                    .Append(' ');
+            }
+
+            hasHeader = true;
+        }
+
+        if (!hasHeader)
+        {
+            stringBuilder.Append(' ');
+        }
+
+        return stringBuilder;
+    }
+
     internal static StringBuilder AddBody(this StringBuilder stringBuilder, HttpContent content)
     {
         string contentType = content?.Headers?.ContentType?.MediaType;

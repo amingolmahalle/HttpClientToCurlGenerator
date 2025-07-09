@@ -12,6 +12,12 @@ public static class Generator
         return builder.CreateCurl(httpClient, httpRequestMessage, config);
     }
 
+    public static string GenerateCurl(HttpRequestMessage httpRequestMessage, Uri baseAddress, BaseConfig config)
+    {
+        var builder = GetBuilder(httpRequestMessage.Method);
+        return builder.CreateCurl(httpRequestMessage, baseAddress, config);
+    }
+
     private static IBuilder GetBuilder(HttpMethod method)
     {
         string methodName = method.Method;

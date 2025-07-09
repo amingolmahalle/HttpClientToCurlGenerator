@@ -13,4 +13,13 @@ public sealed class HttpGetBuilder : BaseBuilder
             .AddHeaders(httpClient, httpRequestMessage, config?.NeedAddDefaultHeaders ?? new BaseConfig().NeedAddDefaultHeaders)?
             .Finalize(config?.EnableCompression ?? new BaseConfig().EnableCompression);
     }
+
+    public override string CreateCurl(HttpRequestMessage httpRequestMessage, Uri baseAddress, BaseConfig config)
+    {
+        return _stringBuilder
+            .Initialize(httpRequestMessage.Method)
+            .AddAbsoluteUrl(baseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
+            .AddHeaders(httpRequestMessage)?
+            .Finalize(config?.EnableCompression ?? new BaseConfig().EnableCompression);
+    }
 }
