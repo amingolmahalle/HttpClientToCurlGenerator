@@ -14,17 +14,7 @@ public static class HttpClientExtensions
     public static string GenerateCurlInString(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, Action<StringConfig> config = null)
     {
         var stringConfig = new StringConfig();
-        config?.Invoke(stringConfig);
-
-        if (!stringConfig.TurnOn)
-        {
-            return string.Empty;
-        }
-
-        string script = Generator.GenerateCurl(
-            httpClient,
-            httpRequestMessage,
-            stringConfig);
+        var script = GenerateCurlBaseOnConfig(httpClient, httpRequestMessage, stringConfig, config);
 
         return script;
     }
@@ -37,17 +27,9 @@ public static class HttpClientExtensions
         HttpContent httpContent = null,
         Action<StringConfig> config = null)
     {
-        var stringConfig = new StringConfig();
-        config?.Invoke(stringConfig);
-
-        if (!stringConfig.TurnOn)
-        {
-            return string.Empty;
-        }
-
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
-
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, stringConfig);
+        var stringConfig = new StringConfig();
+        var script = GenerateCurlBaseOnConfig(httpClient, httpRequestMessage, stringConfig, config);
 
         return script;
     }
@@ -60,17 +42,9 @@ public static class HttpClientExtensions
         HttpContent httpContent = null,
         Action<StringConfig> config = null)
     {
-        var stringConfig = new StringConfig();
-        config?.Invoke(stringConfig);
-
-        if (!stringConfig.TurnOn)
-        {
-            return string.Empty;
-        }
-
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
-
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, stringConfig);
+        var stringConfig = new StringConfig();
+        var script = GenerateCurlBaseOnConfig(httpClient, httpRequestMessage, stringConfig, config);
 
         return script;
     }
@@ -82,14 +56,7 @@ public static class HttpClientExtensions
     public static void GenerateCurlInConsole(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, Action<ConsoleConfig> config = null)
     {
         var consoleConfig = new ConsoleConfig();
-        config?.Invoke(consoleConfig);
-
-        if (!consoleConfig.TurnOn)
-        {
-            return;
-        }
-
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig);
+        var script = GenerateCurlBaseOnConfig(httpClient, httpRequestMessage, consoleConfig, config);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
@@ -102,17 +69,9 @@ public static class HttpClientExtensions
         HttpContent httpContent = null,
         Action<ConsoleConfig> config = null)
     {
-        var consoleConfig = new ConsoleConfig();
-        config?.Invoke(consoleConfig);
-
-        if (!consoleConfig.TurnOn)
-        {
-            return;
-        }
-
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
-
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig);
+        var consoleConfig = new ConsoleConfig();
+        var script = GenerateCurlBaseOnConfig(httpClient, httpRequestMessage, consoleConfig, config);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
@@ -125,17 +84,9 @@ public static class HttpClientExtensions
         HttpContent httpContent = null,
         Action<ConsoleConfig> config = null)
     {
-        var consoleConfig = new ConsoleConfig();
-        config?.Invoke(consoleConfig);
-
-        if (!consoleConfig.TurnOn)
-        {
-            return;
-        }
-
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
-
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, consoleConfig);
+        var consoleConfig = new ConsoleConfig();
+        var script = GenerateCurlBaseOnConfig(httpClient, httpRequestMessage, consoleConfig, config);
 
         Helpers.WriteInConsole(script, consoleConfig.EnableCodeBeautification, httpRequestMessage.Method);
     }
@@ -147,14 +98,7 @@ public static class HttpClientExtensions
     public static void GenerateCurlInFile(this HttpClient httpClient, HttpRequestMessage httpRequestMessage, Action<FileConfig> config = null)
     {
         var fileConfig = new FileConfig();
-        config?.Invoke(fileConfig);
-
-        if (!fileConfig.TurnOn)
-        {
-            return;
-        }
-
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig);
+        var script = GenerateCurlBaseOnConfig(httpClient, httpRequestMessage, fileConfig, config);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
@@ -167,17 +111,9 @@ public static class HttpClientExtensions
         HttpContent httpContent = null,
         Action<FileConfig> config = null)
     {
-        var fileConfig = new FileConfig();
-        config?.Invoke(fileConfig);
-
-        if (!fileConfig.TurnOn)
-        {
-            return;
-        }
-
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
-
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig);
+        var fileConfig = new FileConfig();
+        var script = GenerateCurlBaseOnConfig(httpClient, httpRequestMessage, fileConfig, config);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
@@ -190,22 +126,23 @@ public static class HttpClientExtensions
         HttpContent httpContent = null,
         Action<FileConfig> config = null)
     {
-        var fileConfig = new FileConfig();
-        config?.Invoke(fileConfig);
-
-        if (!fileConfig.TurnOn)
-        {
-            return;
-        }
-
         var httpRequestMessage = Helpers.FillHttpRequestMessage(httpMethod, httpRequestHeaders, httpContent, requestUri);
-
-        string script = Generator.GenerateCurl(httpClient, httpRequestMessage, fileConfig);
+        var fileConfig = new FileConfig();
+        var script = GenerateCurlBaseOnConfig(httpClient, httpRequestMessage, fileConfig, config);
 
         Helpers.WriteInFile(script, fileConfig.Filename, fileConfig.Path);
     }
 
-    #endregion : Write in a file :
+    #endregion : Write in a file :\
+
+    #region : Private methods :
+    private static string GenerateCurlBaseOnConfig<TConfig>(HttpClient httpClient, HttpRequestMessage httpRequestMessage, TConfig config, Action<TConfig> configAction) where TConfig : BaseConfig
+    {
+        configAction?.Invoke(config);
+        return config.TurnOn ? Generator.GenerateCurl(httpClient, httpRequestMessage, config) : string.Empty;
+    }
+
+    #endregion : Private methods :
 
     #endregion :: EXTENSIONS ::
 }
