@@ -37,25 +37,37 @@ For full examples, detailed usage, and advanced configuration options, please se
 
 ## 🚀 **Usage Example**
 ```csharp
-using var httpClient = new HttpClient();
-var baseAddress = new Uri("http://localhost:1213/v1/");
-client.BaseAddress = baseAddress;
-string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
-HttpRequestMessage request = new(HttpMethod.Post, requestUri);
-request.Headers.Add("Authorization", "Bearer YourAccessToken"); 
-request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+using System.Text;
+using HttpClientToCurl;
 
-// Using the HttpClient extension:
-httpClient.GenerateCurlInConsole(request);
+class Program
+{
+    static async Task Main()
+    {
+        var requestUri = "api/test";
 
-// Or using the HttpRequestMessage extension:
-request.GenerateCurlInConsole(baseAddress);
+        using var httpClient = new HttpClient();
+        var baseAddress = new Uri("http://localhost:1213/v1/");
+        httpClient.BaseAddress = baseAddress;
+        string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
+        HttpRequestMessage request = new(HttpMethod.Post, requestUri);
+        request.Headers.Add("Authorization", "Bearer YourAccessToken");
+        request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+
+        // Using the HttpClient extension:
+        httpClient.GenerateCurlInConsole(request);
+
+        // Or using the HttpRequestMessage extension:
+        request.GenerateCurlInConsole(baseAddress);
+    }
+}
 ```
 
 ## ✅ Output:
 
 ```bash
-curl -X POST "http://localhost:1213/v1/api/test" -H "Content-Type: application/json" -d "{ \"name\": \"amin\" }"
+curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer YourAccessToken'
+-H 'Content-Type: application/json; charset=utf-8' -d '{"name":"sara","requestId":10001001,"amount":20000}'
 ```
 
 ## 🧩 **Other Features**
