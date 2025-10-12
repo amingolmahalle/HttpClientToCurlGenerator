@@ -4,6 +4,7 @@ An extension for generating the **CURL script** from **`HttpClient`** and **`Htt
 [![license](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/blob/master/LICENSE)
 [![stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/stargazers)
 [![NuGet Version](https://img.shields.io/nuget/v/HttpClientToCurl.svg)](https://www.nuget.org/packages/HttpClientToCurl/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/HttpClientToCurl.svg?style=flat-square)](https://www.nuget.org/packages/HttpClientToCurl/)
 ![Build](https://github.com/amingolmahalle/HttpClientToCurlGenerator/actions/workflows/dotnet.yml/badge.svg)
 
 ---
@@ -12,8 +13,8 @@ An extension for generating the **CURL script** from **`HttpClient`** and **`Htt
 **`HttpClientToCurl`** is a lightweight **.NET extension library** that helps you visualize any HTTP request as a **CURL command**.
 
 You can use its extension methods on both:
-- **`HttpClient`** — to generate cURL directly when sending requests  
-- **`HttpRequestMessage`** — to inspect or log cURL representations before sending  
+- **`HttpClient`** — to generate CURL directly when sending requests  
+- **`HttpRequestMessage`** — to inspect or log CURL representations before sending  
 
 This is useful for:
 - Debugging and verifying request payloads or headers  
@@ -21,30 +22,34 @@ This is useful for:
 - Generating or updating Postman collections easily  
 
 ---
-
 ## ⚙️ Installation
 
 ```bash
 dotnet add package HttpClientToCurl
 ```
-
 Or visit the NuGet page here: <a href="https://www.nuget.org/packages/HttpClientToCurl" target="_blank">HttpClientToCurl</a>
+
+## 📚 Documentation
+
+For full examples, detailed usage, and advanced configuration options, please see the **Wiki**:
+
+👉 [Open Wiki → More Details](https://github.com/amingolmahalle/HttpClientToCurlGenerator/wiki)
 
 ## 🚀 **Usage Example**
 ```csharp
 using var httpClient = new HttpClient();
 var baseAddress = new Uri("http://localhost:1213/v1/");
 client.BaseAddress = baseAddress;
-var request = new HttpRequestMessage(HttpMethod.Post, "api/test")
-{
-    Content = new StringContent(@"{ ""name"": ""amin"" }", Encoding.UTF8, "application/json")
-};
+string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
+HttpRequestMessage request = new(HttpMethod.Post, requestUri);
+request.Headers.Add("Authorization", "Bearer YourAccessToken"); 
+request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
 // Using the HttpClient extension:
 httpClient.GenerateCurlInConsole(request);
 
 // Or using the HttpRequestMessage extension:
-string curlScript = request.GenerateCurlInString(baseAddress);
+request.GenerateCurlInConsole(baseAddress);
 ```
 
 ## ✅ Output:
@@ -63,17 +68,10 @@ Supports **JSON**, **XML**, and **FormUrlEncodedContent**
 
 **Console** / **String** / **File**
 
-**See more details in the [Wiki](https://github.com/amingolmahalle/HttpClientToCurlGenerator/wiki) **
-
 ## 📚 Articles
 
-### English Articles
 - [How to Generate cURL Script of the HttpClient in .NET](https://www.c-sharpcorner.com/article/how-to-generate-curl-script-of-the-httpclient-in-net/)
 - [New Feature in HttpClientToCurl for .NET: Debugging HttpRequestMessage Made Easy](https://medium.com/@mozhgan.etaati/new-feature-in-httpclienttocurl-for-net-debugging-httprequestmessage-made-easy-18cb66dd55f0)
-
-### Persian Articles
-- [دریافت خروجی Curl از HttpClient در دات‌نت (.NET)](https://virgool.io/@amin.golmahalle/%D8%AF%D8%B1%DB%8C%D8%A7%D9%81%D8%AA-%D8%AE%D8%B1%D9%88%D8%AC%DB%8C-curl-%D8%A7%D8%B2-httpclient-%D8%AF%D8%B1-%D8%AF%D8%A7%D8%AA-%D9%86%D8%AA-vgamgtw2midt)
-- [دیباگ کردن HttpClient در دات‌نت (.NET)](https://virgool.io/@amin.golmahalle/%D8%AF%DB%8C%D8%A8%D8%A7%DA%AF-%DA%A9%D8%B1%D8%AF%D9%86-httpclient-%D8%AF%D8%B1-%D8%AF%D8%A7%D8%AA-%D9%86%D8%AA-net-jm0kcsmucrbk)
 
 
 ## 💡 **Contribute**
