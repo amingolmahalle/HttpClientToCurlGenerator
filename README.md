@@ -59,6 +59,8 @@ class Program
 
         // Or using the HttpRequestMessage extension:
         request.GenerateCurlInConsole(baseAddress);
+
+        await httpClient.SendAsync(request);
     }
 }
 ```
