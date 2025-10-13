@@ -46,21 +46,21 @@ class Program
     {
         var requestUri = "api/test";
 
-        using var httpClient = new HttpClient();
+        using var httpClientInstance = new HttpClient();
         var baseAddress = new Uri("http://localhost:1213/v1/");
-        httpClient.BaseAddress = baseAddress;
+        httpClientInstance.BaseAddress = baseAddress;
         string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
-        HttpRequestMessage request = new(HttpMethod.Post, requestUri);
-        request.Headers.Add("Authorization", "Bearer YourAccessToken");
-        request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        HttpRequestMessage httpRequestMessageInstance = new(HttpMethod.Post, requestUri);
+        httpRequestMessageInstance.Headers.Add("Authorization", "Bearer YourAccessToken");
+        httpRequestMessageInstance.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
         // Using the HttpClient extension:
-        httpClient.GenerateCurlInConsole(request);
+        httpClientInstance.GenerateCurlInConsole(httpRequestMessageInstance);
 
         // Or using the HttpRequestMessage extension:
-        request.GenerateCurlInConsole(baseAddress);
+        httpRequestMessageInstance.GenerateCurlInConsole(baseAddress);
 
-        await httpClient.SendAsync(request);
+        await httpClientInstance.SendAsync(httpRequestMessageInstance);
     }
 }
 ```
