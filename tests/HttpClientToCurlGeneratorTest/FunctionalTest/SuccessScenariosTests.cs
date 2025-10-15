@@ -1,5 +1,5 @@
 using FluentAssertions;
-using HttpClientToCurl;
+using HttpClientToCurl.Extensions;
 using HttpClientToCurl.Utility;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Http.Headers;
