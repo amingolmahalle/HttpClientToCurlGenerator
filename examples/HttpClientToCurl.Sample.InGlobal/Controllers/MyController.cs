@@ -1,14 +1,13 @@
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HttpClientToCurl.Sample.InGeneral.Controllers;
+namespace HttpClientToCurl.Sample.InGlobal.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class MyController : ControllerBase
+public class MyController(HttpClient httpClient) : ControllerBase
 {
-    private readonly HttpClient _httpClient;
-    public MyController(HttpClient httpClient) => _httpClient = httpClient;
+    private readonly HttpClient _httpClient = httpClient;
 
     [HttpGet]
     public async Task Send()
@@ -19,7 +18,7 @@ public class MyController : ControllerBase
         {
             // Create a sample JSON payload
             string jsonPayload =
-                "{\"title\":\"New Post\",\"body\":\"This is the body of the new post\",\"userId\":1}";
+                $"{{\"title\":\"New Post\",\"body\":\"This is the body of the new post\",\"userId\":1}}";
 
             // Create HttpRequestMessage with the POST verb
             HttpRequestMessage request = new(HttpMethod.Post, apiUrl);

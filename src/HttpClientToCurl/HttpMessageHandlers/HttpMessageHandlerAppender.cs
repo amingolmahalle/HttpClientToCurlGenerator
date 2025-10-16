@@ -2,16 +2,12 @@
 using Microsoft.Extensions.Http;
 
 namespace HttpClientToCurl.HttpMessageHandlers;
-public class HttpMessageHandlerAppender : IHttpMessageHandlerBuilderFilter
+public class HttpMessageHandlerAppender(IServiceProvider serviceProvider) : IHttpMessageHandlerBuilderFilter
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public HttpMessageHandlerAppender(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
-
     public Action<HttpMessageHandlerBuilder> Configure(Action<HttpMessageHandlerBuilder> next) => builder =>
     {
         next(builder);
-        var handler = _serviceProvider.GetRequiredService<CurlGeneratorHttpMessageHandler>();
+        var handler = serviceProvider.GetRequiredService<CurlGeneratorHttpMessageHandler>();
         builder.AdditionalHandlers.Add(handler);
     };
 }
