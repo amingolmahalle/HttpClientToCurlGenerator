@@ -2,7 +2,6 @@ using static HttpClientToCurl.Extensions.ServiceCollectionExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
 builder.Services.AddHttpClientToCurl(config =>
 {
     config.TurnOnAll = true;
