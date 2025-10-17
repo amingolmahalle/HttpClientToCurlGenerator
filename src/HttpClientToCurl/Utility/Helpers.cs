@@ -78,7 +78,7 @@ public static class Helpers
 
         if (inputPath.EndsWith('/'))
         {
-            inputPath = inputPath.Remove(inputPath.Length - 1);
+            inputPath = inputPath[..^1];
         }
 
         return inputPath;
