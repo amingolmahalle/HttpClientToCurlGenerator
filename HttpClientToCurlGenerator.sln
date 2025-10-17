@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurl", "src\HttpClientToCurl\HttpClientToCurl.csproj", "{18B3309D-B84C-453D-8EF7-16CA9E58F5DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurlGeneratorTest", "tests\HttpClientToCurlGeneratorTest\HttpClientToCurlGeneratorTest.csproj", "{BF3321A5-A590-44DD-BA5D-44978D9B6125}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientToCurlGeneratorTest", "tests\HttpClientToCurlTest\HttpClientToCurlTest.csproj", "{BF3321A5-A590-44DD-BA5D-44978D9B6125}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{A8574DB9-8411-4F81-A82E-F97AD00EF8AF}"
 EndProject
@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solutionItems", "solutionIt
 		pre-push = pre-push
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpRequestMessageToCurlGeneratorTest", "HttpRequestMessageToCurlTest\HttpRequestMessageToCurlGeneratorTest.csproj", "{007CA9E0-CDF0-4375-8E8C-A24C9A7BF531}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpRequestMessageToCurlGeneratorTest", "tests\HttpRequestMessageToCurlTest\HttpRequestMessageToCurlTest.csproj", "{007CA9E0-CDF0-4375-8E8C-A24C9A7BF531}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
