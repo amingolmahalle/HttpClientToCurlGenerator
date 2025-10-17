@@ -93,7 +93,10 @@ public static class Helpers
 
     internal static HttpRequestMessage FillHttpRequestMessage(HttpMethod httpMethod, HttpRequestHeaders requestHeaders, HttpContent requestBody, Uri requestUri)
     {
-        var httpRequestMessage = new HttpRequestMessage { Method = httpMethod };
+        var httpRequestMessage = new HttpRequestMessage
+        {
+            Method = httpMethod
+        };
 
         if (requestBody is not null)
         {
