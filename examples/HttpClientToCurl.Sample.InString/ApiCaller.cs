@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using HttpClientToCurl.Extensions;
 
 namespace HttpClientToCurl.Sample.InString;
 
