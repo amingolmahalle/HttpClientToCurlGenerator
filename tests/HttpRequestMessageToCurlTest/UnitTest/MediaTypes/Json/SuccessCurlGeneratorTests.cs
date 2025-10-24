@@ -1,11 +1,11 @@
-using FluentAssertions;
-using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Mime;
 using System.Text;
+using FluentAssertions;
 using HttpClientToCurl.Builder;
+using Microsoft.AspNetCore.WebUtilities;
 using Xunit;
 
-namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Json;
+namespace HttpRequestMessageToCurlTest.UnitTest.MediaTypes.Json;
 
 public class SuccessCurlGeneratorTests
 {
@@ -19,13 +19,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -47,13 +46,12 @@ public class SuccessCurlGeneratorTests
         httpRequestMessage.Headers.Add("Authorization", "Bearer f69406a4-6b62-4734-a8dc-158f0fc308ab");
         httpRequestMessage.Content.Headers.Add("Content-Length", "123");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -75,13 +73,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -110,13 +107,12 @@ public class SuccessCurlGeneratorTests
 
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -135,13 +131,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = new StringContent(string.Empty, Encoding.UTF8, "application/json") };
         httpRequestMessage.Headers.Add("Authorization", "Bearer c332e9a1-1e0e-44c2-b819-b0e7e8ff7d45");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -160,13 +155,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = null };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 56bfa7a0-0541-4d71-9efc-8b28219ac31a");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -187,13 +181,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -214,13 +207,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = null;
+        Uri? baseAddress = null;
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -239,13 +231,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri) { Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -265,13 +256,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri) { Content = new StringContent(string.Empty, Encoding.UTF8, MediaTypeNames.Application.Json) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -292,13 +282,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri) { Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -319,13 +308,12 @@ public class SuccessCurlGeneratorTests
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Patch, requestUri) { Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json) };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert
@@ -348,13 +336,12 @@ public class SuccessCurlGeneratorTests
         };
         httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
 
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+        var baseAddress = new Uri("http://localhost:1213/v1/");
 
         // Act
         string script = Generator.GenerateCurl(
-            httpClient,
             httpRequestMessage,
+            baseAddress,
             null);
 
         // Assert

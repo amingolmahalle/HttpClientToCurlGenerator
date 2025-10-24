@@ -5,36 +5,36 @@ namespace HttpClientToCurl.Sample.InConsole;
 
 public static class ApiCaller
 {
+    // Create an instance of HttpClient
+    private static readonly HttpClient Client = new();
+    private const string ApiUrl = "https://jsonplaceholder.typicode.com/posts";
+
     public static async Task MakeApiCall()
     {
-        string apiUrl = "https://jsonplaceholder.typicode.com/posts";
-
-        // Create an instance of HttpClient
-        HttpClient client = new();
-
         try
         {
             // Create a sample JSON payload
-            string jsonPayload =
-                "{\"title\":\"New Post\",\"body\":\"This is the body of the new post\",\"userId\":1}";
+            string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
 
             // Create HttpRequestMessage with the POST verb
-            HttpRequestMessage request = new(HttpMethod.Post, apiUrl);
+            HttpRequestMessage httpRequestMessage = new(HttpMethod.Post, ApiUrl);
 
             // Set up the request headers
-            request.Headers.Add("Authorization", "Bearer YourAccessToken"); // Add any necessary headers
+            httpRequestMessage.Headers.Add("Authorization", "Bearer YourAccessToken"); // Add any necessary headers
 
             // Set the request content with the JSON payload
-            request.Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+            httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
-            // Log the curl command for debugging or testing.
-            // This generates a curl command that can be imported into Postman.
-            // Use it to check and compare against all the requirements.
+            /* Generate a curl command and print it in the console for debugging or testing.
+               This command can be imported into Postman for checking and comparing against all the requirements. */
 
-            client.GenerateCurlInConsole(request);
+            // *** First Scenario ***
+            GenerateCurlByHttpClient(httpRequestMessage);
+            // *** Second Scenario ***
+            GenerateCurlByHttpRequestMessage(httpRequestMessage);
 
             // Send the request
-            HttpResponseMessage response = await client.SendAsync(request);
+            HttpResponseMessage response = await Client.SendAsync(httpRequestMessage);
 
             // Check if the request was successful (status code 200-299)
             if (response.IsSuccessStatusCode)
@@ -53,4 +53,42 @@ public static class ApiCaller
             Console.WriteLine($"Exception: {ex.Message}");
         }
     }
+
+    #region << Private Methods >>
+
+    private static void GenerateCurlByHttpClient(HttpRequestMessage httpRequestMessage)
+    {
+        Console.WriteLine("* Generate Curl By HttpClient:");
+
+        // config is optional
+        Client.GenerateCurlInConsole(httpRequestMessage, config =>
+        {
+            // Customize console configuration if needed
+            config.TurnOn = true; // Enable generating curl command to the console
+            config.NeedAddDefaultHeaders = true; // Specify if default headers should be included
+            config.EnableCodeBeautification = true;
+            config.EnableCompression = false;
+        });
+
+        Console.WriteLine();
+    }
+
+    private static void GenerateCurlByHttpRequestMessage(HttpRequestMessage httpRequestMessage)
+    {
+        Console.WriteLine("* Generate Curl By HttpRequestMessage:");
+
+        // config is optional
+        httpRequestMessage.GenerateCurlInConsole(new Uri(ApiUrl), config =>
+        {
+            // Customize console configuration if needed
+            config.TurnOn = true; // Enable generating curl command to the console
+            config.NeedAddDefaultHeaders = true; // Specify if default headers should be included
+            config.EnableCodeBeautification = true;
+            config.EnableCompression = false;
+        });
+
+        Console.WriteLine();
+    }
+
+    #endregion << Private Methods >>
 }

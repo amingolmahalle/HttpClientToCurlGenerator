@@ -5,42 +5,36 @@ namespace HttpClientToCurl.Sample.InFile;
 
 public static class ApiCaller
 {
+    // Create an instance of HttpClient
+    private static readonly HttpClient Client = new();
+    private const string ApiUrl = "https://jsonplaceholder.typicode.com/posts";
+
     public static async Task MakeApiCall()
     {
-        string apiUrl = "https://jsonplaceholder.typicode.com/posts";
-
-        // Create an instance of HttpClient
-        HttpClient client = new();
-
         try
         {
             // Create a sample JSON payload
-            string jsonPayload =
-                "{\"title\":\"New Post\",\"body\":\"This is the body of the new post\",\"userId\":1}";
+            string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
 
             // Create HttpRequestMessage with the POST verb
-            HttpRequestMessage request = new(HttpMethod.Post, apiUrl);
+            HttpRequestMessage httpRequestMessage = new(HttpMethod.Post, ApiUrl);
 
             // Set up the request headers
-            request.Headers.Add("Authorization", "Bearer YourAccessToken"); // Add any necessary headers
+            httpRequestMessage.Headers.Add("Authorization", "Bearer YourAccessToken"); // Add any necessary headers
 
             // Set the request content with the JSON payload
-            request.Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+            httpRequestMessage.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
-            // Generate a curl command and write it to a file for debugging or testing.
-            // This command can be imported into Postman for checking and comparing against all the requirements.
-            // config is optional
-            client.GenerateCurlInFile(request, config =>
-            {
-                // Customize file configuration if needed
-                config.TurnOn = true; // Enable generating curl command to file
-                config.Filename = "curl_commands.txt"; // Specify the file name
-                config.Path = "C:\\Path\\To\\Directory"; // Specify the directory path
-                config.NeedAddDefaultHeaders = true; // Specify if default headers should be included
-            });
+            /* Generate a curl command and write it to a file for debugging or testing.
+               This command can be imported into Postman for checking and comparing against all the requirements. */
+
+            // *** First Scenario ***
+            GenerateCurlByHttpClient(httpRequestMessage);
+            // *** Second Scenario ***
+            GenerateCurlByHttpRequestMessage(httpRequestMessage);
 
             // Send the request
-            HttpResponseMessage response = await client.SendAsync(request);
+            HttpResponseMessage response = await Client.SendAsync(httpRequestMessage);
 
             // Check if the request was successful (status code 200-299)
             if (response.IsSuccessStatusCode)
@@ -59,4 +53,44 @@ public static class ApiCaller
             Console.WriteLine($"Exception: {ex.Message}");
         }
     }
+
+    #region << Private Methods >>
+
+    private static void GenerateCurlByHttpClient(HttpRequestMessage httpRequestMessage)
+    {
+        Console.WriteLine("* Generate Curl By HttpClient:");
+
+        // config is optional
+        Client.GenerateCurlInFile(httpRequestMessage, config =>
+        {
+            // Customize file configuration if needed
+            config.TurnOn = true; // Enable generating curl command to file
+            config.NeedAddDefaultHeaders = true; // Specify if default headers should be included
+            config.Filename = "curl_commands"; // Specify the file name
+            config.Path = @"C:\Path\To\Directory"; // Specify the directory path !!
+        });
+
+        Console.WriteLine("Done.");
+        Console.WriteLine();
+    }
+
+    private static void GenerateCurlByHttpRequestMessage(HttpRequestMessage httpRequestMessage)
+    {
+        Console.WriteLine("* Generate Curl By HttpRequestMessage:");
+
+        // config is optional
+        httpRequestMessage.GenerateCurlInFile(new Uri(ApiUrl), config =>
+        {
+            // Customize file configuration if needed
+            config.TurnOn = true; // Enable generating curl command to file
+            config.NeedAddDefaultHeaders = true; // Specify if default headers should be included
+            config.Filename = "curl_commands"; // Specify the file name
+            config.Path = @"C:\Path\To\Directory"; // Specify the directory path !!
+        });
+
+        Console.WriteLine("Done.");
+        Console.WriteLine();
+    }
+
+    #endregion << Private Methods >>
 }

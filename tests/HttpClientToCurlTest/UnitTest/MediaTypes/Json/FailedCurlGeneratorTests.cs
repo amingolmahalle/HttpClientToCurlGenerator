@@ -3,7 +3,7 @@ using System.Text;
 using HttpClientToCurl.Builder;
 using Xunit;
 
-namespace HttpClientToCurlGeneratorTest.UnitTest.MediaTypes.Json;
+namespace HttpClientToCurlTest.UnitTest.MediaTypes.Json;
 
 public class FailedCurlGeneratorTests
 {
