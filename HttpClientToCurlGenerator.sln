@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClientToCurlTest", "tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpRequestMessageToCurlTest", "tests\HttpRequestMessageToCurlTest\HttpRequestMessageToCurlTest.csproj", "{69E31075-F14E-1DE2-1D6E-D934A5C0480F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClientToCurl.Sample.InSpecific", "examples\HttpClientToCurl.Sample.InSpecific\HttpClientToCurl.Sample.InSpecific.csproj", "{9D56718F-C9E6-4C45-926D-97599072DA35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{69E31075-F14E-1DE2-1D6E-D934A5C0480F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69E31075-F14E-1DE2-1D6E-D934A5C0480F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69E31075-F14E-1DE2-1D6E-D934A5C0480F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D56718F-C9E6-4C45-926D-97599072DA35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D56718F-C9E6-4C45-926D-97599072DA35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D56718F-C9E6-4C45-926D-97599072DA35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D56718F-C9E6-4C45-926D-97599072DA35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{5A8427BC-0821-E973-7221-263D13156248} = {A8574DB9-8411-4F81-A82E-F97AD00EF8AF}
 		{8CC76F1F-5845-D81E-5E9A-113F913A444B} = {E36BF269-7F5D-4DE7-99B0-14567F9CD6B3}
 		{69E31075-F14E-1DE2-1D6E-D934A5C0480F} = {E36BF269-7F5D-4DE7-99B0-14567F9CD6B3}
+		{9D56718F-C9E6-4C45-926D-97599072DA35} = {A8574DB9-8411-4F81-A82E-F97AD00EF8AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5E0FFF6-54C3-4BA1-91F3-EF3513A18D5D}
