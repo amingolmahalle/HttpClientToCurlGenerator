@@ -3,7 +3,7 @@ using HttpClientToCurl.Builder;
 using HttpClientToCurl.Config;
 using HttpClientToCurl.Utility;
 
-namespace HttpClientToCurl;
+namespace HttpClientToCurl.Extensions;
 
 public static class HttpClientExtensions
 {

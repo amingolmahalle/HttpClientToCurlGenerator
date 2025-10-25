@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using System.Net.Mime;
 using System.Text;
 using FluentAssertions;
-using HttpClientToCurl;
+using HttpClientToCurl.Extensions;
 using HttpClientToCurl.Utility;
 using Microsoft.AspNetCore.WebUtilities;
 using Xunit;
