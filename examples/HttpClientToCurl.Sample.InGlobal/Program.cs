@@ -1,22 +1,15 @@
+using HttpClientToCurl.Config.Others;
 using static HttpClientToCurl.Extensions.ServiceCollectionExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddHttpClientToCurl(config =>
 {
-    config.TurnOnAll = true;
-    config.ShowOnConsole = consoleConfig =>
-    {
-        consoleConfig.TurnOn = true;
-        consoleConfig.EnableCodeBeautification = true;
-    };
-    config.SaveToFile = fileConfig =>
-    {
-        fileConfig.TurnOn = true;
-        fileConfig.Filename = "curl_commands.txt";
-        fileConfig.Path = "C:\\logs";
-        fileConfig.NeedAddDefaultHeaders = true;
-    };
+    config.ShowMode = ShowMode.Console | ShowMode.File;
+    config.NeedAddDefaultHeaders = true;
+    config.ConsoleEnableCodeBeautification = true;
+    config.FileConfigPath = "C:\\Users\\Public";
+    config.FileConfigFileName = "curl_commands";
 });
 builder.Services.AddHttpClient();
 

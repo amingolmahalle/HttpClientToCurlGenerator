@@ -1,21 +1,27 @@
-﻿namespace HttpClientToCurl.Config;
+﻿using HttpClientToCurl.Config.Others;
+
+namespace HttpClientToCurl.Config;
 
 public sealed class GlobalConfig
 {
-    /// <summary>
-    /// Set true to create curl output; false to disable it.  <c>Default is true</c>. 
-    /// </summary>
-    public bool TurnOnAll { get; set; } = true;
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0032:Use auto property", Justification = "<Pending>")]
+    private ShowMode _showMode;
 
-    /// <summary>
-    /// Set true to show curl on the console; false to disable it. <c>Default is true</c>.
-    /// <para>If TurnOnAll is set to false, it will be ignored.</para>
-    /// </summary>
-    public Action<ConsoleConfig> ShowOnConsole { get; set; }
-
-    /// <summary>
-    /// Set true to save the curl file; false to disable it. <c>Default is true</c>.
-    /// <para>If TurnOnAll is set to false, it will be ignored.</para>
-    /// </summary>
-    public Action<FileConfig> SaveToFile { get; set; }
+    public ShowMode ShowMode
+    {
+        get => _showMode;
+        set
+        {
+            if (value is not ShowMode.None && value.HasFlag(ShowMode.None))
+            {
+                throw new ArgumentException("ShowMode.None cannot be combined with other flags.");
+            }
+            _showMode = value;
+        }
+    }
+    public bool NeedAddDefaultHeaders { get; set; } = true;
+    public bool ConsoleEnableCodeBeautification { get; set; } = false;
+    public bool ConsoleEnableCompression { get; set; } = false;
+    public string FileConfigFileName { get; set; }
+    public string FileConfigPath { get; set; }
 }

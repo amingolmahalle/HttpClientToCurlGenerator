@@ -1,4 +1,5 @@
 ﻿using HttpClientToCurl.Config;
+using HttpClientToCurl.Config.Others;
 using HttpClientToCurl.Extensions;
 
 namespace HttpClientToCurl.HttpMessageHandlers;
@@ -6,27 +7,32 @@ namespace HttpClientToCurl.HttpMessageHandlers;
 public class CurlGeneratorHttpMessageHandler(GlobalConfig config) : DelegatingHandler
 {
     protected override Task<HttpResponseMessage> SendAsync(
-        HttpRequestMessage request,
+        HttpRequestMessage httpRequestMessage,
         CancellationToken cancellationToken)
     {
-        if (config.TurnOnAll)
+        if (config.ShowMode.HasFlag(ShowMode.Console))
         {
-            var consoleConfig = new ConsoleConfig();
-            config.ShowOnConsole?.Invoke(consoleConfig);
-            if (consoleConfig.TurnOn)
+            httpRequestMessage.GenerateCurlInConsole(httpRequestMessage.RequestUri, consoleConfig =>
             {
-                HttpRequestMessageExtensions.GenerateCurlInConsole(request, null);
-            }
-
-            var fileConfig = new FileConfig();
-            config.SaveToFile?.Invoke(fileConfig);
-            if (fileConfig.TurnOn)
-            {
-                HttpRequestMessageExtensions.GenerateCurlInFile(request, null, config.SaveToFile);
-            }
+                consoleConfig.TurnOn = true;
+                consoleConfig.EnableCodeBeautification = config.ConsoleEnableCodeBeautification;
+                consoleConfig.EnableCompression = config.ConsoleEnableCompression;
+                consoleConfig.NeedAddDefaultHeaders = config.NeedAddDefaultHeaders;
+            });
         }
 
-        var response = base.SendAsync(request, cancellationToken);
+        if (config.ShowMode.HasFlag(ShowMode.File))
+        {
+            httpRequestMessage.GenerateCurlInFile(httpRequestMessage.RequestUri, fileConfig =>
+            {
+                fileConfig.TurnOn = true;
+                fileConfig.Filename = config.FileConfigFileName;
+                fileConfig.Path = config.FileConfigPath;
+                fileConfig.NeedAddDefaultHeaders = config.NeedAddDefaultHeaders;
+            });
+        }
+
+        var response = base.SendAsync(httpRequestMessage, cancellationToken);
         return response;
     }
 }
