@@ -4,7 +4,7 @@ An extension for generating the **CURL script** from **`HttpClient`** and **`Htt
 [![license](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/blob/master/LICENSE)
 [![stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/stargazers)
 [![NuGet Version](https://img.shields.io/nuget/v/HttpClientToCurl.svg)](https://www.nuget.org/packages/HttpClientToCurl/)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/HttpClientToCurl.svg?style=flat-square)](https://www.nuget.org/packages/HttpClientToCurl/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/HttpClientToCurl.svg)](https://www.nuget.org/packages/HttpClientToCurl/)
 ![Build](https://github.com/amingolmahalle/HttpClientToCurlGenerator/actions/workflows/dotnet.yml/badge.svg)
 
 ---
