@@ -1,35 +1,42 @@
 ﻿using HttpClientToCurl.Config;
-using HttpClientToCurl.Config.Others;
 using HttpClientToCurl.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace HttpClientToCurl.HttpMessageHandlers;
 
-public class CurlGeneratorHttpMessageHandler(GlobalConfig config) : DelegatingHandler
+public class CurlGeneratorHttpMessageHandler(IOptionsMonitor<CompositConfig> monitorConfig) : DelegatingHandler
 {
+    private readonly IOptionsMonitor<CompositConfig> _monitorConfig = monitorConfig;
+
     protected override Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage httpRequestMessage,
         CancellationToken cancellationToken)
     {
-        if (config.ShowMode.HasFlag(ShowMode.Console))
+        var config = _monitorConfig.CurrentValue;
+        if (config.TurnOnAll)
         {
-            httpRequestMessage.GenerateCurlInConsole(httpRequestMessage.RequestUri, consoleConfig =>
+            if (config.ShowOnConsole.TurnOn)
             {
-                consoleConfig.TurnOn = true;
-                consoleConfig.EnableCodeBeautification = config.ConsoleEnableCodeBeautification;
-                consoleConfig.EnableCompression = config.ConsoleEnableCompression;
-                consoleConfig.NeedAddDefaultHeaders = config.NeedAddDefaultHeaders;
-            });
-        }
+                httpRequestMessage.GenerateCurlInConsole(httpRequestMessage.RequestUri, consoleConfig =>
+                {
+                    consoleConfig.TurnOn = true;
+                    consoleConfig.EnableCodeBeautification = config.ShowOnConsole.EnableCodeBeautification;
+                    consoleConfig.EnableCompression = config.ShowOnConsole.EnableCompression;
+                    consoleConfig.NeedAddDefaultHeaders = config.ShowOnConsole.NeedAddDefaultHeaders;
+                });
+            }
 
-        if (config.ShowMode.HasFlag(ShowMode.File))
-        {
-            httpRequestMessage.GenerateCurlInFile(httpRequestMessage.RequestUri, fileConfig =>
+            if (config.SaveToFile.TurnOn)
             {
-                fileConfig.TurnOn = true;
-                fileConfig.Filename = config.FileConfigFileName;
-                fileConfig.Path = config.FileConfigPath;
-                fileConfig.NeedAddDefaultHeaders = config.NeedAddDefaultHeaders;
-            });
+                httpRequestMessage.GenerateCurlInFile(httpRequestMessage.RequestUri, fileConfig =>
+                {
+                    fileConfig.TurnOn = true;
+                    fileConfig.EnableCompression = config.SaveToFile.EnableCompression;
+                    fileConfig.NeedAddDefaultHeaders = config.SaveToFile.NeedAddDefaultHeaders;
+                    fileConfig.Path = config.SaveToFile.Path;
+                    fileConfig.Filename = config.SaveToFile.Filename;
+                });
+            }
         }
 
         var response = base.SendAsync(httpRequestMessage, cancellationToken);

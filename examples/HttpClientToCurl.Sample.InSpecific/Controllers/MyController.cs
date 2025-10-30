@@ -9,8 +9,19 @@ public class MyController(IHttpClientFactory httpClientFactory) : ControllerBase
 {
     private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
 
-    [HttpGet]
+    [HttpGet("send-and-show-curl")]
+    public async Task SendAndShowCurl()
+    {
+        await SendRemoteRequest("my-client1");
+    }
+
+    [HttpGet("send")]
     public async Task Send()
+    {
+        await SendRemoteRequest("my-client2");
+    }
+
+    private async Task SendRemoteRequest(string httpClientName)
     {
         string apiUrl = "https://jsonplaceholder.typicode.com/posts";
 
@@ -34,7 +45,7 @@ public class MyController(IHttpClientFactory httpClientFactory) : ControllerBase
             // Use it to check and compare against all the requirements.
 
             // Send the request
-            HttpResponseMessage response = await _httpClientFactory.CreateClient("my-client").SendAsync(request);
+            HttpResponseMessage response = await _httpClientFactory.CreateClient(httpClientName).SendAsync(request);
 
             // Check if the request was successful (status code 200-299)
             if (response.IsSuccessStatusCode)

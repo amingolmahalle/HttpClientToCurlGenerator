@@ -1,6 +1,6 @@
 ﻿using HttpClientToCurl.Config;
-using HttpClientToCurl.Config.Others;
 using HttpClientToCurl.HttpMessageHandlers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http;
 
@@ -9,27 +9,44 @@ namespace HttpClientToCurl.Extensions;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Generating curl script of all HTTP requests.
+    /// Generating curl script for all HTTP requests.
     /// <para> By default, show it in the IDE console. </para>
     /// </summary>
-    /// <param name="configAction">Optional</param>
-    /// <param name="isGlobal">Apply for all http requests in the application or not. Default is true.</param>
-    public static void AddHttpClientToCurl(
-    this IServiceCollection services,
-    Action<GlobalConfig> configAction = null,
-    bool isGlobal = true)
+    public static void AddHttpClientToCurlInGeneralMode(
+           this IServiceCollection services,
+           IConfiguration configuration)
     {
-        configAction ??= config => config.ShowMode = ShowMode.Console;
+        AddServices(services, configuration);
+        services.Add(ServiceDescriptor.Transient<IHttpMessageHandlerBuilderFilter, HttpMessageHandlerAppender>());
+    }
 
-        var config = new GlobalConfig();
-        configAction?.Invoke(config);
+    /// <summary>
+    /// Generating curl script for specific http client 
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    public static void AddHttpClientToCurl(
+           this IServiceCollection services,
+           IConfiguration configuration)
+    {
+        AddServices(services, configuration);
+    }
 
-        services.AddSingleton(config);
-        services.AddTransient<CurlGeneratorHttpMessageHandler>();
+    public static IHttpClientBuilder AddHttpClient(this IServiceCollection services, string name, bool showCurl = false)
+    {
+        var httpClientBuilder = HttpClientFactoryServiceCollectionExtensions.AddHttpClient(services, name);
 
-        if (isGlobal)
+        if (showCurl)
         {
-            services.Add(ServiceDescriptor.Transient<IHttpMessageHandlerBuilderFilter, HttpMessageHandlerAppender>());
+            httpClientBuilder.AddHttpMessageHandler<CurlGeneratorHttpMessageHandler>();
         }
+
+        return httpClientBuilder;
+    }
+
+    private static void AddServices(IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<CompositConfig>(configuration.GetSection("HttpClientToCurl"));
+        services.AddTransient<CurlGeneratorHttpMessageHandler>();
     }
 }
