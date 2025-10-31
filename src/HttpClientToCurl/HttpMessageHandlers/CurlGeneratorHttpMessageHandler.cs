@@ -15,7 +15,7 @@ public class CurlGeneratorHttpMessageHandler(IOptionsMonitor<CompositConfig> mon
         var config = _monitorConfig.CurrentValue;
         if (config.TurnOnAll)
         {
-            if (config.ShowOnConsole.TurnOn)
+            if (config.ShowOnConsole?.TurnOn ?? false)
             {
                 httpRequestMessage.GenerateCurlInConsole(httpRequestMessage.RequestUri, consoleConfig =>
                 {
@@ -26,7 +26,7 @@ public class CurlGeneratorHttpMessageHandler(IOptionsMonitor<CompositConfig> mon
                 });
             }
 
-            if (config.SaveToFile.TurnOn)
+            if (config.SaveToFile?.TurnOn ?? false)
             {
                 httpRequestMessage.GenerateCurlInFile(httpRequestMessage.RequestUri, fileConfig =>
                 {
