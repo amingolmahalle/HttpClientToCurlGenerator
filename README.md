@@ -55,6 +55,29 @@ builder.Services.AddHttpClientToCurlInGeneralMode(builder.Configuration);
 builder.Services.AddHttpClient();
 ```
 
+##### Configuration (via `appsettings.json`)
+
+```json
+"HttpClientToCurl": {
+    "TurnOnAll": true,
+
+    "ShowOnConsole": {
+      "TurnOn": true,
+      "NeedAddDefaultHeaders": true,
+      "EnableCompression": false,
+      "EnableCodeBeautification": true
+    },
+
+    "SaveToFile": {
+      "TurnOn": true,
+      "NeedAddDefaultHeaders": true,
+      "EnableCompression": false,
+      "Filename": "curl_commands",
+      "Path": "C:\\Users\\Public"
+    }
+  }
+```
+
 #### 2️⃣ Specific Registration
 
 If you only want cURL generation for specific clients, you can enable it per-client easily using the built-in registration helpers.
@@ -69,6 +92,29 @@ builder.Services.AddHttpClientToCurl(builder.Configuration);
 
 // Then register specific HttpClients with cURL logging enabled
 builder.Services.AddHttpClient("my-client1", showCurl: true);
+```
+
+##### Configuration (via `appsettings.json`)
+
+```json
+"HttpClientToCurl": {
+    "TurnOnAll": true,
+
+    "ShowOnConsole": {
+      "TurnOn": true,
+      "NeedAddDefaultHeaders": true,
+      "EnableCompression": false,
+      "EnableCodeBeautification": true
+    },
+
+    "SaveToFile": {
+      "TurnOn": true,
+      "NeedAddDefaultHeaders": true,
+      "EnableCompression": false,
+      "Filename": "curl_commands",
+      "Path": "C:\\Users\\Public"
+    }
+  }
 ```
 
 ### ⚙️ Manual Usage
