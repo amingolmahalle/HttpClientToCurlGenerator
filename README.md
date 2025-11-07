@@ -36,6 +36,43 @@ For full examples, detailed usage, and advanced configuration options, please se
 👉 [Open Wiki → More Details](https://github.com/amingolmahalle/HttpClientToCurlGenerator/wiki)
 
 ## 🚀 **Usage Example**
+
+### ⚡ Quick Usage
+
+#### 1️⃣ Global Registration
+
+Enable cURL generation globally so that every `HttpClient` created through `IHttpClientFactory` automatically logs cURL commands before sending requests.
+
+**Program.cs / Startup:**
+
+```csharp
+using HttpClientToCurl;
+
+// Register global cURL generation mode
+builder.Services.AddHttpClientToCurlInGeneralMode(builder.Configuration);
+
+// Register a default HttpClient (now cURL-enabled)
+builder.Services.AddHttpClient();
+```
+
+#### 2️⃣ Specific Registration
+
+If you only want cURL generation for specific clients, you can enable it per-client easily using the built-in registration helpers.
+
+**Program.cs / Startup:**
+
+```csharp
+using HttpClientToCurl;
+
+// Register the cURL generator service once
+builder.Services.AddHttpClientToCurl(builder.Configuration);
+
+// Then register specific HttpClients with cURL logging enabled
+builder.Services.AddHttpClient("my-client1", showCurl: true);
+```
+
+### ⚙️ Manual Usage
+
 ```csharp
 using System.Text;
 using HttpClientToCurl;
