@@ -1,6 +1,10 @@
 # 🥇 HttpClientToCurl
-An extension for generating the **CURL script** from **`HttpClient`** and **`HttpRequestMessage`** in .NET.
 
+Generate curl commands directly from your `HttpClient` or `HttpRequestMessage` in .NET — perfect for debugging, logging, and sharing HTTP requests.
+
+---
+
+### 📊 Badges
 [![license](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/blob/master/LICENSE)
 [![stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/stargazers)
 [![NuGet Version](https://img.shields.io/nuget/v/HttpClientToCurl.svg)](https://www.nuget.org/packages/HttpClientToCurl/)
@@ -10,16 +14,39 @@ An extension for generating the **CURL script** from **`HttpClient`** and **`Htt
 ---
 
 ## 📖 Overview
-**`HttpClientToCurl`** is a lightweight **.NET extension library** that helps you visualize any HTTP request as a **CURL command**.
+**HttpClientToCurl** is a lightweight and powerful .NET extension library that turns your HTTP requests into curl commands.
+It works with both **`HttpClient`** and **`HttpRequestMessage`**, giving you two simple ways to generate curl commands:
 
-You can use its extension methods on both:
-- **`HttpClient`** — to generate CURL directly when sending requests  
-- **`HttpRequestMessage`** — to inspect or log CURL representations before sending  
+---
 
-This is useful for:
-- Debugging and verifying request payloads or headers  
-- Sharing API calls between teammates  
-- Generating or updating Postman collections easily  
+### 🧰 1. Manual Mode
+
+Generate curl commands **on demand** using extension methods on either `HttpClient` or `HttpRequestMessage`.
+
+**Best for:**  
+Debugging individual requests, creating reproducible Postman calls, or sharing API examples.
+
+---
+
+### 🧩 2. Automatic Mode
+
+Automatically generates curl output whenever your app sends a request.  
+You can configure it through dependency injection:
+
+- **Global Registration** — enable for all `HttpClient` instances created via `IHttpClientFactory`  
+- **Per-Client Registration** — enable only for selected clients  
+
+**Best for:**  
+Logging, monitoring, or tracing outgoing requests across the application.
+
+---
+
+### 💡 Why Use HttpClientToCurl?
+
+- 🧪 Instantly visualize and debug request payloads or headers  
+- 🤝 Share exact API calls with teammates or QA engineers  
+- ⚙️ Simplify Postman and CLI reproduction  
+- 🪶 Lightweight, dependency-free, and easy to integrate  
 
 ---
 ## ⚙️ Installation
@@ -35,7 +62,12 @@ For full examples, detailed usage, and advanced configuration options, please se
 
 👉 [Open Wiki → More Details](https://github.com/amingolmahalle/HttpClientToCurlGenerator/wiki)
 
-## 🚀 **Usage Example**
+---
+
+## 🚀 Quick Start
+
+## 🧰 Manual Mode Usage Example
+
 ```csharp
 using System.Text;
 using HttpClientToCurl;
@@ -44,20 +76,22 @@ class Program
 {
     static async Task Main()
     {
+        var baseAddress = new Uri("http://localhost:1213/v1/");
         var requestUri = "api/test";
 
-        using var httpClientInstance = new HttpClient();
-        var baseAddress = new Uri("http://localhost:1213/v1/");
-        httpClientInstance.BaseAddress = baseAddress;
-        string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
-        HttpRequestMessage httpRequestMessageInstance = new(HttpMethod.Post, requestUri);
-        httpRequestMessageInstance.Headers.Add("Authorization", "Bearer YourAccessToken");
-        httpRequestMessageInstance.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        using var httpClientInstance = new HttpClient { BaseAddress = baseAddress };
 
-        // Using the HttpClient extension:
+        string requestBody = @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
+        var httpRequestMessageInstance = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
+        };
+        httpRequestMessageInstance.Headers.Add("Authorization", "Bearer YourAccessToken");
+
+        // Option 1: Generate curl from HttpClient
         httpClientInstance.GenerateCurlInConsole(httpRequestMessageInstance);
 
-        // Or using the HttpRequestMessage extension:
+        // Option 2: Generate curl from HttpRequestMessage
         httpRequestMessageInstance.GenerateCurlInConsole(baseAddress);
 
         await httpClientInstance.SendAsync(httpRequestMessageInstance);
@@ -65,26 +99,92 @@ class Program
 }
 ```
 
-## ✅ Output:
-
+✅ **Example Output**
 ```bash
-curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer YourAccessToken'
--H 'Content-Type: application/json; charset=utf-8' -d '{"name":"sara","requestId":10001001,"amount":20000}'
+curl -X POST 'http://localhost:1213/v1/api/test' \
+  -H 'Authorization: Bearer YourAccessToken' \
+  -H 'Content-Type: application/json; charset=utf-8' \
+  -d '{"name":"sara","requestId":10001001,"amount":20000}'
 ```
 
-## 🧩 **Other Features**
+---
 
-Works with **GET**, **POST**, **PUT**, **PATCH**, and **DELETE**
+## 🧩 Automatic Mode Usage Example
 
-Supports **JSON**, **XML**, and **FormUrlEncodedContent**
+### 1️⃣ Global Registration
 
-## **Output to:**
+Enable curl generation globally — every `HttpClient` created through `IHttpClientFactory` will automatically log curl commands.
 
-**Console** / **String** / **File**
+**Program.cs / Startup.cs**
+```csharp
+using HttpClientToCurl;
+
+// Register global curl generation
+builder.Services.AddHttpClientToCurlInGeneralMode(builder.Configuration);
+
+// Register default HttpClient (now curl-enabled)
+builder.Services.AddHttpClient();
+```
+
+**appsettings.json**
+```json
+"HttpClientToCurl": {
+  "TurnOnAll": true, // Master switch: enable or disable the entire HttpClientToCURL logging system
+
+  "ShowOnConsole": {
+    "TurnOn": true, // Enable console output for generated curl commands
+    "NeedAddDefaultHeaders": true, // Include default headers (like User-Agent, Accept, etc.) in the curl output
+    "EnableCompression": false, // Compress the console log output (not recommended for debugging readability)
+    "EnableCodeBeautification": true // Beautify and format the curl command for better readability
+  },
+
+  "SaveToFile": {
+    "TurnOn": true, // Enable saving the generated curl commands into a file   
+    "NeedAddDefaultHeaders": true, // Include default headers (like User-Agent, Accept, etc.) in the curl output
+    "EnableCompression": false, // Compress the saved file (useful if logging a large number of requests)
+    "Filename": "curl_commands", // Name of the output file without extension (e.g., will produce curl_commands.log)
+    "Path": "C:\\Users\\Public" // Directory path where the log file will be created
+  }
+}
+```
+
+---
+
+### 2️⃣ Per-Client Registration
+
+Enable curl logging for specific named clients only.
+
+**Program.cs / Startup.cs**
+```csharp
+using HttpClientToCurl;
+
+// Register the curl generator once
+builder.Services.AddHttpClientToCurl(builder.Configuration);
+
+// Enable curl logging for selected clients
+builder.Services.AddHttpClient("my-client1", showCurl: true);
+```
+---
+
+**appsettings.json**
+(same configuration options as above)
+
+---
+
+## 🧩 Features
+
+| Feature | Description |
+|----------|--------------|
+| 🔁 Methods | Supports `GET`, `POST`, `PUT`, `PATCH`, `DELETE` |
+| 🧠 Content Types | `JSON`, `XML`, `FormUrlEncodedContent` |
+| 💾 Output | Console • File • String |
+| 🎨 Beautified Output | Optional pretty printing |
+
+---
 
 ## 📚 Articles
 
-- [How to Generate cURL Script of the HttpClient in .NET](https://www.c-sharpcorner.com/article/how-to-generate-curl-script-of-the-httpclient-in-net/)
+- [How to Generate curl Script of the HttpClient in .NET](https://www.c-sharpcorner.com/article/how-to-generate-curl-script-of-the-httpclient-in-net/)
 - [New Feature in HttpClientToCurl for .NET: Debugging HttpRequestMessage Made Easy](https://medium.com/@mozhgan.etaati/new-feature-in-httpclienttocurl-for-net-debugging-httprequestmessage-made-easy-18cb66dd55f0)
 
 
