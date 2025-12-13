@@ -10,9 +10,9 @@ public class CompositConfigBuilder
         _config = new CompositConfig();
     }
 
-    public CompositConfigBuilder SetTurnOnAll(bool turnOnAll)
+    public CompositConfigBuilder SetEnable(bool value)
     {
-        _config.TurnOnAll = turnOnAll;
+        _config.Enable = value;
         return this;
     }
 

@@ -12,7 +12,7 @@ namespace HttpMessageHandlerTest.UnitTest;
 public class ServiceCollectionExtensionsTests
 {
     [Fact]
-    public void ServiceCollectionExtensions_Register_Services_In_GeneralMode()
+    public void ServiceCollectionExtensions_Register_Services_For_All()
     {
         // Arrange
         var services = new ServiceCollection();
@@ -20,7 +20,7 @@ public class ServiceCollectionExtensionsTests
             .Build();
 
         // Act
-        services.AddHttpClientToCurlInGeneralMode(configuration);
+        services.AddAllHttpClientToCurl(configuration);
         var provider = services.BuildServiceProvider();
 
         // Assert
