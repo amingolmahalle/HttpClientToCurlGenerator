@@ -4,6 +4,16 @@ Generate curl commands directly from your `HttpClient` or `HttpRequestMessage` i
 
 ---
 
+## 💖 **Love HttpClientToCurl? Please support us!**  
+
+If this project has made your life easier, consider buying us a coffee or sending a donation.  
+Every bit of support keeps us motivated, helps us add new features, fix bugs, and maintain the project — keeping it free and awesome for everyone! ☕🚀
+
+*USDT (Tether – BEP20 / Binance Smart Chain) wallet address:*  
+`0x9d03Be8B979453bE300724FD4bb3eF77517d45AE`
+
+---
+
 ### 📊 Badges
 [![license](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/blob/master/LICENSE)
 [![stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/stargazers)
@@ -43,10 +53,10 @@ Logging, monitoring, or tracing outgoing requests across the application.
 
 ### 💡 Why Use HttpClientToCurl?
 
-- 🧪 Instantly visualize and debug request payloads or headers  
+- 🧪 Instantly visualise and debug request payloads or headers  
 - 🤝 Share exact API calls with teammates or QA engineers  
 - ⚙️ Simplify Postman and CLI reproduction  
-- 🪶 Lightweight, dependency-free, and easy to integrate  
+- 🧩 Lightweight, dependency-free, and easy to integrate  
 
 ---
 ## ⚙️ Installation
