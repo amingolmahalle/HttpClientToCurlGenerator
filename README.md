@@ -19,16 +19,7 @@ It works with both **`HttpClient`** and **`HttpRequestMessage`**, giving you two
 
 ---
 
-### 🧰 1. Manual Mode
-
-Generate curl commands **on demand** using extension methods on either `HttpClient` or `HttpRequestMessage`.
-
-**Best for:**  
-Debugging individual requests, creating reproducible Postman calls, or sharing API examples.
-
----
-
-### 🧩 2. Automatic Mode
+### 🧩 1. Automatic Mode
 
 Automatically generates curl output whenever your app sends a request.  
 You can configure it through dependency injection:
@@ -38,6 +29,15 @@ You can configure it through dependency injection:
 
 **Best for:**  
 Logging, monitoring, or tracing outgoing requests across the application.
+
+---
+
+### 🧰 2. Manual Mode
+
+Generate curl commands **on demand** using extension methods on either `HttpClient` or `HttpRequestMessage`.
+
+**Best for:**  
+Debugging individual requests, creating reproducible Postman calls, or sharing API examples.
 
 ---
 
@@ -110,26 +110,25 @@ curl -X POST 'http://localhost:1213/v1/api/test' \
 ---
 
 ## 🧩 Automatic Mode Usage Example
+### 1️⃣ Per-Client Registration
 
-### 1️⃣ Global Registration
-
-Enable curl generation globally — every `HttpClient` created through `IHttpClientFactory` will automatically log curl commands.
+Enable curl logging for specific named clients only.
 
 **Program.cs / Startup.cs**
 ```csharp
 using HttpClientToCurl;
 
-// Register global curl generation
-builder.Services.AddHttpClientToCurlInGeneralMode(builder.Configuration);
+// Register the curl generator once
+builder.Services.AddHttpClientToCurl(builder.Configuration);
 
-// Register default HttpClient (now curl-enabled)
-builder.Services.AddHttpClient();
+// Enable curl logging for selected clients
+builder.Services.AddHttpClient("my-client1", showCurl: true);
 ```
 
 **appsettings.json**
 ```json
 "HttpClientToCurl": {
-  "TurnOnAll": true, // Master switch: enable or disable the entire HttpClientToCURL logging system
+  "Enable": true, // Master switch: enable or disable the entire HttpClientToCURL logging system
 
   "ShowOnConsole": {
     "TurnOn": true, // Enable console output for generated curl commands
@@ -150,21 +149,20 @@ builder.Services.AddHttpClient();
 
 ---
 
-### 2️⃣ Per-Client Registration
+### 2️⃣ Global Registration
 
-Enable curl logging for specific named clients only.
+Enable curl generation globally — every `HttpClient` created through `IHttpClientFactory` will automatically log curl commands.
 
 **Program.cs / Startup.cs**
 ```csharp
 using HttpClientToCurl;
 
-// Register the curl generator once
-builder.Services.AddHttpClientToCurl(builder.Configuration);
+// Register global curl generation
+builder.Services.AddAllHttpClientToCurl(builder.Configuration);
 
-// Enable curl logging for selected clients
-builder.Services.AddHttpClient("my-client1", showCurl: true);
+// Register default HttpClient (now curl-enabled)
+builder.Services.AddHttpClient();
 ```
----
 
 **appsettings.json**
 (same configuration options as above)

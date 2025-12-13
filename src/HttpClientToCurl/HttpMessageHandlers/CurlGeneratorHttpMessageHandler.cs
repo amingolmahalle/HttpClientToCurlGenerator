@@ -13,7 +13,7 @@ public class CurlGeneratorHttpMessageHandler(IOptionsMonitor<CompositConfig> mon
         CancellationToken cancellationToken)
     {
         var config = _monitorConfig.CurrentValue;
-        if (config.TurnOnAll)
+        if (config.Enable)
         {
             if (config.ShowOnConsole?.TurnOn ?? false)
             {

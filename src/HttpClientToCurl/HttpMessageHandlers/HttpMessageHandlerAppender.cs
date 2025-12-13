@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Http;
 
 namespace HttpClientToCurl.HttpMessageHandlers;
+
 public class HttpMessageHandlerAppender(IServiceProvider serviceProvider) : IHttpMessageHandlerBuilderFilter
 {
     public Action<HttpMessageHandlerBuilder> Configure(Action<HttpMessageHandlerBuilder> next) => builder =>

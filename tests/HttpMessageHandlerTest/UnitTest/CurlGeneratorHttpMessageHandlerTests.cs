@@ -14,7 +14,7 @@ public class CurlGeneratorHttpMessageHandlerTests
     {
         // Arrange
         var config = new CompositConfigBuilder()
-            .SetTurnOnAll(false)
+            .SetEnable(false)
             .Build();
         var handler = new CurlGeneratorHttpMessageHandler(new FakeOptionsMonitor<CompositConfig>(config))
         {
@@ -33,11 +33,11 @@ public class CurlGeneratorHttpMessageHandlerTests
     }
 
     [Fact]
-    public async Task CurlGeneratorHttpMessageHandler_ReturnsResponse_When_TurnOnAll_But_ShowOnConsole_And_SaveToFile_AreNot_Configured()
+    public async Task CurlGeneratorHttpMessageHandler_ReturnsResponse_When_Enable_But_ShowOnConsole_And_SaveToFile_AreNot_Configured()
     {
         // Arrange
         var config = new CompositConfigBuilder()
-            .SetTurnOnAll(true)
+            .SetEnable(true)
             .SetShowOnConsole(null)
             .SetSaveToFile(null)
             .Build();
@@ -58,11 +58,11 @@ public class CurlGeneratorHttpMessageHandlerTests
     }
 
     [Fact]
-    public async Task CurlGeneratorHttpMessageHandler_ReturnsResponse_When_TurnOnAll_But_ShowOnConsole_And_SaveToFile_TurnOff()
+    public async Task CurlGeneratorHttpMessageHandler_ReturnsResponse_When_Enable_But_ShowOnConsole_And_SaveToFile_TurnOff()
     {
         // Arrange
         var config = new CompositConfigBuilder()
-            .SetTurnOnAll(true)
+            .SetEnable(true)
             .SetShowOnConsole(new ConsoleConfig
             {
                 TurnOn = false,
@@ -93,7 +93,7 @@ public class CurlGeneratorHttpMessageHandlerTests
     {
         // Arrange
         var config = new CompositConfigBuilder()
-            .SetTurnOnAll(true)
+            .SetEnable(true)
             .SetShowOnConsole(new ConsoleConfig
             {
                 TurnOn = true,
@@ -139,7 +139,7 @@ public class CurlGeneratorHttpMessageHandlerTests
         var filename = Guid.NewGuid().ToString("N");
 
         var config = new CompositConfigBuilder()
-            .SetTurnOnAll(true)
+            .SetEnable(true)
             .SetSaveToFile(new FileConfig
             {
                 TurnOn = true,
@@ -194,7 +194,7 @@ public class CurlGeneratorHttpMessageHandlerTests
         var filename = Guid.NewGuid().ToString("N");
 
         var config = new CompositConfigBuilder()
-            .SetTurnOnAll(true)
+            .SetEnable(true)
             .SetShowOnConsole(new ConsoleConfig
             {
                 TurnOn = true,

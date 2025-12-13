@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
     /// Generating curl script for all HTTP requests.
     /// <para> By default, show it in the IDE console. </para>
     /// </summary>
-    public static void AddHttpClientToCurlInGeneralMode(
+    public static void AddAllHttpClientToCurl(
            this IServiceCollection services,
            IConfiguration configuration)
     {
