@@ -19,7 +19,16 @@ It works with both **`HttpClient`** and **`HttpRequestMessage`**, giving you two
 
 ---
 
-### 🧩 1. Automatic Mode
+### 🧰 1. Manual Mode
+
+Generate curl commands **on demand** using extension methods on either `HttpClient` or `HttpRequestMessage`.
+
+**Best for:**  
+Debugging individual requests, creating reproducible Postman calls, or sharing API examples.
+
+---
+
+### 🧩 2. Automatic Mode
 
 Automatically generates curl output whenever your app sends a request.  
 You can configure it through dependency injection:
@@ -32,21 +41,12 @@ Logging, monitoring, or tracing outgoing requests across the application.
 
 ---
 
-### 🧰 2. Manual Mode
-
-Generate curl commands **on demand** using extension methods on either `HttpClient` or `HttpRequestMessage`.
-
-**Best for:**  
-Debugging individual requests, creating reproducible Postman calls, or sharing API examples.
-
----
-
 ### 💡 Why Use HttpClientToCurl?
 
-- 🧪 Instantly visualize and debug request payloads or headers  
+- 🧪 Instantly visualise and debug request payloads or headers  
 - 🤝 Share exact API calls with teammates or QA engineers  
 - ⚙️ Simplify Postman and CLI reproduction  
-- 🪶 Lightweight, dependency-free, and easy to integrate  
+- 🧩 Lightweight, dependency-free, and easy to integrate  
 
 ---
 ## ⚙️ Installation
@@ -110,6 +110,7 @@ curl -X POST 'http://localhost:1213/v1/api/test' \
 ---
 
 ## 🧩 Automatic Mode Usage Example
+
 ### 1️⃣ Per-Client Registration
 
 Enable curl logging for specific named clients only.
