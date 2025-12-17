@@ -1,4 +1,6 @@
-﻿namespace HttpClientToCurl.Config;
+﻿using Microsoft.Extensions.Logging;
+
+namespace HttpClientToCurl.Config;
 
 public sealed class CompositConfig
 {
@@ -18,4 +20,10 @@ public sealed class CompositConfig
     /// <para>If Enable is set to false, it will be ignored.</para>
     /// </summary>
     public FileConfig SaveToFile { get; set; }
+
+    /// <summary>
+    /// Set true to send curl to <see cref="ILogger"/>; false to disable it. <c>Default is false</c>.
+    /// <para>If Enable is set to false, it will be ignored.</para>
+    /// </summary>
+    public LoggerConfig SendToLogger { get; set; }
 }

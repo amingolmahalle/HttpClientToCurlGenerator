@@ -28,6 +28,12 @@ public class CompositConfigBuilder
         return this;
     }
 
+    public CompositConfigBuilder SetSendToLogger(LoggerConfig? loggerConfig)
+    {
+        _config.SendToLogger = loggerConfig;
+        return this;
+    }
+
     public CompositConfig Build()
     {
         return _config;

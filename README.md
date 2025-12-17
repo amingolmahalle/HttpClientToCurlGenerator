@@ -149,11 +149,18 @@ builder.Services.AddHttpClient("my-client1", showCurl: true);
   },
 
   "SaveToFile": {
-    "TurnOn": true, // Enable saving the generated curl commands into a file   
+    "TurnOn": true, // Enable saving the generated curl commands into a file
     "NeedAddDefaultHeaders": true, // Include default headers (like User-Agent, Accept, etc.) in the curl output
     "EnableCompression": false, // Compress the saved file (useful if logging a large number of requests)
     "Filename": "curl_commands", // Name of the output file without extension (e.g., will produce curl_commands.log)
     "Path": "C:\\Users\\Public" // Directory path where the log file will be created
+  },
+
+  "SendToLogger": {
+    "TurnOn": true, // Enable sending curl commands to ILogger (integrates with Application Insights, Seq, Serilog, etc.)
+    "NeedAddDefaultHeaders": true, // Include default headers (like User-Agent, Accept, etc.) in the curl output
+    "EnableCompression": false, // Compress the logged output
+    "LogLevel": "Debug" // Log level: Trace, Debug, Information, Warning, Error, Critical
   }
 }
 ```
@@ -186,8 +193,9 @@ builder.Services.AddHttpClient();
 |----------|--------------|
 | 🔁 Methods | Supports `GET`, `POST`, `PUT`, `PATCH`, `DELETE` |
 | 🧠 Content Types | `JSON`, `XML`, `FormUrlEncodedContent` |
-| 💾 Output | Console • File • String |
+| 💾 Output | Console • File • String • ILogger |
 | 🎨 Beautified Output | Optional pretty printing |
+| 📊 Logging Integration | Works with Application Insights, Seq, Serilog, and other ILogger providers |
 
 ---
 
