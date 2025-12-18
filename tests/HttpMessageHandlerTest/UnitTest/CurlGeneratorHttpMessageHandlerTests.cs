@@ -255,4 +255,127 @@ public class CurlGeneratorHttpMessageHandlerTests
             }
         }
     }
+
+    [Fact]
+    public async Task CurlGeneratorHttpMessageHandler_LogsToILogger_When_SendToLogger_TurnOn()
+    {
+        // Arrange
+        var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
+        var config = new CompositConfigBuilder()
+            .SetEnable(true)
+            .SetSendToLogger(new LoggerConfig
+            {
+                TurnOn = true,
+                LogLevel = Microsoft.Extensions.Logging.LogLevel.Debug
+            })
+            .Build();
+
+        var handler = new CurlGeneratorHttpMessageHandler(new FakeOptionsMonitor<CompositConfig>(config), logger)
+        {
+            InnerHandler = new FakeHttpMessageHandler()
+        };
+
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/api/test");
+
+        // Act
+        using var invoker = new HttpMessageInvoker(handler);
+        var response = await invoker.SendAsync(request, CancellationToken.None);
+
+        // Assert
+        response.Should().NotBeNull();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        logger.LoggedMessages.Should().HaveCount(1);
+        logger.LoggedMessages[0].Level.Should().Be(Microsoft.Extensions.Logging.LogLevel.Debug);
+        logger.LoggedMessages[0].Message.Should().StartWith("curl");
+    }
+
+    [Fact]
+    public async Task CurlGeneratorHttpMessageHandler_DoesNotLog_When_Logger_IsNull()
+    {
+        // Arrange
+        var config = new CompositConfigBuilder()
+            .SetEnable(true)
+            .SetSendToLogger(new LoggerConfig
+            {
+                TurnOn = true,
+                LogLevel = Microsoft.Extensions.Logging.LogLevel.Debug
+            })
+            .Build();
+
+        var handler = new CurlGeneratorHttpMessageHandler(new FakeOptionsMonitor<CompositConfig>(config), logger: null)
+        {
+            InnerHandler = new FakeHttpMessageHandler()
+        };
+
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/api/test");
+
+        // Act
+        using var invoker = new HttpMessageInvoker(handler);
+        var response = await invoker.SendAsync(request, CancellationToken.None);
+
+        // Assert
+        response.Should().NotBeNull();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task CurlGeneratorHttpMessageHandler_DoesNotLog_When_SendToLogger_TurnOff()
+    {
+        // Arrange
+        var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
+        var config = new CompositConfigBuilder()
+            .SetEnable(true)
+            .SetSendToLogger(new LoggerConfig
+            {
+                TurnOn = false,
+                LogLevel = Microsoft.Extensions.Logging.LogLevel.Debug
+            })
+            .Build();
+
+        var handler = new CurlGeneratorHttpMessageHandler(new FakeOptionsMonitor<CompositConfig>(config), logger)
+        {
+            InnerHandler = new FakeHttpMessageHandler()
+        };
+
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/api/test");
+
+        // Act
+        using var invoker = new HttpMessageInvoker(handler);
+        var response = await invoker.SendAsync(request, CancellationToken.None);
+
+        // Assert
+        response.Should().NotBeNull();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        logger.LoggedMessages.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task CurlGeneratorHttpMessageHandler_DoesNotLog_When_SendToLogger_IsNull()
+    {
+        // Arrange
+        var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
+        var config = new CompositConfigBuilder()
+            .SetEnable(true)
+            .SetSendToLogger(null)
+            .Build();
+
+        var handler = new CurlGeneratorHttpMessageHandler(new FakeOptionsMonitor<CompositConfig>(config), logger)
+        {
+            InnerHandler = new FakeHttpMessageHandler()
+        };
+
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/api/test");
+
+        // Act
+        using var invoker = new HttpMessageInvoker(handler);
+        var response = await invoker.SendAsync(request, CancellationToken.None);
+
+        // Assert
+        response.Should().NotBeNull();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        logger.LoggedMessages.Should().BeEmpty();
+    }
 }
