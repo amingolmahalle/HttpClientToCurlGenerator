@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <Authors>Amin Golmahalleh</Authors>
-    <Version>2.0.8</Version>
-    <PackageReleaseNotes>2.0.8</PackageReleaseNotes>
+    <Version>2.0.9</Version>
+    <PackageReleaseNotes>2.0.9</PackageReleaseNotes>
     <TargetFramework>netstandard2.1</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
