@@ -133,7 +133,7 @@ using HttpClientToCurl;
 builder.Services.AddHttpClientToCurl(builder.Configuration);
 
 // Enable curl logging for selected clients
-builder.Services.AddHttpClient("my-client1", showCurl: true);
+builder.Services.AddHttpClient("my-client1").AddCurlLogging();
 ```
 
 **appsettings.json**

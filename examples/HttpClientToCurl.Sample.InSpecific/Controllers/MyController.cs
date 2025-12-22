@@ -15,12 +15,6 @@ public class MyController(IHttpClientFactory httpClientFactory) : ControllerBase
         await SendRemoteRequest("my-client1");
     }
 
-    [HttpGet("send")]
-    public async Task Send()
-    {
-        await SendRemoteRequest("my-client2");
-    }
-
     private async Task SendRemoteRequest(string httpClientName)
     {
         string apiUrl = "https://jsonplaceholder.typicode.com/posts";

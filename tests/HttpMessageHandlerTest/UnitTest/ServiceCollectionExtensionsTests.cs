@@ -65,7 +65,7 @@ public class ServiceCollectionExtensionsTests
         var services = new ServiceCollection();
 
         services.AddTransient<CurlGeneratorHttpMessageHandler>();
-        services.AddHttpClient("TestClient", true);
+        services.AddHttpClient("TestClient").AddCurlLogging();
 
         var serviceProvider = services.BuildServiceProvider();
         var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
@@ -85,7 +85,7 @@ public class ServiceCollectionExtensionsTests
         var services = new ServiceCollection();
 
         services.AddTransient<CurlGeneratorHttpMessageHandler>();
-        services.AddHttpClient("TestClient", false);
+        services.AddHttpClient("TestClient");
 
         var serviceProvider = services.BuildServiceProvider();
         var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
