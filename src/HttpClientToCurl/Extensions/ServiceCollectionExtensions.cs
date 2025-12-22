@@ -32,6 +32,10 @@ public static class ServiceCollectionExtensions
         AddServices(services, configuration);
     }
 
+    [Obsolete($@"
+        {nameof(AddHttpClient)} extension method is deprecated and will be removed in future versions.
+        Instead, please use {nameof(AddCurlLogging)}, which is an extension built on top of the original AddHttpClient."
+    )]
     public static IHttpClientBuilder AddHttpClient(this IServiceCollection services, string name, bool showCurl = false)
     {
         var httpClientBuilder = HttpClientFactoryServiceCollectionExtensions.AddHttpClient(services, name);
@@ -43,6 +47,9 @@ public static class ServiceCollectionExtensions
 
         return httpClientBuilder;
     }
+
+    public static void AddCurlLogging(this IHttpClientBuilder httpClientBuilder)
+        => httpClientBuilder.AddHttpMessageHandler<CurlGeneratorHttpMessageHandler>();
 
     private static void AddServices(IServiceCollection services, IConfiguration configuration)
     {
