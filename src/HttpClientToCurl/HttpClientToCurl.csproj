@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="HttpClientToCurl.png" Pack="true" PackagePath="/" />
+    <None Include="../../HttpClientToCurl.png" Pack="true" PackagePath="" />
   </ItemGroup>
   
   <ItemGroup>
