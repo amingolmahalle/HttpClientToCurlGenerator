@@ -2,18 +2,6 @@
 
 Generate curl commands directly from your `HttpClient` or `HttpRequestMessage` in .NET — perfect for debugging, logging, and sharing HTTP requests.
 
----
-
-## 💖 **Love HttpClientToCurl? Please support us!**  
-
-If this project has made your life easier, consider buying us a coffee or sending a donation.  
-Every bit of support keeps us motivated, helps us add new features, fix bugs, and maintain the project — keeping it free and awesome for everyone! ☕🚀
-
-*USDT (Tether – BEP20 / Binance Smart Chain) wallet address:*  
-`0x9d03Be8B979453bE300724FD4bb3eF77517d45AE`
-
----
-
 ### 📊 Badges
 [![license](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/blob/master/LICENSE)
 [![stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/stargazers)
@@ -204,6 +192,17 @@ builder.Services.AddHttpClient();
 - [How to Generate curl Script of the HttpClient in .NET](https://www.c-sharpcorner.com/article/how-to-generate-curl-script-of-the-httpclient-in-net/)
 - [New Feature in HttpClientToCurl for .NET: Debugging HttpRequestMessage Made Easy](https://medium.com/@mozhgan.etaati/new-feature-in-httpclienttocurl-for-net-debugging-httprequestmessage-made-easy-18cb66dd55f0)
 
+---
+
+## 💖 **Love HttpClientToCurl? Please support us!**  
+
+If this project has made your life easier, consider buying us a coffee or sending a donation.  
+Every bit of support keeps us motivated, helps us add new features, fix bugs, and maintain the project — keeping it free and awesome for everyone! ☕🚀
+
+*USDT (Tether – BEP20 / Binance Smart Chain) wallet address:*  
+`0x9d03Be8B979453bE300724FD4bb3eF77517d45AE`
+
+---
 
 ## 💡 **Contribute**
 
