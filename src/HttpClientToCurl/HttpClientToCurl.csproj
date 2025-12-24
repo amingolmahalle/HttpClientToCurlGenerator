@@ -12,7 +12,7 @@
     <Description>This extension will help you to see whatever is set in HttpClient in the form of a curl script.</Description>
     <PackageTags>package json extension csharp dotnet curl aspnetcore nuget xml dotnetcore httpclient postman dotnet-core aspnet-core asp-net-core asp-net dotnet-standard nuget-package asp-net-core-web-api httpclients</PackageTags>
     <PackageProjectUrl>https://github.com/amingolmahalle/HttpClientToCurlGenerator</PackageProjectUrl>
-    <PackageIcon>assets/HttpClientToCurl.png</PackageIcon>
+<!--    <PackageIcon>assets/HttpClientToCurl.png</PackageIcon>-->
     <RepositoryUrl>https://github.com/amingolmahalle/HttpClientToCurlGenerator</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="assets/HttpClientToCurl.png" Pack="true" PackagePath="" />
+    <None Include="../../assets/HttpClientToCurl.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
