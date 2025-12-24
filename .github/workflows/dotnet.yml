@@ -8,32 +8,21 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 9.0.x
-
-    # Restore dependencies relative to the project folder
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: ./src/HttpClientToCurl
-
-    # Build the project
+      working-directory: ./
     - name: Build
       run: dotnet build --no-restore
-      working-directory: ./src/HttpClientToCurl
-
-    # Run tests
+      working-directory: ./
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: ./src/HttpClientToCurl
-
-    # Optional: Pack the NuGet package with the icon included
-    - name: Pack NuGet
-      run: dotnet pack --no-build --output ./nupkg
-      working-directory: ./src/HttpClientToCurl
+      working-directory: ./
