@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <Authors>Amin Golmahalleh</Authors>
-    <Version>2.1.0</Version>
-    <PackageReleaseNotes>2.1.0</PackageReleaseNotes>
+    <Version>2.1.1</Version>
+    <PackageReleaseNotes>2.1.1</PackageReleaseNotes>
     <TargetFramework>netstandard2.1</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
@@ -17,6 +17,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageIcon>assets/HttpClientToCurl.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="../../HttpClientToCurl.png" Pack="true" Visible="False" PackagePath="" />
+    <None Include="../../assets/HttpClientToCurl.png" Pack="true" Visible="False" PackagePath="" />
   </ItemGroup>
   
   <ItemGroup>
