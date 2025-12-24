@@ -20,6 +20,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="../../README.md" Pack="True" Visible="False" PackagePath="" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <None Include="assets/HttpClientToCurl.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
