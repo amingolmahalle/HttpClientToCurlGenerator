@@ -3,11 +3,13 @@
 Generate curl commands directly from your `HttpClient` or `HttpRequestMessage` in .NET — perfect for debugging, logging, and sharing HTTP requests.
 
 ### 📊 Badges
-[![license](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/blob/master/LICENSE)
-[![stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/stargazers)
-[![NuGet Version](https://img.shields.io/nuget/v/HttpClientToCurl.svg)](https://www.nuget.org/packages/HttpClientToCurl/)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/HttpClientToCurl.svg?style=flat-square)](https://www.nuget.org/packages/HttpClientToCurl/)
 ![Build](https://github.com/amingolmahalle/HttpClientToCurlGenerator/actions/workflows/dotnet.yml/badge.svg)
+[![License](https://img.shields.io/github/license/amingolmahalle/HttpClientToCurlGenerator?style=flat-square)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/blob/master/LICENSE)
+[![Stars](https://img.shields.io/github/stars/amingolmahalle/HttpClientToCurlGenerator?style=flat-square)](https://github.com/amingolmahalle/HttpClientToCurlGenerator/stargazers)
+[![NuGet Version](https://img.shields.io/nuget/v/HttpClientToCurl?style=flat-square)](https://www.nuget.org/packages/HttpClientToCurl/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/HttpClientToCurl?style=flat-square)](https://www.nuget.org/packages/HttpClientToCurl/)
+[![Used by](https://img.shields.io/badge/Used%20by-.NET%20Projects-512BD4?style=flat-square&logo=dotnet&logoColor=white)](
+https://github.com/amingolmahalle/HttpClientToCurlGenerator/network/dependents)
 
 ---
 
