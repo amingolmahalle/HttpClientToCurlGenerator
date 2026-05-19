@@ -119,7 +119,7 @@ internal static class Extensions
     }
 
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage, bool needAddDefaultHeaders = true)
+        HttpRequestMessage httpRequestMessage, string[] redactedHeaders, bool needAddDefaultHeaders = true)
     {
         bool hasHeader = false;
 
@@ -129,10 +129,14 @@ internal static class Extensions
                 httpClient.DefaultRequestHeaders.Where(dh => dh.Key != Constants.ContentLength);
             foreach (var header in defaultHeaders)
             {
+                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
+                ? "[REDACTED]"
+                : string.Join("; ", header.Value);
+
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
+                    .Append($"\'{header.Key}: {headerValue}\'")
                     .Append(' ');
             }
 
@@ -144,10 +148,14 @@ internal static class Extensions
             var headers = httpRequestMessage.Headers.Where(h => h.Key != Constants.ContentLength);
             foreach (var header in headers)
             {
+                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
+                ? "[REDACTED]"
+                : string.Join("; ", header.Value);
+
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
+                    .Append($"\'{header.Key}: {headerValue}\'")
                     .Append(' ');
             }
 
@@ -158,10 +166,14 @@ internal static class Extensions
         {
             foreach (var header in httpRequestMessage.Content.Headers.Where(h => h.Key != Constants.ContentLength))
             {
+                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
+                ? "[REDACTED]"
+                : string.Join("; ", header.Value);
+
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
+                    .Append($"\'{header.Key}: {headerValue}\'")
                     .Append(' ');
             }
 
@@ -177,7 +189,8 @@ internal static class Extensions
     }
 
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder,
-       HttpRequestMessage httpRequestMessage)
+       HttpRequestMessage httpRequestMessage,
+       string[] redactedHeaders)
     {
         bool hasHeader = false;
 
@@ -186,10 +199,14 @@ internal static class Extensions
             var headers = httpRequestMessage.Headers.Where(h => h.Key != Constants.ContentLength);
             foreach (var header in headers)
             {
+                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
+                ? "[REDACTED]"
+                : string.Join("; ", header.Value);
+
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
+                    .Append($"\'{header.Key}: {headerValue}\'")
                     .Append(' ');
             }
 
@@ -200,10 +217,14 @@ internal static class Extensions
         {
             foreach (var header in httpRequestMessage.Content.Headers.Where(h => h.Key != Constants.ContentLength))
             {
+                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
+                ? "[REDACTED]"
+                : string.Join("; ", header.Value);
+
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {string.Join("; ", header.Value)}\'")
+                    .Append($"\'{header.Key}: {headerValue}\'")
                     .Append(' ');
             }
 

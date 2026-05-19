@@ -10,7 +10,7 @@ public sealed class HttpDeleteBuilder : BaseBuilder
         return _stringBuilder
             .Initialize(httpRequestMessage.Method)
             .AddAbsoluteUrl(httpClient.BaseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
-            .AddHeaders(httpClient, httpRequestMessage, config?.NeedAddDefaultHeaders ?? new BaseConfig().NeedAddDefaultHeaders)?
+            .AddHeaders(httpClient, httpRequestMessage, config.RedactedHeaders, config?.NeedAddDefaultHeaders ?? new BaseConfig().NeedAddDefaultHeaders)?
             .Finalize(config?.EnableCompression ?? new BaseConfig().EnableCompression);
     }
 
@@ -19,7 +19,7 @@ public sealed class HttpDeleteBuilder : BaseBuilder
         return _stringBuilder
           .Initialize(httpRequestMessage.Method)
           .AddAbsoluteUrl(baseAddress?.AbsoluteUri, httpRequestMessage.RequestUri)
-          .AddHeaders(httpRequestMessage)?
+          .AddHeaders(httpRequestMessage, config.RedactedHeaders)?
           .Finalize(config?.EnableCompression ?? new BaseConfig().EnableCompression);
     }
 }
