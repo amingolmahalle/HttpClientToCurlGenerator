@@ -458,4 +458,99 @@ public class SuccessScenariosTests
     }
 
     #endregion
+
+    #region :: GenerateCurlInString Redaction of headers ::
+
+    [Fact]
+    public void Success_GenerateCurlInString_With_RedactedAuthorizationHeader()
+    {
+        // Arrange
+        string requestBody = /*lang=json,strict*/ @"{""name"":""sara"",""requestId"":10001001,""amount"":20000}";
+
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json)
+        };
+        httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61");
+        httpRequestMessage.Headers.Add("X-API-Key", "secret-api-key-12345");
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+        // Define sensitive headers to redact via config
+        var sensitiveHeaders = new string[] { "Authorization", "X-API-Key" };
+
+        // Act
+        string curlResult = httpClient.GenerateCurlInString(
+            httpRequestMessage,
+            config: cfg => cfg.RedactedHeaders = sensitiveHeaders);
+
+        // Assert
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl -X POST");
+        curlResult.Should().Contain("Authorization: [REDACTED]");
+        curlResult.Should().Contain("X-API-Key: [REDACTED]");
+        curlResult.Should().NotContain("4797c126-3f8a-454a-aff1-96c0220dae61");
+        curlResult.Should().NotContain("secret-api-key-12345");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl -X POST 'http://localhost:1213/v1/api/test' -H 'Authorization: [REDACTED]' -H 'X-API-Key: [REDACTED]' -H 'Content-Type: application/json; charset=utf-8' -d '{""name"":""sara"",""requestId"":10001001,""amount"":20000}'");
+    }
+
+    [Fact]
+    public void Success_GenerateCurlInString_With_RedactedCookieHeader()
+    {
+        // Arrange
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+        httpRequestMessage.Headers.Add("Authorization", "Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9");
+
+        List<string?> headerValues = ["_ga=GA1.1.41226618.1701506283", "sessionId=abc123def456", "userToken=secret-user-token"];
+        httpRequestMessage.Headers.Add("cookie", headerValues);
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+        // Act - redact the entire Cookie header via config
+        var sensitiveHeaders = new string[] { "Cookie" };
+        string curlResult = httpClient.GenerateCurlInString(
+            httpRequestMessage,
+            config: cfg => cfg.RedactedHeaders = sensitiveHeaders);
+
+        // Assert
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().StartWith("curl");
+        curlResult.Should().Contain("Cookie: [REDACTED]");
+        curlResult.Should().NotContain("sessionId=abc123def456");
+        curlResult.Should().NotContain("userToken=secret-user-token");
+        curlResult.Trim().Should()
+            .BeEquivalentTo(
+                @"curl 'http://localhost:1213/v1/api/test' -H 'Authorization: Bearer 703438f3-16ad-4ba5-b923-8f72cd0f2db9' -H 'Cookie: [REDACTED]'");
+    }
+
+    [Fact]
+    public void Success_GenerateCurlInString_With_CaseInsensitiveHeaderRedaction()
+    {
+        // Arrange
+        var requestUri = "api/test";
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+        httpRequestMessage.Headers.Add("Authorization", "Bearer 4797c126-3f8a-454a-aff1-96c0220dae61"); // lowercase
+        httpRequestMessage.Headers.Add("X-SECRET-TOKEN", "super-secret-123");
+
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://localhost:1213/v1/");
+
+        // Act - redact with different casing via config
+        var sensitiveHeaders = new string[] { "authorization", "x-secret-token" };
+        string curlResult = httpClient.GenerateCurlInString(
+            httpRequestMessage,
+            config: cfg => cfg.RedactedHeaders = sensitiveHeaders);
+
+        // Assert
+        curlResult.Should().NotBeNullOrEmpty();
+        curlResult.Should().Contain("Authorization: [REDACTED]");
+        curlResult.Should().Contain("X-SECRET-TOKEN: [REDACTED]");
+    }
+    #endregion
 }
