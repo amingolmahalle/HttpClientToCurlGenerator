@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 exists=0
 echo "do a check for .cs files in change set"

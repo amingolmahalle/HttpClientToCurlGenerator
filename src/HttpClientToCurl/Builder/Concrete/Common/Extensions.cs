@@ -129,9 +129,9 @@ internal static class Extensions
                 httpClient.DefaultRequestHeaders.Where(dh => dh.Key != Constants.ContentLength);
             foreach (var header in defaultHeaders)
             {
-                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
-                ? "[REDACTED]"
-                : string.Join("; ", header.Value);
+                string headerValue = (redactedHeaders != null && redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase))
+                    ? "[REDACTED]"
+                    : string.Join("; ", header.Value);
 
                 stringBuilder
                     .Append("-H")
@@ -148,9 +148,9 @@ internal static class Extensions
             var headers = httpRequestMessage.Headers.Where(h => h.Key != Constants.ContentLength);
             foreach (var header in headers)
             {
-                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
-                ? "[REDACTED]"
-                : string.Join("; ", header.Value);
+                string headerValue = (redactedHeaders is not null && redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase))
+                    ? "[REDACTED]"
+                    : string.Join("; ", header.Value);
 
                 stringBuilder
                     .Append("-H")
@@ -166,9 +166,9 @@ internal static class Extensions
         {
             foreach (var header in httpRequestMessage.Content.Headers.Where(h => h.Key != Constants.ContentLength))
             {
-                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
-                ? "[REDACTED]"
-                : string.Join("; ", header.Value);
+                string headerValue = (redactedHeaders is not null && redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase))
+                    ? "[REDACTED]"
+                    : string.Join("; ", header.Value);
 
                 stringBuilder
                     .Append("-H")
@@ -189,8 +189,8 @@ internal static class Extensions
     }
 
     internal static StringBuilder AddHeaders(this StringBuilder stringBuilder,
-       HttpRequestMessage httpRequestMessage,
-       string[] redactedHeaders)
+        HttpRequestMessage httpRequestMessage,
+        string[] redactedHeaders)
     {
         bool hasHeader = false;
 
@@ -199,9 +199,9 @@ internal static class Extensions
             var headers = httpRequestMessage.Headers.Where(h => h.Key != Constants.ContentLength);
             foreach (var header in headers)
             {
-                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
-                ? "[REDACTED]"
-                : string.Join("; ", header.Value);
+                string headerValue = (redactedHeaders is not null && redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase))
+                    ? "[REDACTED]"
+                    : string.Join("; ", header.Value);
 
                 stringBuilder
                     .Append("-H")
@@ -217,9 +217,9 @@ internal static class Extensions
         {
             foreach (var header in httpRequestMessage.Content.Headers.Where(h => h.Key != Constants.ContentLength))
             {
-                string headerValue = redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase)
-                ? "[REDACTED]"
-                : string.Join("; ", header.Value);
+                string headerValue = (redactedHeaders is not null && redactedHeaders.Contains(header.Key, StringComparer.OrdinalIgnoreCase))
+                    ? "[REDACTED]"
+                    : string.Join("; ", header.Value);
 
                 stringBuilder
                     .Append("-H")
