@@ -3,5 +3,7 @@
 public static class Constants
 {
     internal const string ContentLength = "Content-Length";
+    internal const string ContentType = "Content-Type";
+    internal const string BinaryPayloadPlaceholder = "payload.bin";
     internal const string FormUrlEncodedContentType = "application/x-www-form-urlencoded";
 }

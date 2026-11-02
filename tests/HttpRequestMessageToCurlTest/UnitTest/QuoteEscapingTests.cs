@@ -57,13 +57,13 @@ public class QuoteEscapingTests
     }
 
     [Fact]
-    public void Apostrophe_In_Single_Parameter_Query_Is_Escaped()
+    public void Apostrophe_In_Single_Parameter_Query_Is_Percent_Encoded()
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "api/test?q=it's");
 
         var script = Generator.GenerateCurl(request, BaseAddress, null);
 
-        script.Trim().Should().Be(@"curl 'http://localhost:1213/v1/api/test?q=it'\''s'");
+        script.Trim().Should().Be("curl 'http://localhost:1213/v1/api/test?q=it%27s'");
     }
 
     [Fact]

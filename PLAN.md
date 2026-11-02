@@ -41,6 +41,8 @@ Findings from a code review of `src/HttpClientToCurl`. Line numbers refer to the
 
 11. **`NeedAddDefaultHeaders` does nothing in automatic mode.** `HttpClient` merges its default headers into `request.Headers` before the handler runs, and the handler uses the `HttpRequestMessage` overload, which never reads that flag. Setting it to `false` strips nothing. Decide whether to document this or implement it (e.g. by tracking default headers separately).
 
+12. **Form-urlencoded bodies were decoded before being split on `&`** (found during Phase 2 review). `q=a%26b&x=1` produced three `-d` fields. Fixed in Phase 2: the body is split first; values containing `&`, `+` or `%` use `--data-urlencode`.
+
 ### Corrections to the earlier assessment
 Form-urlencoded bodies and `--compressed` are already supported. Missing HTTP methods is a crash in automatic mode (issue 2), not just a feature gap.
 
@@ -56,7 +58,7 @@ Each step ships with its own regression test, written first and confirmed to fai
 3. Escape `'` as `'\''` for body, header and URL values in one shared helper.
    Test: apostrophe in body, header value and query string.
 
-### Phase 2 — Correctness (P1)
+### Phase 2 — Correctness (P1) — DONE (limitations below)
 4. Rewrite `ApplyEncodeUri` to encode each query parameter once, keeping valueless params, splitting on the first `=` only, and not re-encoding existing `%XX` sequences.
 5. Join multi-value headers with `", "`.
 6. Read the body once per request, reuse the string across sinks, and avoid blocking where the target allows it.
@@ -82,3 +84,10 @@ Each step ships with its own regression test, written first and confirmed to fai
 
 ### Suggested order
 Phase 1 (one PR per issue) → Phase 2 → Phase 3 → the rest as demand dictates. Branch names must follow `feature|bugfix|hotfix|refactor|optimize|document/HCG-<n>`.
+
+### Phase 2 status and known limitations
+- Done: issues 4, 5, 6, 7 and 12, each with regression tests.
+- Issue 6 is only fixed for the handler (the body is buffered asynchronously first, and binary or multipart-file bodies are no longer read). The manual extension methods still call `GetAwaiter().GetResult()`, and the curl is still built once per sink.
+- Multipart text parts use `--form-string`, which cannot carry `;type=`, so a part such as a JSON metadata field loses its content type. Verify the `-F 'name="value";type=...'` syntax against a real curl before changing it.
+- Binary bodies and multipart file parts render as placeholders (`@payload.bin`, `@<filename>`); the command needs real local files to run.
+- Output changes callers may notice: multi-value headers use `, ` (`; ` for Cookie, a space for User-Agent), single-parameter queries are encoded, a body starting with `@` uses `--data-raw`, and form bodies may use `--data-urlencode`. This justifies a minor version bump and a CHANGELOG entry.
