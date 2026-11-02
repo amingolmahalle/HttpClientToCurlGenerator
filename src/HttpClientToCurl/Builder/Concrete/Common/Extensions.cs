@@ -10,17 +10,29 @@ internal static class Extensions
     {
         stringBuilder.Append("curl");
 
-        if (httpMethod != HttpMethod.Get)
+        if (httpMethod == HttpMethod.Head)
+        {
+            // "-X HEAD" makes curl wait for a body that never comes; --head is the correct form.
+            stringBuilder.Append(" --head");
+        }
+        else if (httpMethod != HttpMethod.Get)
         {
             stringBuilder
                 .Append(' ')
                 .Append("-X")
                 .Append(' ')
-                .Append(httpMethod.Method);
+                .Append(QuoteMethod(httpMethod.Method));
         }
 
         return stringBuilder.Append(' ');
     }
+
+    /// <summary>
+    /// HTTP method tokens may legally contain shell metacharacters (` $ | &amp; ...), so anything that is not
+    /// plain letters is single-quoted.
+    /// </summary>
+    private static string QuoteMethod(string method)
+        => method.All(c => c is (>= 'A' and <= 'Z') or (>= 'a' and <= 'z')) ? method : $"'{EscapeSingleQuotes(method)}'";
 
     internal static string Finalize(this StringBuilder stringBuilder, bool enableCompression)
     {
@@ -132,32 +144,26 @@ internal static class Extensions
         return $"{name}={string.Join("+", encodedPieces)}";
     }
 
-    internal static StringBuilder AddHeaders(this StringBuilder stringBuilder, HttpClient httpClient,
-        HttpRequestMessage httpRequestMessage, string[] redactedHeaders, bool needAddDefaultHeaders = true)
+    /// <summary>
+    /// Adds -H arguments: the HttpClient default headers (when a client is given and defaults are wanted),
+    /// then the request headers, then the content headers.
+    /// </summary>
+    internal static StringBuilder AddHeaders(
+        this StringBuilder stringBuilder,
+        HttpRequestMessage httpRequestMessage,
+        string[] redactedHeaders,
+        HttpClient httpClient = null,
+        bool needAddDefaultHeaders = true)
     {
         bool hasHeader = false;
 
-        if (needAddDefaultHeaders && httpClient.DefaultRequestHeaders.Any())
+        if (httpClient is not null && needAddDefaultHeaders && httpClient.DefaultRequestHeaders.Any())
         {
             AppendHeaderLines(stringBuilder, httpClient.DefaultRequestHeaders, redactedHeaders);
             hasHeader = true;
         }
 
         hasHeader |= AppendRequestAndContentHeaders(stringBuilder, httpRequestMessage, redactedHeaders);
-
-        if (!hasHeader)
-        {
-            stringBuilder.Append(' ');
-        }
-
-        return stringBuilder;
-    }
-
-    internal static StringBuilder AddHeaders(this StringBuilder stringBuilder,
-        HttpRequestMessage httpRequestMessage,
-        string[] redactedHeaders)
-    {
-        bool hasHeader = AppendRequestAndContentHeaders(stringBuilder, httpRequestMessage, redactedHeaders);
 
         if (!hasHeader)
         {

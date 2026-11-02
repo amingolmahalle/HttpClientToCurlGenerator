@@ -78,4 +78,19 @@ public class ShellRoundTripTests
 
         args.Should().Contain("[http://localhost:1213/v1/api/it's]");
     }
+
+    [Fact]
+    public void Hostile_Http_Method_Arrives_As_Single_Unmodified_Argument()
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            return;
+        }
+
+        var request = new HttpRequestMessage(new HttpMethod("A`id`"), "api/test");
+
+        var args = RunThroughShell(Generator.GenerateCurl(request, BaseAddress, null));
+
+        args.Should().Contain("[A`id`]", "the backticks must not be executed by the shell");
+    }
 }

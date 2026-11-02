@@ -25,4 +25,9 @@
       <ProjectReference Include="..\..\src\HttpClientToCurl\HttpClientToCurl.csproj" />
     </ItemGroup>
 
+
+    <ItemGroup>
+        <Compile Include="..\Shared\**\*.cs" LinkBase="Shared" />
+    </ItemGroup>
+
 </Project>

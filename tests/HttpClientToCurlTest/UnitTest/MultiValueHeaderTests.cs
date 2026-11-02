@@ -1,21 +1,13 @@
-using System.Net.Http.Headers;
-using FluentAssertions;
 using HttpClientToCurl.Builder;
-using Xunit;
+using HttpClientToCurl.Config;
 
 namespace HttpClientToCurlTest.UnitTest;
 
-public class MultiValueHeaderTests
+public class MultiValueHeaderTests : SharedCurlTests.MultiValueHeaderTestsBase
 {
-    [Fact]
-    public void Default_Accept_Values_Are_Joined_With_Comma()
+    protected override string Generate(HttpRequestMessage request, Uri? baseAddress, BaseConfig? config)
     {
-        using var client = new HttpClient { BaseAddress = new Uri("http://localhost:1213/v1/") };
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
-
-        var script = Generator.GenerateCurl(client, new HttpRequestMessage(HttpMethod.Get, "api/test"), null);
-
-        script.Should().Contain("-H 'Accept: application/json, application/xml; q=0.9'");
+        using var client = new HttpClient { BaseAddress = baseAddress };
+        return Generator.GenerateCurl(client, request, config!);
     }
 }

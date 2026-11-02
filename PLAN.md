@@ -64,7 +64,7 @@ Each step ships with its own regression test, written first and confirmed to fai
 6. Read the body once per request, reuse the string across sinks, and avoid blocking where the target allows it.
 7. Multipart: emit `-F` parts. Binary: emit `--data-binary`. Check non-seekable stream behaviour with a test before changing anything.
 
-### Phase 3 — Refactor (P2)
+### Phase 3 — Refactor (P2) — DONE (see status below)
 8. Replace the five builders with a single generic builder. Add HEAD and OPTIONS. Unknown methods fall back to `-X <METHOD>` instead of throwing.
 9. Extract one `FormatHeader(name, values, redacted)` and merge the two `AddHeaders` overloads.
 10. Fix the `Directory.Build.props` typo.
@@ -91,3 +91,10 @@ Phase 1 (one PR per issue) → Phase 2 → Phase 3 → the rest as demand dictat
 - Multipart text parts use `--form-string`, which cannot carry `;type=`, so a part such as a JSON metadata field loses its content type. Verify the `-F 'name="value";type=...'` syntax against a real curl before changing it.
 - Binary bodies and multipart file parts render as placeholders (`@payload.bin`, `@<filename>`); the command needs real local files to run.
 - Output changes callers may notice: multi-value headers use `, ` (`; ` for Cookie, a space for User-Agent), single-parameter queries are encoded, a body starting with `@` uses `--data-raw`, and form bodies may use `--data-urlencode`. This justifies a minor version bump and a CHANGELOG entry.
+
+### Phase 3 status and notes
+- Done: issue 8 (one `RequestBuilder` base; GET/POST/PUT/PATCH/DELETE builders are now one-line subclasses and an internal `FallbackBuilder` handles HEAD, OPTIONS, TRACE and custom verbs), issue 9 (single `AddHeaders`), issue 10 (typo), issue 11 (documented on `BaseConfig.NeedAddDefaultHeaders` and pinned by a test; not implemented).
+- Behaviour/API changes: `Generator.GenerateCurl` no longer throws `NotSupportedException` for other methods; HEAD emits `--head` (and never a body); non-letter method names are shell-quoted; `RequestBuilder` is a new public base type of the five public builders.
+- Test dedup is partial: the `MediaTypes` unit tests and the escaping / multi-value-header / method tests now live in `tests/Shared` and run against both entry points. The two `FunctionalTest/SuccessScenariosTests.cs` files (556 vs 262 lines) are still duplicated.
+- DELETE still never emits a body. Some APIs send JSON with DELETE; with the shared builder this is now a one-word change (`BodyMode.WhenContentPresent`).
+

@@ -66,4 +66,32 @@ public class ConfigurationBindingTests
         var message = logger.LoggedMessages.Should().ContainSingle(m => m.Message.StartsWith("curl")).Subject.Message;
         message.Should().Contain("Authorization: [REDACTED]").And.NotContain("super-secret");
     }
+
+    [Fact]
+    public async Task NeedAddDefaultHeaders_False_Has_No_Effect_In_Automatic_Mode()
+    {
+        // Documented on BaseConfig.NeedAddDefaultHeaders: HttpClient merges its default headers into the
+        // request before the handler runs, so the handler always sees (and prints) them.
+        var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["HttpClientToCurl:SendToLogger:TurnOn"] = "true",
+                ["HttpClientToCurl:SendToLogger:LogLevel"] = "Information",
+                ["HttpClientToCurl:SendToLogger:NeedAddDefaultHeaders"] = "false",
+            })
+            .Build();
+
+        var services = new ServiceCollection();
+        services.AddSingleton<ILogger<CurlGeneratorHttpMessageHandler>>(logger);
+        services.AddAllHttpClientToCurl(configuration);
+        services.AddHttpClient("test", client => client.DefaultRequestHeaders.Add("X-Default", "v"))
+            .ConfigurePrimaryHttpMessageHandler(() => new FakeHttpMessageHandler());
+
+        var client = services.BuildServiceProvider().GetRequiredService<IHttpClientFactory>().CreateClient("test");
+        await client.GetAsync("http://localhost/test");
+
+        logger.LoggedMessages.Should().ContainSingle(m => m.Message.StartsWith("curl"))
+            .Which.Message.Should().Contain("X-Default: v");
+    }
 }

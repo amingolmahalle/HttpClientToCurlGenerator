@@ -86,22 +86,46 @@ public class CurlGeneratorHttpMessageHandlerResilienceAndRedactionTests
         }
     }
 
-    [Theory]
-    [InlineData("HEAD")]
-    [InlineData("OPTIONS")]
-    public async Task Handler_Still_Sends_Request_When_Curl_Generation_Fails(string method)
+    private sealed class UnreadableContent : HttpContent
+    {
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
+            => throw new IOException("boom");
+
+        protected override bool TryComputeLength(out long length)
+        {
+            length = -1;
+            return false;
+        }
+    }
+
+    [Fact]
+    public async Task Handler_Still_Sends_Request_When_Curl_Generation_Fails()
     {
         var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
         var config = new CompositConfigBuilder()
             .SetShowOnConsole(new ConsoleConfig())
             .SetSendToLogger(new LoggerConfig())
             .Build();
-        var request = new HttpRequestMessage(new HttpMethod(method), "http://localhost/test");
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/test") { Content = new UnreadableContent() };
 
         var response = await SendAsync(config, request, logger);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         logger.LoggedMessages.Should().Contain(m => m.Level == LogLevel.Warning);
+    }
+
+    [Theory]
+    [InlineData("HEAD", "curl --head ")]
+    [InlineData("OPTIONS", "curl -X OPTIONS ")]
+    public async Task Handler_Logs_Curl_For_Methods_That_Used_To_Be_Unsupported(string method, string expectedStart)
+    {
+        var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
+        var config = new CompositConfigBuilder().SetSendToLogger(new LoggerConfig()).Build();
+
+        var response = await SendAsync(config, new HttpRequestMessage(new HttpMethod(method), "http://localhost/test"), logger);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        logger.LoggedMessages.Should().ContainSingle().Which.Message.Should().StartWith(expectedStart);
     }
 }
 
