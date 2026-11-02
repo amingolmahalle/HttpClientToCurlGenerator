@@ -43,4 +43,36 @@ public class QuoteEscapingTests
         script.Should().NotContain("it's");
         script.Should().Contain(@"'\''");
     }
+
+    [Fact]
+    public void Apostrophe_In_Content_Header_Is_Escaped()
+    {
+        var content = new StringContent("{}", Encoding.UTF8, "application/json");
+        content.Headers.Add("X-Content-Note", "O'Brien");
+        var request = new HttpRequestMessage(HttpMethod.Post, "api/test") { Content = content };
+
+        var script = Generator.GenerateCurl(request, BaseAddress, null);
+
+        script.Should().Contain(@"-H 'X-Content-Note: O'\''Brien'");
+    }
+
+    [Fact]
+    public void Apostrophe_In_Single_Parameter_Query_Is_Escaped()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "api/test?q=it's");
+
+        var script = Generator.GenerateCurl(request, BaseAddress, null);
+
+        script.Trim().Should().Be(@"curl 'http://localhost:1213/v1/api/test?q=it'\''s'");
+    }
+
+    [Fact]
+    public void Apostrophe_In_Multi_Parameter_Query_Never_Appears_Unescaped()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "api/test?a=1&q=it's");
+
+        var script = Generator.GenerateCurl(request, BaseAddress, null);
+
+        script.Should().NotContain("it's");
+    }
 }

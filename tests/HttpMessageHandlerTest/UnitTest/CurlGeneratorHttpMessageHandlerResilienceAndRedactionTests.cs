@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace HttpMessageHandlerTest.UnitTest;
 
+[Collection(ConsoleCollection.Name)]
 public class CurlGeneratorHttpMessageHandlerResilienceAndRedactionTests
 {
     private static async Task<HttpResponseMessage> SendAsync(
@@ -101,5 +102,99 @@ public class CurlGeneratorHttpMessageHandlerResilienceAndRedactionTests
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         logger.LoggedMessages.Should().Contain(m => m.Level == LogLevel.Warning);
+    }
+}
+
+[Collection(ConsoleCollection.Name)]
+public class CurlGeneratorHttpMessageHandlerSinkBehaviourTests
+{
+    private static async Task<HttpResponseMessage> SendAsync(
+        CompositConfig config, HttpRequestMessage request, FakeLogger<CurlGeneratorHttpMessageHandler>? logger = null)
+    {
+        var handler = new CurlGeneratorHttpMessageHandler(new FakeOptionsMonitor<CompositConfig>(config), logger)
+        {
+            InnerHandler = new FakeHttpMessageHandler()
+        };
+        using var invoker = new HttpMessageInvoker(handler);
+        return await invoker.SendAsync(request, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task Failure_Without_Logger_Does_Not_Throw_And_Request_Is_Sent()
+    {
+        var config = new CompositConfigBuilder()
+            .SetShowOnConsole(new ConsoleConfig())
+            .Build();
+
+        var original = Console.Out;
+        Console.SetOut(new StringWriter());
+        try
+        {
+            var response = await SendAsync(config, new HttpRequestMessage(HttpMethod.Head, "http://localhost/test"));
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+        finally
+        {
+            Console.SetOut(original);
+        }
+    }
+
+    [Fact]
+    public async Task Failing_File_Sink_Does_Not_Block_Logger_Sink_Or_The_Request()
+    {
+        var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
+        var missingDirectory = Path.Combine(Path.GetTempPath(), $"missing-{Guid.NewGuid():N}");
+        var config = new CompositConfigBuilder()
+            .SetSaveToFile(new FileConfig { Path = missingDirectory, Filename = "out" })
+            .SetSendToLogger(new LoggerConfig { LogLevel = LogLevel.Information })
+            .Build();
+
+        var response = await SendAsync(config, new HttpRequestMessage(HttpMethod.Get, "http://localhost/test"), logger);
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        logger.LoggedMessages.Should().Contain(m => m.Level == LogLevel.Warning);
+        logger.LoggedMessages.Should().Contain(m => m.Level == LogLevel.Information && m.Message.StartsWith("curl"));
+    }
+
+    [Fact]
+    public async Task Redaction_Matches_Header_Names_Case_Insensitively()
+    {
+        var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
+        var config = new CompositConfigBuilder()
+            .SetSendToLogger(new LoggerConfig { RedactedHeaders = ["aUtHoRiZaTiOn"] })
+            .Build();
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/test");
+        request.Headers.Add("Authorization", "Bearer super-secret");
+
+        await SendAsync(config, request, logger);
+
+        logger.LoggedMessages.Single().Message.Should().Contain("Authorization: [REDACTED]").And.NotContain("super-secret");
+    }
+
+    [Fact]
+    public async Task EnableCompression_Is_Copied_To_Logger_Sink()
+    {
+        var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
+        var config = new CompositConfigBuilder()
+            .SetSendToLogger(new LoggerConfig { EnableCompression = true })
+            .Build();
+
+        await SendAsync(config, new HttpRequestMessage(HttpMethod.Get, "http://localhost/test"), logger);
+
+        logger.LoggedMessages.Single().Message.Should().EndWith("--compressed");
+    }
+
+    [Fact]
+    public async Task EnableCompression_Is_Not_Added_By_Default()
+    {
+        var logger = new FakeLogger<CurlGeneratorHttpMessageHandler>();
+        var config = new CompositConfigBuilder()
+            .SetSendToLogger(new LoggerConfig())
+            .Build();
+
+        await SendAsync(config, new HttpRequestMessage(HttpMethod.Get, "http://localhost/test"), logger);
+
+        logger.LoggedMessages.Single().Message.Should().NotContain("--compressed");
     }
 }

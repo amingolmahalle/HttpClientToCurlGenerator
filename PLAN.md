@@ -39,6 +39,8 @@ Findings from a code review of `src/HttpClientToCurl`. Line numbers refer to the
 
 10. **Test suite overlaps.** `HttpClientToCurlTest` and `HttpRequestMessageToCurlTest` largely duplicate each other; there are no regression tests for the issues above.
 
+11. **`NeedAddDefaultHeaders` does nothing in automatic mode.** `HttpClient` merges its default headers into `request.Headers` before the handler runs, and the handler uses the `HttpRequestMessage` overload, which never reads that flag. Setting it to `false` strips nothing. Decide whether to document this or implement it (e.g. by tracking default headers separately).
+
 ### Corrections to the earlier assessment
 Form-urlencoded bodies and `--compressed` are already supported. Missing HTTP methods is a crash in automatic mode (issue 2), not just a feature gap.
 
@@ -64,6 +66,7 @@ Each step ships with its own regression test, written first and confirmed to fai
 8. Replace the five builders with a single generic builder. Add HEAD and OPTIONS. Unknown methods fall back to `-X <METHOD>` instead of throwing.
 9. Extract one `FormatHeader(name, values, redacted)` and merge the two `AddHeaders` overloads.
 10. Fix the `Directory.Build.props` typo.
+    Also resolve issue 11 (`NeedAddDefaultHeaders` in automatic mode).
 11. Merge the duplicated test cases into shared case sets run against both entry points.
 
 ### Phase 4 — Features
