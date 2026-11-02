@@ -1,4 +1,4 @@
-﻿using HttpClientToCurl.Config;
+using HttpClientToCurl.Config;
 using HttpClientToCurl.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -16,49 +16,62 @@ public class CurlGeneratorHttpMessageHandler(
         HttpRequestMessage httpRequestMessage,
         CancellationToken cancellationToken)
     {
+        // Curl generation is a diagnostic side effect: it must never fail the real request.
+        TryGenerateCurl(httpRequestMessage);
+
+        return base.SendAsync(httpRequestMessage, cancellationToken);
+    }
+
+    private void TryGenerateCurl(HttpRequestMessage httpRequestMessage)
+    {
         var config = _monitorConfig.CurrentValue;
-        if (config.Enable)
+        if (!config.Enable)
         {
-            if (config.ShowOnConsole?.TurnOn ?? false)
-            {
-                httpRequestMessage.GenerateCurlInConsole(httpRequestMessage.RequestUri, consoleConfig =>
-                {
-                    consoleConfig.TurnOn = true;
-                    consoleConfig.EnableCodeBeautification = config.ShowOnConsole.EnableCodeBeautification;
-                    consoleConfig.EnableCompression = config.ShowOnConsole.EnableCompression;
-                    consoleConfig.NeedAddDefaultHeaders = config.ShowOnConsole.NeedAddDefaultHeaders;
-                });
-            }
-
-            if (config.SaveToFile?.TurnOn ?? false)
-            {
-                httpRequestMessage.GenerateCurlInFile(httpRequestMessage.RequestUri, fileConfig =>
-                {
-                    fileConfig.TurnOn = true;
-                    fileConfig.EnableCompression = config.SaveToFile.EnableCompression;
-                    fileConfig.NeedAddDefaultHeaders = config.SaveToFile.NeedAddDefaultHeaders;
-                    fileConfig.Path = config.SaveToFile.Path;
-                    fileConfig.Filename = config.SaveToFile.Filename;
-                });
-            }
-
-            if (config.SendToLogger?.TurnOn ?? false)
-            {
-                if (_logger != null)
-                {
-                    var curl = httpRequestMessage.GenerateCurlInString(httpRequestMessage.RequestUri, stringConfig =>
-                    {
-                        stringConfig.TurnOn = true;
-                        stringConfig.EnableCompression = config.SendToLogger.EnableCompression;
-                        stringConfig.NeedAddDefaultHeaders = config.SendToLogger.NeedAddDefaultHeaders;
-                    });
-
-                    _logger.Log(config.SendToLogger.LogLevel, curl);
-                }
-            }
+            return;
         }
 
-        var response = base.SendAsync(httpRequestMessage, cancellationToken);
-        return response;
+        if (config.ShowOnConsole?.TurnOn ?? false)
+        {
+            Safely(() => httpRequestMessage.GenerateCurlInConsole(httpRequestMessage.RequestUri, consoleConfig =>
+            {
+                consoleConfig.CopyCommonOptionsFrom(config.ShowOnConsole);
+                consoleConfig.EnableCodeBeautification = config.ShowOnConsole.EnableCodeBeautification;
+            }));
+        }
+
+        if (config.SaveToFile?.TurnOn ?? false)
+        {
+            Safely(() => httpRequestMessage.GenerateCurlInFile(httpRequestMessage.RequestUri, fileConfig =>
+            {
+                fileConfig.CopyCommonOptionsFrom(config.SaveToFile);
+                fileConfig.Path = config.SaveToFile.Path;
+                fileConfig.Filename = config.SaveToFile.Filename;
+            }));
+        }
+
+        if ((config.SendToLogger?.TurnOn ?? false) && _logger != null)
+        {
+            Safely(() =>
+            {
+                var curl = httpRequestMessage.GenerateCurlInString(httpRequestMessage.RequestUri, stringConfig =>
+                {
+                    stringConfig.CopyCommonOptionsFrom(config.SendToLogger);
+                });
+
+                _logger.Log(config.SendToLogger.LogLevel, curl);
+            });
+        }
+    }
+
+    private void Safely(Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogWarning(ex, "HttpClientToCurl failed to generate the curl command; the request was still sent.");
+        }
     }
 }

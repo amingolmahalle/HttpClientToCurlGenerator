@@ -48,7 +48,7 @@ internal static class Extensions
 
         static string AddSingleQuotationMark(string address)
         {
-            return address is not null ? $"'{address}'" : null;
+            return address is not null ? $"'{EscapeSingleQuotes(address)}'" : null;
         }
     }
 
@@ -136,7 +136,7 @@ internal static class Extensions
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {headerValue}\'")
+                    .Append($"'{EscapeSingleQuotes($"{header.Key}: {headerValue}")}'")
                     .Append(' ');
             }
 
@@ -155,7 +155,7 @@ internal static class Extensions
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {headerValue}\'")
+                    .Append($"'{EscapeSingleQuotes($"{header.Key}: {headerValue}")}'")
                     .Append(' ');
             }
 
@@ -173,7 +173,7 @@ internal static class Extensions
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {headerValue}\'")
+                    .Append($"'{EscapeSingleQuotes($"{header.Key}: {headerValue}")}'")
                     .Append(' ');
             }
 
@@ -206,7 +206,7 @@ internal static class Extensions
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {headerValue}\'")
+                    .Append($"'{EscapeSingleQuotes($"{header.Key}: {headerValue}")}'")
                     .Append(' ');
             }
 
@@ -224,7 +224,7 @@ internal static class Extensions
                 stringBuilder
                     .Append("-H")
                     .Append(' ')
-                    .Append($"\'{header.Key}: {headerValue}\'")
+                    .Append($"'{EscapeSingleQuotes($"{header.Key}: {headerValue}")}'")
                     .Append(' ');
             }
 
@@ -238,6 +238,12 @@ internal static class Extensions
 
         return stringBuilder;
     }
+
+    /// <summary>
+    /// Makes a value safe inside a single-quoted shell string: ' becomes '\''.
+    /// </summary>
+    internal static string EscapeSingleQuotes(string value)
+        => value?.Replace("'", "'\\''");
 
     internal static StringBuilder AddBody(this StringBuilder stringBuilder, HttpContent content)
     {
@@ -261,7 +267,7 @@ internal static class Extensions
             .Append("-d")
             .Append(' ')
             .Append('\'')
-            .Append(body)
+            .Append(EscapeSingleQuotes(body?.ToString()))
             .Append('\'')
             .Append(' ');
 
