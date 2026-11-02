@@ -28,7 +28,7 @@ public static class Generator
             "PUT" => new HttpPutBuilder(),
             "PATCH" => new HttpPatchBuilder(),
             "DELETE" => new HttpDeleteBuilder(),
-            _ => throw new NotSupportedException($"HTTP method {method} is not supported."),
+            _ => new FallbackBuilder(),
         };
     }
 }

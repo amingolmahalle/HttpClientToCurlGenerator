@@ -7,6 +7,7 @@ using FluentAssertions;
 
 namespace HttpMessageHandlerTest.UnitTest;
 
+[Collection(ConsoleCollection.Name)]
 public class CurlGeneratorHttpMessageHandlerTests
 {
     [Fact]
